@@ -25,6 +25,9 @@ CMakeLists.txt.user
 *.BASE.*
 *.LOCAL.*
 
+# Build / release artifacts
+dist/
+
 #
 # IDE & other softwares
 #

@@ -142,7 +142,7 @@ FROM npc_vendor
 WHERE entry IN (33609, 33610)
     AND ExtendedCost = 0;
 
--- Expected result: > 50 items (full seasonal vendor set)
+-- Expected result: 0 (no items should be purchasable for gold)
 
 -- ========================================
 -- 9. VERIFY BRACKET CONFIGURATION
@@ -184,31 +184,31 @@ SELECT 'PROGRESSION SYSTEM STATUS' as Status;
 -- Check all raid bosses across tiers
 SELECT 
     CASE 
-        WHEN id IN (15960, 15961) THEN 'Molten Core'
-        WHEN id IN (14601, 14602, 14603) THEN 'Onyxia'
-        WHEN id IN (12017, 12018, 12019) THEN 'Blackwing Lair'
-        WHEN id IN (15989, 15990, 15991) THEN 'Zul\Gurub'
-        WHEN id IN (15511, 15512) THEN 'AQ20'
-        WHEN id IN (15369, 15370) THEN 'AQ40'
-        WHEN id IN (19622, 19623) THEN 'Gruul\'s Lair'
-        WHEN id IN (20063, 20064) THEN 'SSC'
-        WHEN id IN (20221, 20222) THEN 'The Eye'
-        WHEN id IN (20066, 20067) THEN 'Hyjal'
-        WHEN id IN (25315, 25316) THEN 'Black Temple'
-        WHEN id IN (23574, 23575) THEN 'Zul\Aman'
-        WHEN id IN (25744, 25745) THEN 'Sunwell'
-        WHEN id IN (29122, 29123) THEN 'Naxxramas 80'
-        WHEN id IN (28860, 27635) THEN 'Eye of Eternity'
-        WHEN id IN (25038) THEN 'Obsidian Sanctum'
-        WHEN id IN (33293, 33294) THEN 'Ulduar'
-        WHEN id IN (34564, 34565) THEN 'Trial of Crusader'
-        WHEN id IN (36612, 36613) THEN 'ICC'
-        WHEN id IN (39625) THEN 'Ruby Sanctum'
+        WHEN entry IN (15960, 15961) THEN 'Molten Core'
+        WHEN entry IN (14601, 14602, 14603) THEN 'Onyxia'
+        WHEN entry IN (12017, 12018, 12019) THEN 'Blackwing Lair'
+        WHEN entry IN (15989, 15990, 15991) THEN 'Zul''Gurub'
+        WHEN entry IN (15511, 15512) THEN 'AQ20'
+        WHEN entry IN (15369, 15370) THEN 'AQ40'
+        WHEN entry IN (19622, 19623) THEN 'Gruul''s Lair'
+        WHEN entry IN (20063, 20064) THEN 'SSC'
+        WHEN entry IN (20221, 20222) THEN 'The Eye'
+        WHEN entry IN (20066, 20067) THEN 'Hyjal'
+        WHEN entry IN (25315, 25316) THEN 'Black Temple'
+        WHEN entry IN (23574, 23575) THEN 'Zul''Aman'
+        WHEN entry IN (25744, 25745) THEN 'Sunwell'
+        WHEN entry IN (29122, 29123) THEN 'Naxxramas 80'
+        WHEN entry IN (28860, 27635) THEN 'Eye of Eternity'
+        WHEN entry IN (25038) THEN 'Obsidian Sanctum'
+        WHEN entry IN (33293, 33294) THEN 'Ulduar'
+        WHEN entry IN (34564, 34565) THEN 'Trial of Crusader'
+        WHEN entry IN (36612, 36613) THEN 'ICC'
+        WHEN entry IN (39625) THEN 'Ruby Sanctum'
         ELSE 'Unknown'
     END as RaidTier,
     COUNT(*) as BossPresentCount
 FROM creature_template
-WHERE id IN (
+WHERE entry IN (
     -- Molten Core
     15960, 15961,
     -- Onyxia

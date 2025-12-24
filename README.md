@@ -111,6 +111,13 @@ cd ~/azerothcore-wotlk
 
 ---
 
+## 🧰 Producción (recomendado)
+
+- Guía paso a paso: ver [PRODUCTION.md](PRODUCTION.md)
+- Empaquetado/validación en Windows: `powershell -ExecutionPolicy Bypass -File .\scripts\production_package.ps1`
+
+---
+
 ## 📊 Brackets Disponibles (38 Total)
 
 ### Vanilla (14 brackets - Nov 2004 a Jan 2005)
