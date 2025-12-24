@@ -118,6 +118,355 @@ $arenaSeasons = [
     ['S8', '80_4_1', 'Wrathful'],
 ];
 
+// ======================
+// GUÍA POR BRACKET (para usuarios)
+// ======================
+function wowespy_bracket_guide(string $bracketKey): array
+{
+    // Devuelve un array con:
+    // - title: título legible
+    // - level: rango de niveles
+    // - enabled: lista de cosas habilitadas (user-facing)
+    // - notes: notas cortas
+
+    $defaults = [
+        'title' => $bracketKey,
+        'level' => '-',
+        'enabled' => [
+            'Progresión activa según configuración del servidor.',
+        ],
+        'notes' => [
+            'Este bracket lo define el servidor (no el jugador).',
+        ],
+    ];
+
+    $map = [
+        // Vanilla leveling
+        'Bracket_0' => [
+            'title' => 'Vanilla — Inicio (1-10)',
+            'level' => '1-10',
+            'enabled' => [
+                'Zonas iniciales y misiones de inicio.',
+                'Primeros dungeons de bajo nivel (según tu core).',
+                'Profesiones y economía temprana.',
+            ],
+            'notes' => [
+                'En este bracket se prioriza leveleo y exploración.',
+            ],
+        ],
+        'Bracket_1_19' => [
+            'title' => 'Vanilla — Temprano (10-19)',
+            'level' => '10-19',
+            'enabled' => [
+                'Dungeons tempranos y contenido de mundo para tu nivel.',
+                'Primer PvP/World PvP según configuración del servidor.',
+            ],
+        ],
+        'Bracket_20_29' => [
+            'title' => 'Vanilla — Medio (20-29)',
+            'level' => '20-29',
+            'enabled' => [
+                'Dungeons de nivel medio y cadenas de misiones más largas.',
+                'Mejoras de equipo por instancias y reputaciones.',
+            ],
+        ],
+        'Bracket_30_39' => [
+            'title' => 'Vanilla — Avanzando (30-39)',
+            'level' => '30-39',
+            'enabled' => [
+                'Dungeons avanzados para preparar el salto a 40+.',
+                'Progresión de profesiones y pre-bis de leveling.',
+            ],
+        ],
+        'Bracket_40_49' => [
+            'title' => 'Vanilla — Pre-raid (40-49)',
+            'level' => '40-49',
+            'enabled' => [
+                'Dungeons/zonas para farmear equipo pre-raid.',
+                'Cadenas de llaves/attunements si tu servidor las usa.',
+            ],
+        ],
+        'Bracket_50_59_1' => [
+            'title' => 'Vanilla — UBRS (fase attunement) (50-59)',
+            'level' => '50-59',
+            'enabled' => [
+                'Preparación para UBRS y contenido final de Vanilla.',
+                'Farm de equipo pre-raid y consumibles.',
+            ],
+        ],
+        'Bracket_50_59_2' => [
+            'title' => 'Vanilla — UBRS (progresión) (50-59)',
+            'level' => '50-59',
+            'enabled' => [
+                'Acceso completo a UBRS (si aplica en tu core).',
+                'Última preparación antes de raids de nivel 60.',
+            ],
+        ],
+
+        // Vanilla raids
+        'Bracket_60_1_1' => [
+            'title' => 'Vanilla — Molten Core (60)',
+            'level' => '60',
+            'enabled' => [
+                'Raid: Molten Core.',
+                'Progresión de equipo T1 y resistencias (según tu diseño).',
+            ],
+        ],
+        'Bracket_60_1_2' => [
+            'title' => 'Vanilla — Onyxia (60)',
+            'level' => '60',
+            'enabled' => [
+                'Raid: Onyxia.',
+                'Equipo complementario de raid y progression overlap.',
+            ],
+        ],
+        'Bracket_60_2_1' => [
+            'title' => 'Vanilla — Blackwing Lair (60)',
+            'level' => '60',
+            'enabled' => [
+                'Raid: Blackwing Lair.',
+                'Progresión T2 y upgrades mayores.',
+            ],
+        ],
+        'Bracket_60_2_2' => [
+            'title' => 'Vanilla — Zul\'Gurub (60)',
+            'level' => '60',
+            'enabled' => [
+                'Raid 20p: Zul\'Gurub (si está habilitado en tu bracket).',
+                'Catch-up gear y reputaciones asociadas.',
+            ],
+        ],
+        'Bracket_60_3_1' => [
+            'title' => 'Vanilla — AQ20 (60)',
+            'level' => '60',
+            'enabled' => [
+                'Raid 20p: Ruins of Ahn\'Qiraj (AQ20).',
+                'Reputación/consumibles y gear de transición.',
+            ],
+        ],
+        'Bracket_60_3_2' => [
+            'title' => 'Vanilla — AQ40 (60)',
+            'level' => '60',
+            'enabled' => [
+                'Raid 40p: Temple of Ahn\'Qiraj (AQ40).',
+                'Progresión high-end de Vanilla.',
+            ],
+        ],
+        'Bracket_60_3_3' => [
+            'title' => 'Vanilla — Final / eventos (60)',
+            'level' => '60',
+            'enabled' => [
+                'Eventos y ajustes finales de la era Vanilla (según tu configuración).',
+                'Preparación para transición de expansión si aplica.',
+            ],
+        ],
+
+        // TBC leveling
+        'Bracket_61_64' => [
+            'title' => 'TBC — Outland Intro (61-64)',
+            'level' => '61-64',
+            'enabled' => [
+                'Acceso a Outland y dungeons introductorios.',
+                'Reputaciones TBC iniciales.',
+            ],
+        ],
+        'Bracket_65_69' => [
+            'title' => 'TBC — Progresión (65-69)',
+            'level' => '65-69',
+            'enabled' => [
+                'Dungeons y cadenas de misiones de Outland mid-game.',
+                'Preparación para contenido de nivel 70.',
+            ],
+        ],
+        'Bracket_70_1_1' => [
+            'title' => 'TBC — Nivel 70 (dungeons)',
+            'level' => '70',
+            'enabled' => [
+                'Dungeons de nivel 70 (normal).',
+                'Farm de reputación y pre-raid.',
+            ],
+        ],
+        'Bracket_70_1_2' => [
+            'title' => 'TBC — Nivel 70 (heroics)',
+            'level' => '70',
+            'enabled' => [
+                'Dungeons Heroic (si tu core los tiene habilitados).',
+                'Mejoras pre-raid y preparación para raids TBC.',
+            ],
+        ],
+
+        // TBC raids + arenas
+        'Bracket_70_2_1' => [
+            'title' => 'TBC — T4 (Gruul/Magtheridon) + Arena S1',
+            'level' => '70',
+            'enabled' => [
+                'Raids: Gruul\'s Lair y Magtheridon\'s Lair.',
+                'Arena Season 1: gear Gladiator (blizzlike via ExtendedCost).',
+                'Vendors PvP/Arena según los templates del módulo.',
+            ],
+        ],
+        'Bracket_70_2_2' => [
+            'title' => 'TBC — Karazhan + Arena S2',
+            'level' => '70',
+            'enabled' => [
+                'Raid: Karazhan.',
+                'Arena Season 2: gear Merciless (nuevo + legacy).',
+            ],
+        ],
+        'Bracket_70_3_1' => [
+            'title' => 'TBC — Serpentshrine Cavern',
+            'level' => '70',
+            'enabled' => [
+                'Raid: Serpentshrine Cavern (SSC).',
+            ],
+        ],
+        'Bracket_70_3_2' => [
+            'title' => 'TBC — The Eye (Tempest Keep) + Arena S2',
+            'level' => '70',
+            'enabled' => [
+                'Raid: The Eye (Tempest Keep).',
+                'Arena Season 2: gear Merciless (según configuración).',
+            ],
+        ],
+        'Bracket_70_4_1' => [
+            'title' => 'TBC — Mount Hyjal + Arena S2',
+            'level' => '70',
+            'enabled' => [
+                'Raid: Battle for Mount Hyjal.',
+                'Arena Season 2 continua (según bracket/servidor).',
+            ],
+        ],
+        'Bracket_70_4_2' => [
+            'title' => 'TBC — Black Temple',
+            'level' => '70',
+            'enabled' => [
+                'Raid: Black Temple.',
+            ],
+        ],
+        'Bracket_70_5' => [
+            'title' => 'TBC — Zul\'Aman + Arena S3',
+            'level' => '70',
+            'enabled' => [
+                'Raid: Zul\'Aman.',
+                'Arena Season 3: gear Vengeful (nuevo + legacy).',
+            ],
+        ],
+        'Bracket_70_6_1' => [
+            'title' => 'TBC — Isle of Quel\'Danas (mundo)',
+            'level' => '70',
+            'enabled' => [
+                'Zona/diarias: Isle of Quel\'Danas (según tu core).',
+                'Preparación final y catch-up.',
+            ],
+        ],
+        'Bracket_70_6_2' => [
+            'title' => 'TBC — Sunwell Plateau + Arena S4',
+            'level' => '70',
+            'enabled' => [
+                'Raid: Sunwell Plateau.',
+                'Arena Season 4: gear Brutal (nuevo + legacy).',
+            ],
+        ],
+        'Bracket_70_6_3' => [
+            'title' => 'TBC — Final / transición',
+            'level' => '70',
+            'enabled' => [
+                'Fase final TBC y transición a WotLK (según tu servidor).',
+            ],
+        ],
+
+        // WotLK leveling
+        'Bracket_71_74' => [
+            'title' => 'WotLK — Northrend Intro (71-74)',
+            'level' => '71-74',
+            'enabled' => [
+                'Acceso a Northrend y dungeons introductorios.',
+                'Progresión de leveleo y reputaciones iniciales.',
+            ],
+        ],
+        'Bracket_75_79' => [
+            'title' => 'WotLK — Progresión (75-79)',
+            'level' => '75-79',
+            'enabled' => [
+                'Dungeons de rango medio en Northrend.',
+                'Preparación para contenido 80.',
+            ],
+        ],
+        'Bracket_80_1_1' => [
+            'title' => 'WotLK — Nivel 80 (dungeons)',
+            'level' => '80',
+            'enabled' => [
+                'Dungeons normales de nivel 80.',
+                'Preparación para raids iniciales y heroics.',
+            ],
+        ],
+        'Bracket_80_1_2' => [
+            'title' => 'WotLK — Heroics + Arena S5 (Deadly)',
+            'level' => '80',
+            'enabled' => [
+                'Dungeons heroicos (si aplica).',
+                'Arena Season 5: gear Deadly (ExtendedCost).',
+                'Script de transición TBC→WotLK para vendors (si lo aplicas).',
+            ],
+        ],
+        'Bracket_80_2' => [
+            'title' => 'WotLK — Ulduar + Arena S6 (Furious)',
+            'level' => '80',
+            'enabled' => [
+                'Raid: Ulduar (según tu progresión).',
+                'Arena Season 6: gear Furious (nuevo + legacy).',
+            ],
+        ],
+        'Bracket_80_3' => [
+            'title' => 'WotLK — Trial/Onyxia + Arena S7 (Relentless)',
+            'level' => '80',
+            'enabled' => [
+                'Raids: Trial (ToC/ToGC según tu core) y Onyxia 80 (si aplica).',
+                'Arena Season 7: gear Relentless (nuevo + legacy).',
+            ],
+        ],
+        'Bracket_80_4_1' => [
+            'title' => 'WotLK — Icecrown Citadel + Arena S8 (Wrathful)',
+            'level' => '80',
+            'enabled' => [
+                'Raid: Icecrown Citadel (ICC).',
+                'Arena Season 8: gear Wrathful (nuevo + legacy).',
+            ],
+        ],
+        'Bracket_80_4_2' => [
+            'title' => 'WotLK — Ruby Sanctum',
+            'level' => '80',
+            'enabled' => [
+                'Raid: Ruby Sanctum (si está habilitado en tu servidor).',
+            ],
+        ],
+        'Bracket_Custom' => [
+            'title' => 'Custom — Contenido personalizado',
+            'level' => '*',
+            'enabled' => [
+                'Contenido definido por el administrador (SQL/scripts propios).',
+            ],
+            'notes' => [
+                'Revisa el contenido en src/Bracket_Custom/sql/.',
+            ],
+        ],
+    ];
+
+    $entry = $map[$bracketKey] ?? [];
+    return array_merge($defaults, $entry);
+}
+
+function wowespy_all_bracket_keys(array $brackets): array
+{
+    $keys = [];
+    foreach ($brackets as $expansion => $rows) {
+        foreach ($rows as $r) {
+            $keys[] = (string)$r[0];
+        }
+    }
+    return array_values(array_unique($keys));
+}
+
 $templates = [
     'src/Bracket_70_2_1/sql/world/vendors_cleanup_s1.sql',
     'src/Bracket_70_2_2/sql/world/vendors_cleanup_s2.sql',
@@ -131,6 +480,14 @@ $templates = [
 ];
 
 $isFree = (WOWESPY_MODE === 0);
+
+$allBracketKeys = wowespy_all_bracket_keys($brackets);
+$requestedBracket = isset($_GET['bracket']) ? (string)$_GET['bracket'] : '';
+$selectedBracket = in_array($requestedBracket, $allBracketKeys, true)
+    ? $requestedBracket
+    : $allBracketKeys[0];
+
+$selectedGuide = wowespy_bracket_guide($selectedBracket);
 
 function h(string $s): string { return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
 
@@ -170,6 +527,19 @@ $badge = $isFree ? 'GRATIS (0)' : 'ACTIVADO (1)';
         Cambia <code>WOWESPY_MODE</code> a <code>0</code> (gratis) o <code>1</code> (activado).
     </p>
 
+    <h2 style="margin-top:18px;">Guía por bracket</h2>
+    <p class="muted">
+        Selecciona el bracket que está activo en tu servidor. También puedes abrir esta página con
+        <code>?bracket=Bracket_80_2</code> (por ejemplo).
+    </p>
+    <p>
+        <strong>Bracket seleccionado:</strong> <?= h($selectedBracket) ?> — <?= h($selectedGuide['title']) ?>
+        <span class="muted">(Nivel: <?= h($selectedGuide['level']) ?>)</span>
+    </p>
+    <p class="muted" style="margin-top:-6px;">
+        Si no sabes cuál está activo: lo decide el administrador en <code>conf/progression_system.conf</code> con <code>ProgressionSystem.Bracket_*</code>.
+    </p>
+
     <?php if ($isFree): ?>
         <h2>Resumen (Modo Gratis)</h2>
         <ul>
@@ -192,10 +562,28 @@ $badge = $isFree ? 'GRATIS (0)' : 'ACTIVADO (1)';
             </tbody>
         </table>
 
+        <h3>¿Qué puedes hacer en este bracket?</h3>
+        <ul>
+            <?php foreach ($selectedGuide['enabled'] as $line): ?>
+                <li><?= h($line) ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <p class="muted">
+            Notas: <?= h(implode(' ', $selectedGuide['notes'])) ?>
+        </p>
+
         <p class="muted">Para el detalle completo (tablas de brackets, rutas y flujo de vendors), usa modo <code>1</code>.</p>
 
     <?php else: ?>
         <h2>Detalle completo (Modo Activado)</h2>
+
+        <h3>Estás en <?= h($selectedBracket) ?> — ¿qué está habilitado?</h3>
+        <ul>
+            <?php foreach ($selectedGuide['enabled'] as $line): ?>
+                <li><?= h($line) ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <p class="muted">Notas: <?= h(implode(' ', $selectedGuide['notes'])) ?></p>
 
         <h3>Cómo funciona (alto nivel)</h3>
         <ul>
