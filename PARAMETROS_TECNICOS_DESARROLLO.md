@@ -1,13 +1,13 @@
-# 🔧 PARÁMETROS TÉCNICOS PARA DESARROLLO
-**Fecha**: Diciembre 24, 2025  
-**Enfoque**: Desarrollo y Implementación  
-**Audiencia**: Developers, QA, System Admins
+# 🔧 TECHNICAL PARAMETERS FOR DEVELOPMENT
+**Date**: December 24, 2025  
+**Focus**: Development and Implementation  
+**Audience**: Developers, QA, System Admins
 
 ---
 
-## 📋 TABLA RÁPIDA DE BRACKETS
+## 📋 QUICK BRACKETS TABLE
 
-### VANILLA - Parámetros Técnicos
+### VANILLA - Technical Parameters
 
 ```cpp
 // ProgressionSystem.h - Array Definition
@@ -48,7 +48,7 @@ Index  Name            MinLvl MaxLvl Type       Bosses RaidSize Release
 13     Bracket_60_3_3  60     60     World      0      0        Jan 19, 2005+
 ```
 
-### TBC - Parámetros Técnicos
+### TBC - Technical Parameters
 
 ```
 Index  Name            MinLvl MaxLvl Type       Arena Season Release
@@ -69,7 +69,7 @@ Index  Name            MinLvl MaxLvl Type       Arena Season Release
 28     Bracket_70_6_3  70     70     World      -      Aug 19, 2008
 ```
 
-### WotLK - Parámetros Técnicos
+### WotLK - Technical Parameters
 
 ```
 Index  Name            MinLvl MaxLvl Raids          Arena Season Release
@@ -93,26 +93,26 @@ Index  Name            MinLvl MaxLvl Raids          Arena Season Release
 
 ---
 
-## 🔒 CONTROL DE VENDORS POR BRACKET (CRÍTICO)
+## 🔒 VENDOR CONTROL BY BRACKET (CRITICAL)
 
-### Configuración Obligatoria
+### Mandatory Configuration
 
 ```ini
-# DEBE estar = 1 para bloquear acceso a contenido futuro
+# MUST be = 1 to block access to future content
 ProgressionSystem.BlockFutureVendors = 1
 ProgressionSystem.EnforceItemRestrictions = 1
 ProgressionSystem.EnforceArenaVendorProgression = 1
 ProgressionSystem.RestrictArenaRewards = 1
 ```
 
-### Patrón de Limpieza + Agregar (SQL)
+### Cleanup + Insert Pattern (SQL)
 
 ```sql
--- Template general para cada season
--- Reemplazar [VARIABLES] con valores reales
+-- General template for each season
+-- Replace [VARIABLES] with real values
 
 -- ============================================
--- LIMPIEZA: Borrar items no válidos
+-- CLEANUP: Delete invalid items
 -- ============================================
 DELETE FROM npc_vendor 
 WHERE entry = [VENDOR_NPC_ID] 
@@ -122,41 +122,41 @@ WHERE entry = [VENDOR_NPC_ID]
   );
 
 -- ============================================
--- AGREGACIÓN: Insertar items correctos
+-- INSERTION: Insert correct items
 -- ============================================
 INSERT INTO npc_vendor (entry, slot, item, maxcount, incrtime, ExtendedCost, VerifiedBuild)
 VALUES
   ([VENDOR_ID], 0, [ITEM_ID_1], 0, 0, [EXTENDED_COST_ID_1], 0),
   ([VENDOR_ID], 0, [ITEM_ID_2], 0, 0, [EXTENDED_COST_ID_2], 0),
-  -- ... más items ...
+    -- ... more items ...
 ;
 
 -- ============================================
--- VALIDACIÓN: Contar items agregados
+-- VALIDATION: Count inserted items
 -- ============================================
 SELECT COUNT(*) as total_items FROM npc_vendor 
 WHERE entry = [VENDOR_NPC_ID];
--- Resultado esperado: 60+
+-- Expected result: 60+
 ```
 
-### Ciudades Objetivo
+### Target Cities
 
-| Ciudad | Map | NPC Entry | Brackets | Items por Season |
+| City | Map | NPC Entry | Brackets | Items per Season |
 |--------|-----|-----------|----------|------------------|
 | **Gadgetzan** | 1 | ??? | TBC (S1-S4) | 60+ |
 | **Area 52** | 530 | ??? | TBC (S1-S4) backup | 30-40 |
 | **Dalaran** | 571 | ??? | WotLK (S5-S8) | 80+ |
 
-### Desactivación por Expansión
+### Deactivation by Expansion
 
 ```sql
--- Cuando cambia de TBC a WotLK
--- Desactivar vendors TBC (quitar flag vendor bit 128)
+-- When switching from TBC to WotLK
+-- Disable TBC vendors (remove vendor flag bit 128)
 UPDATE creature_template
 SET npcflag = (npcflag & ~128)
 WHERE entry IN ([TBC_VENDOR_ENTRIES]);
 
--- Activar vendors WotLK (agregar flag vendor bit 128)
+-- Enable WotLK vendors (add vendor flag bit 128)
 UPDATE creature_template
 SET npcflag = (npcflag | 128)
 WHERE entry IN ([WOTLK_VENDOR_ENTRIES]);
@@ -167,7 +167,7 @@ WHERE entry IN ([WOTLK_VENDOR_ENTRIES]);
 ## 🎪 Arena Season Mapping
 
 ```cpp
-// Relación Bracket → Arena Season (WotLK/TBC)
+// Relationship Bracket → Arena Season (WotLK/TBC)
 const std::map<uint8, uint8> BRACKET_TO_SEASON = {
     {18, 1},  // Bracket_70_2_1 → Season 1
     {19, 1},  // Bracket_70_2_2 → Season 1
@@ -182,39 +182,39 @@ const std::map<uint8, uint8> BRACKET_TO_SEASON = {
 };
 ```
 
-### Vendors de Arena por Season
+### Arena Vendors by Season
 
 ```sql
 -- Season 1 (Jan 2007 - May 2007)
--- Rating: 1500+ para Gladiator title
+-- Rating: 1500+ for Gladiator title
 -- Brackets: 18, 19 (Bracket_70_2_1, Bracket_70_2_2)
 -- Vendor Entries: TBD (custom server specific)
 -- Gear Prefix: Gladiator_*
--- Items per slot: ~10 piezas principales + accessories
+-- Items per slot: ~10 main pieces + accessories
 
 -- Season 2 (Aug 2007 - Dec 2007)
--- Rating: 2000+ para título
+-- Rating: 2000+ for title
 -- Brackets: 22, 23 (Bracket_70_3_2, Bracket_70_4_1)
 -- Vendor Entries: TBD
 -- Gear Prefix: Merciless_Gladiator_*
 -- Legacy: Season 1 gear cheaper (20% reduction)
 
 -- Season 3 (Dec 2007 - Mar 2008)
--- Rating: 2000+ para título
+-- Rating: 2000+ for title
 -- Bracket: 25 (Bracket_70_5)
 -- Vendor Entries: TBD
 -- Gear Prefix: Vengeful_Gladiator_*
 -- Legacy: S1 + S2 available at reduced prices
 
 -- Season 4 (Mar 2008 - Nov 2008)
--- Rating: 2000+ para título
+-- Rating: 2000+ for title
 -- Bracket: 27 (Bracket_70_6_2)
 -- Vendor Entries: TBD
 -- Gear Prefix: Brutal_Gladiator_*
--- Overlap: Transición a WotLK
+-- Overlap: Transition to WotLK
 
 -- Season 5 (Nov 2008 - Apr 2009)
--- Rating: 2000+ para Hateful, Deadly tier
+-- Rating: 2000+ for Hateful, Deadly tier
 -- Bracket: 32 (Bracket_80_1_2)
 -- Vendor Entries: TBD
 -- Gear Prefix: Hateful_Gladiator_* / Deadly_Gladiator_*
@@ -229,14 +229,14 @@ const std::map<uint8, uint8> BRACKET_TO_SEASON = {
 -- Duration: 16 weeks (longest season)
 
 -- Season 7 (Aug 2009 - Dec 2009)
--- Rating: 2000+ para título
+-- Rating: 2000+ for title
 -- Bracket: 34 (Bracket_80_3)
 -- Vendor Entries: TBD
 -- Gear Prefix: Furious_Gladiator_*
 -- Legacy: All previous seasons
 
 -- Season 8 (Dec 2009 - Nov 2010)
--- Rating: 2000+ para título
+-- Rating: 2000+ for title
 -- Bracket: 35 (Bracket_80_4_1)
 -- Vendor Entries: TBD
 -- Gear Prefix: Wrathful_Gladiator_*
@@ -245,9 +245,9 @@ const std::map<uint8, uint8> BRACKET_TO_SEASON = {
 
 ---
 
-## 🎯 PARÁMETROS DE VALIDACIÓN
+## 🎯 VALIDATION PARAMETERS
 
-### Validación de Contenido por Bracket
+### Content Validation by Bracket
 
 ```sql
 -- Vanilla Validation
@@ -295,23 +295,23 @@ WHERE boss_id IN (
 EXPECT: 12
 ```
 
-### Validación de Arena Vendors
+### Arena Vendor Validation
 
 ```sql
--- Verificar que season actual tiene vendors correctos
+-- Verify that the current season has the correct vendors
 -- Season 1
 SELECT COUNT(*) FROM npc_vendor 
 WHERE npc_entry IN (SELECT vendor_id FROM vendor_arena_s1)
-EXPECT: >= 1 vendor activo
+EXPECT: >= 1 active vendor
 
--- Season 6 (crítico - vendor más complejo)
+-- Season 6 (critical - most complex vendor)
 SELECT npc_entry, COUNT(item_entry) as item_count
 FROM npc_vendor
 WHERE season_id = 6
 GROUP BY npc_entry
-EXPECT: >= 2 vendors, 50+ items cada uno
+EXPECT: >= 2 vendors, 50+ items each
 
--- Validar prices correctas
+-- Validate correct prices
 SELECT avg(price) as avg_price FROM npc_vendor
 WHERE season_id = 6 AND rating_required >= 2200
 EXPECT: prices > season_5 prices (10-20% increase)
@@ -319,12 +319,12 @@ EXPECT: prices > season_5 prices (10-20% increase)
 
 ---
 
-## 🔄 FLUJO DE CARGA SQL
+## 🔄 SQL LOAD FLOW
 
-### Orden de Carga (ProgressionSystem.cpp)
+### Load Order (ProgressionSystem.cpp)
 
 ```cpp
-// 1. Determinar brackets habilitados
+// 1. Determine enabled brackets
 std::vector<std::string> enabledBrackets;
 for (const auto& bracket : ProgressionBracketsNames) {
     if (sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracket)) {
@@ -332,25 +332,25 @@ for (const auto& bracket : ProgressionBracketsNames) {
     }
 }
 
-// 2. Construir paths para cada DB
+// 2. Build paths for each DB
 // Path pattern: /modules/mod-progression-blizzlike/src/Bracket_[NAME]/sql/[DB_TYPE]
 
-// 3. Orden de ejecución:
+// 3. Execution order:
 // 3a. Login Database updates (auth folder)
 // 3b. Character Database updates (characters folder)
 // 3c. World Database updates (world folder)
 
-// 4. Aplicar actualizaciones de tablas:
-// - Crear tablas si no existen
-// - Ejecutar migraciones
-// - Insertar datos específicos de bracket
+// 4. Apply table updates:
+// - Create tables if they don't exist
+// - Run migrations
+// - Insert bracket-specific data
 
-// 5. Limpieza:
-// - Si ReapplyUpdates = 1: DELETE progresion entries
-// - Si DisabledAttunements configurado: DELETE acceso
+// 5. Cleanup:
+// - If ReapplyUpdates = 1: DELETE progression entries
+// - If DisabledAttunements configured: DELETE access
 ```
 
-### Secuencia de Inicialización
+### Initialization Sequence
 
 ```
 1. Config file loaded (progression_system.conf.dist)
@@ -412,7 +412,7 @@ Examples:
 
 ---
 
-## ⚙️ CONFIGURACIÓN POR EXPANSIÓN
+## ⚙️ CONFIGURATION BY EXPANSION
 
 ### Vanilla Configuration (Recommended)
 
@@ -511,12 +511,12 @@ ProgressionSystem.BlockFutureVendors = 1
 
 ---
 
-## 🚨 PARÁMETROS CRÍTICOS PARA DEBUGGING
+## 🚨 CRITICAL DEBUGGING PARAMETERS
 
 ### Arena Vendor Issues
 
 ```sql
--- Diagnóstico de vendors inactivos
+-- Diagnosing inactive vendors
 SELECT v.entry as vendor_id, 
        COUNT(nv.item_entry) as item_count,
        v.name,
@@ -527,36 +527,36 @@ WHERE v.name LIKE '%Arena%' OR v.name LIKE '%Gladiator%'
 GROUP BY v.entry
 ORDER BY v.entry;
 
--- Si item_count = 0: Vendor existe pero sin items
--- Si npcflag != 128 (VENDOR): Vendor no es NPC vendor
+-- If item_count = 0: Vendor exists but has no items
+-- If npcflag != 128 (VENDOR): Vendor is not flagged as an NPC vendor
 
--- Verificar item existencia
+-- Verify item existence
 SELECT item_entry, display_id, name, item_level
 FROM item_template
 WHERE name LIKE '%Gladiator%'
 ORDER BY item_level DESC;
 
--- Si no hay resultados: Items no creados en DB
+-- If there are no results: Items are not created in the DB
 ```
 
 ### Bracket Load Verification
 
 ```sql
--- Verificar qué brackets están activos en config
+-- Verify which brackets are active in config
 SELECT config_key, config_value
 FROM config
 WHERE config_key LIKE 'ProgressionSystem.Bracket_%'
   AND config_value = '1'
 ORDER BY config_key;
 
--- Contar bosses por bracket cargado
+-- Count bosses per loaded bracket
 SELECT COUNT(DISTINCT boss_id) as boss_count,
        'Molten Core' as bracket_name
 FROM creature_template
 WHERE encounter_guid LIKE '%MC%'
 EXPECT: 8 bosses;
 
--- Verificar attunement quests
+-- Verify attunement quests
 SELECT entry as quest_id, title
 FROM quest_template
 WHERE title LIKE '%Attunement%' OR title LIKE '%Key%'
@@ -566,41 +566,41 @@ ORDER BY entry;
 ### PvP Configuration Issues
 
 ```sql
--- Verificar season configuration
+-- Verify season configuration
 SELECT * FROM arena_season_config
 WHERE season_id >= 1 AND season_id <= 8
 ORDER BY season_id;
 
--- Columns esperadas:
+-- Expected columns:
 -- season_id, rating_min, rating_max, item_level, vendor_ids, start_date, end_date
 
--- Validar precio escalado
+-- Validate scaled pricing
 SELECT season_id, item_entry, cost, cost/previous_season_cost as multiplier
 FROM arena_vendor_items
 WHERE season_id IN (1,2,3,4,5,6,7,8)
 ORDER BY season_id, item_entry;
 
--- Expected multiplier: 1.0-1.2 (precios suben 0-20%)
+-- Expected multiplier: 1.0-1.2 (prices increase 0-20%)
 ```
 
 ---
 
-## 📊 MATRIZ DE DECISIONES
+## 📊 DECISION MATRIX
 
-### Cuando Habilitar Brackets
+### When to Enable Brackets
 
-| Decisión | Bracket | Condición | Acción |
+| Decision | Bracket | Condition | Action |
 |----------|---------|-----------|--------|
-| Habilitar MC | Bracket_60_1_1 | Vanilla ready | = 1 |
-| Habilitar Raids Opcionales | Bracket_60_2_2, 60_3_1 | Solo si community quiere | = 0 \| 1 |
-| Habilitar TBC | Bracket_70_1_1+ | Post-Vanilla complete | = 1 |
-| Habilitar Arena S1 | Bracket_70_2_1, 70_2_2 | Con TBC content | = 1 |
-| Habilitar WotLK | Bracket_80_1_1+ | Post-TBC complete | = 1 |
-| Restricción Arena | EnforceArenaVendorProgression | Siempre con Arena | = 1 |
+| Enable MC | Bracket_60_1_1 | Vanilla ready | = 1 |
+| Enable Optional Raids | Bracket_60_2_2, 60_3_1 | Only if the community wants it | = 0 \| 1 |
+| Enable TBC | Bracket_70_1_1+ | Post-Vanilla complete | = 1 |
+| Enable Arena S1 | Bracket_70_2_1, 70_2_2 | With TBC content | = 1 |
+| Enable WotLK | Bracket_80_1_1+ | Post-TBC complete | = 1 |
+| Arena Restriction | EnforceArenaVendorProgression | Always with Arena | = 1 |
 
-### Cuando Dividir Bracket_80_2
+### When to Split Bracket_80_2
 
-| Criterio | Mantener | Dividir |
+| Criteria | Keep | Split |
 |----------|----------|---------|
 | Duration < 8 weeks | ✓ | ✗ |
 | 4+ raid instances | ✗ | ✓ |
@@ -610,7 +610,7 @@ ORDER BY season_id, item_entry;
 
 ---
 
-**Documento técnico de referencia**  
-**Versión**: 1.0  
-**Actualizado**: Dec 24, 2025  
-**Mantener sincronizado con**: ANALISIS_COMPLETO_BRACKETS_SEASONS.md
+**Technical reference document**  
+**Version**: 1.0  
+**Updated**: Dec 24, 2025  
+**Keep synchronized with**: ANALISIS_COMPLETO_BRACKETS_SEASONS.md

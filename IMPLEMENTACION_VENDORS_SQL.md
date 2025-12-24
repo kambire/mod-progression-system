@@ -1,12 +1,12 @@
-# 🚀 COMPLETAR E IMPLEMENTAR SQL SCRIPTS
+# 🚀 Complete and Apply SQL Scripts
 
-**Estatus**: Templates listos (blizzlike), necesitas completarlos con tus IDs reales
+**Status**: Templates are ready (blizzlike); you must fill them with your real IDs
 
 ---
 
-## 📍 Ubicación de Scripts
+## 📍 Script Locations
 
-Todos los scripts templates están en sus carpetas correctas:
+All template scripts are already in the correct folders:
 
 ```
 src/Bracket_70_2_1/sql/templates/arena_s1_vendors_cleanup.sql.template
@@ -20,21 +20,21 @@ src/Bracket_80_3/sql/templates/arena_s7_vendors_cleanup.sql.template
 src/Bracket_80_4_1/sql/templates/arena_s8_vendors_cleanup.sql.template
 ```
 
-> Nota producción: los archivos `src/**/sql/world/vendors_*.sql` son stubs (comentarios) para que el DBUpdater no ejecute placeholders.
-> Para aplicar cambios, completa el `.sql.template`, guarda una copia como `.sql` y ejecútala manualmente (o como update de AzerothCore).
+> Production note: files like `src/**/sql/world/vendors_*.sql` are stubs (comments only) so DBUpdater will not execute placeholders.
+> To apply changes, complete the `.sql.template`, save a copy as `.sql`, and run it manually (or as an AzerothCore update).
 
 ---
 
-## 🔍 PASO 1: Encontrar IDs en tu Base de Datos
+## 🔍 STEP 1: Find IDs in your Database
 
-Ejecuta estas queries en MySQL para obtener los IDs necesarios.
+Run these MySQL queries to get the required IDs.
 
-> Nota blizzlike (AzerothCore): los costes de PvP/Arena se controlan por `npc_vendor.ExtendedCost` (tabla `item_extended_cost`).
-> Los templates nuevos usan `npc_vendor.item` + `ExtendedCost` (NO oro).
+> Blizzlike note (AzerothCore): PvP/Arena costs are controlled by `npc_vendor.ExtendedCost` (table `item_extended_cost`).
+> The new templates use `npc_vendor.item` + `ExtendedCost` (NOT gold).
 
-### Query 1: Encontrar vendors de Arena/PvP (entries)
+### Query 1: Find Arena/PvP vendors (entries)
 ```sql
--- Busca vendors por nombre (ajusta el LIKE a tu idioma/DB)
+-- Search vendors by name (adjust LIKE for your locale/DB)
 SELECT entry, name
 FROM creature_template
 WHERE name LIKE '%Gladiator%'
@@ -43,14 +43,14 @@ WHERE name LIKE '%Gladiator%'
 LIMIT 50;
 ```
 
-### Query 2: Validar entries conocidos (WotLK típico)
+### Query 2: Validate known entries (typical WotLK)
 ```sql
 SELECT entry, name
 FROM creature_template
 WHERE entry IN (33609, 33610);
 ```
 
-### Query 3: Ver qué vende un vendor (para confirmar)
+### Query 3: See what a vendor sells (to confirm)
 ```sql
 SELECT v.entry, v.item, it.name, v.ExtendedCost
 FROM npc_vendor v
@@ -60,7 +60,7 @@ ORDER BY v.entry, v.item
 LIMIT 200;
 ```
 
-### Query 4: Items por Season (ejemplos, ajusta nombres según tu DB)
+### Query 4: Items per Season (examples; adjust names for your DB)
 
 ```sql
 -- TBC Season 1 (Gladiator)
@@ -87,18 +87,18 @@ SELECT entry, name FROM item_template WHERE name LIKE '%Relentless%' ORDER BY en
 -- WotLK Season 8 (Wrathful)
 SELECT entry, name FROM item_template WHERE name LIKE '%Wrathful%' ORDER BY entry;
 
--- Si tu DB usa otros nombres o idioma distinto, ajusta los LIKE.
--- Lo importante es construir listas S1_ITEM_IDS ... S8_ITEM_IDS con los IDs correctos.
+-- If your DB uses other names or a different language, adjust the LIKE filters.
+-- The important part is building lists S1_ITEM_IDS ... S8_ITEM_IDS with the correct IDs.
 
-### Query 5: Encontrar ExtendedCost IDs (costes) para PvP/Arena
+### Query 5: Find ExtendedCost IDs (costs) for PvP/Arena
 ```sql
--- Busca ExtendedCost usados por tus vendors actuales
+-- Search ExtendedCost IDs used by your current vendors
 SELECT DISTINCT v.ExtendedCost
 FROM npc_vendor v
 WHERE v.entry IN (33609, 33610)
 ORDER BY v.ExtendedCost;
 
--- Inspecciona detalles del extended cost
+-- Inspect extended cost details
 SELECT *
 FROM item_extended_cost
 WHERE id IN (
@@ -112,15 +112,15 @@ ORDER BY id;
 
 ---
 
-## ✏️ PASO 2: Completar los Templates
+## ✏️ STEP 2: Complete the Templates
 
-### Formato del Script Completado
+### Completed Script Format
 
 ```sql
--- Ejemplo: arena_s1_vendors_cleanup.sql (generado desde el .template)
+-- Example: arena_s1_vendors_cleanup.sql (generated from the .template)
 
 DELETE FROM `npc_vendor`
-WHERE `entry` IN (33609, 33610)  -- REEMPLAZAR CON TUS ENTRIES
+WHERE `entry` IN (33609, 33610)  -- REPLACE WITH YOUR ENTRIES
   AND `item` NOT IN (
     23001,23002,23003,23004,23005,23006,23007,23008,23009,23010,  -- 10
     23011,23012,23013,23014,23015,23016,23017,23018,23019,23020,  -- 20
@@ -142,141 +142,142 @@ VALUES
 
 ---
 
-## 📋 Checklist de Reemplazos
+## 📋 Replacement Checklist
 
-### Vendors (entries) por Season
+### Vendors (entries) per Season
 
-- [ ] **Reemplazar `[S1_VENDOR_ENTRIES]`, `[S2_VENDOR_ENTRIES]`, ...**
-  - En: todos los templates `arena_s*_vendors_cleanup.sql.template`
-  - Con: entries reales (Horde/Alliance) de tu DB
-  - Ejemplo WotLK típico: `33609, 33610`
+- [ ] **Replace `[S1_VENDOR_ENTRIES]`, `[S2_VENDOR_ENTRIES]`, ...**
+  - In: all `arena_s*_vendors_cleanup.sql.template` templates
+  - With: real entries (Horde/Alliance) from your DB
+  - Typical WotLK example: `33609, 33610`
 
-- [ ] **Reemplazar `[S1_ITEM_IDS]`**
-  - En: arena_s1_vendors_cleanup, arena_s2_vendors_cleanup, arena_s3_vendors_cleanup, arena_s4_vendors_cleanup
-  - Con: IDs de Gladiator items (Season 1-2)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S1_ITEM_IDS]`**
+  - In: arena_s1_vendors_cleanup, arena_s2_vendors_cleanup, arena_s3_vendors_cleanup, arena_s4_vendors_cleanup
+  - With: Gladiator/Season 1 item IDs
+  - Count: ~60 items
 
-- [ ] **Reemplazar `[S2_ITEM_IDS]`**
-  - En: arena_s2_vendors_cleanup, arena_s3_vendors_cleanup, arena_s4_vendors_cleanup
-  - Con: IDs de Gladiator items (Season 2)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S2_ITEM_IDS]`**
+  - In: arena_s2_vendors_cleanup, arena_s3_vendors_cleanup, arena_s4_vendors_cleanup
+  - With: Merciless/Season 2 item IDs
+  - Count: ~60 items
 
-- [ ] **Reemplazar `[S3_ITEM_IDS]`**
-  - En: arena_s3_vendors_cleanup, arena_s4_vendors_cleanup
-  - Con: IDs de Vengeful items (Season 3)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S3_ITEM_IDS]`**
+  - In: arena_s3_vendors_cleanup, arena_s4_vendors_cleanup
+  - With: Vengeful/Season 3 item IDs
+  - Count: ~60 items
 
-- [ ] **Reemplazar `[S4_ITEM_IDS]`**
-  - En: arena_s4_vendors_cleanup
-  - Con: IDs de Brutal items (Season 4)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S4_ITEM_IDS]`**
+  - In: arena_s4_vendors_cleanup
+  - With: Brutal/Season 4 item IDs
+  - Count: ~60 items
 
 ### ExtendedCost (blizzlike)
 
-- [ ] **Reemplazar placeholders `*_WITH_EXTENDEDCOST_*`**
-  - En: todos los templates `arena_s*_vendors_cleanup.sql.template`
-  - Con: líneas INSERT reales que incluyan el `ExtendedCost` correcto
-  - Fuente: Query 5 (item_extended_cost) o valores ya usados por tu core
+- [ ] **Replace placeholders `*_WITH_EXTENDEDCOST_*`**
+  - In: all `arena_s*_vendors_cleanup.sql.template` templates
+  - With: real INSERT lines that include the correct `ExtendedCost`
+  - Source: Query 5 (`item_extended_cost`) or values already used by your core
 
-- [ ] **Reemplazar `[S5_ITEM_IDS]`**
-  - En: arena_s5_vendors_cleanup, arena_s6_vendors_cleanup, arena_s7_vendors_cleanup, arena_s8_vendors_cleanup
-  - Con: IDs de Deadly items (Season 5)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S5_ITEM_IDS]`**
+  - In: arena_s5_vendors_cleanup, arena_s6_vendors_cleanup, arena_s7_vendors_cleanup, arena_s8_vendors_cleanup
+  - With: Deadly/Season 5 item IDs
+  - Count: ~60 items
 
-- [ ] **Reemplazar `[S6_ITEM_IDS]`**
-  - En: arena_s6_vendors_cleanup, arena_s7_vendors_cleanup, arena_s8_vendors_cleanup
-  - Con: IDs de Furious items (Season 6)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S6_ITEM_IDS]`**
+  - In: arena_s6_vendors_cleanup, arena_s7_vendors_cleanup, arena_s8_vendors_cleanup
+  - With: Furious/Season 6 item IDs
+  - Count: ~60 items
 
-- [ ] **Reemplazar `[S7_ITEM_IDS]`**
-  - En: arena_s7_vendors_cleanup, arena_s8_vendors_cleanup
-  - Con: IDs de Relentless items (Season 7)
-  - Cantidad: ~60 items
+- [ ] **Replace `[S7_ITEM_IDS]`**
+  - In: arena_s7_vendors_cleanup, arena_s8_vendors_cleanup
+  - With: Relentless/Season 7 item IDs
+  - Count: ~60 items
 
-- [ ] **Reemplazar `[S8_ITEM_IDS]`**
-  - En: arena_s8_vendors_cleanup
-  - Con: IDs de Wrathful items (Season 8)
-  - Cantidad: ~60 items
-
----
-
-## 🔗 Transición TBC → WotLK
-
-- [ ] **Reemplazar `[TBC_VENDOR_ENTRIES]` y `[WOTLK_VENDOR_ENTRIES]`**
-  - En: `transition_tbc_to_wotlk_vendors.sql.template`
-  - Con: entries reales que quieras desactivar/activar
+- [ ] **Replace `[S8_ITEM_IDS]`**
+  - In: arena_s8_vendors_cleanup
+  - With: Wrathful/Season 8 item IDs
+  - Count: ~60 items
 
 ---
 
-## ⚡ PASO 3: Ejecutar en Servidor
+## 🔗 TBC → WotLK Transition
 
-### Opción 1: Copiar a servidor (automático)
+- [ ] **Replace `[TBC_VENDOR_ENTRIES]` and `[WOTLK_VENDOR_ENTRIES]`**
+  - In: `transition_tbc_to_wotlk_vendors.sql.template`
+  - In: `transition_tbc_to_wotlk_vendors.sql.template`
+  - With: real entries you want to disable/enable
+
+---
+
+## ⚡ STEP 3: Execute on the Server
+
+### Option 1: Copy to server (automatic)
 ```bash
-# Producción: los vendors_* en sql/world son stubs, NO se auto-ejecutan.
-# Esto es intencional para evitar que placeholders rompan el autoload del DBUpdater.
+# Production: `vendors_*` under `sql/world` are stubs and do NOT auto-run.
+# This is intentional to prevent placeholders from breaking DBUpdater autoload.
 ```
 
-### Opción 2: Ejecutar manualmente
+### Option 2: Execute manually
 ```sql
--- Conectarse a MySQL y ejecutar:
+-- Connect to MySQL and run:
 mysql world < src/Bracket_70_2_1/sql/templates/arena_s1_vendors_cleanup.sql
 mysql world < src/Bracket_70_2_2/sql/templates/arena_s2_vendors_cleanup.sql
 -- ... etc ...
 ```
 
-### Opción 3: Copiar scripts a updates
+### Option 3: Copy scripts into updates
 ```bash
 cp src/Bracket_*/sql/templates/*.sql.template ~/path/to/updates/
-# Renombra a .sql, completa placeholders y el updater de AzerothCore los ejecutará automáticamente
+# Rename to .sql, fill placeholders, and AzerothCore's updater will execute them automatically
 ```
 
 ---
 
-## ✅ PASO 4: Validar en Juego
+## ✅ STEP 4: Validate In-Game
 
 ```
-[ ] Entra al bracket correspondiente y verifica:
-  - Vendors correctos (Horde/Alliance)
-  - Solo items de la season permitida
-  - Costes correctos (Arena Points/Honor/Rating según tu core)
+[ ] Enter the corresponding bracket and verify:
+  - Correct vendors (Horde/Alliance)
+  - Only items from the allowed season
+  - Correct costs (Arena Points/Honor/Rating depending on your core)
 
-[ ] Entra a Bracket_70_2_2 y verifica:
-    - Vendor visible en Gadgetzan
-    - Items de S1 (100k) y S2 (200k)
-    - Total ~120 items
+[ ] Enter Bracket_70_2_2 and verify:
+  - Vendor visible in Gadgetzan
+  - S1 (100k) and S2 (200k) items
+  - Total ~120 items
 
-[ ] Entra a Bracket_80_1_2 y verifica:
-    - Gadgetzan vendor desaparecido
-    - Nuevo vendor en Dalaran
-    - Solo items S5
+[ ] Enter Bracket_80_1_2 and verify:
+  - Gadgetzan vendor disappears
+  - New vendor in Dalaran
+  - Only S5 items
 
-[ ] Entra a Bracket_80_4_1 y verifica:
-    - Todos los items disponibles
-  - Costes correctos (ExtendedCost)
+[ ] Enter Bracket_80_4_1 and verify:
+    - All items available
+  - Correct costs (ExtendedCost)
 ```
 
 ---
 
-## 📝 Resumen Rápido
+## 📝 Quick Summary
 
-| Paso | Acción | Tiempo |
+| Step | Action | Time |
 |------|--------|--------|
-| 1 | Ejecutar 6 queries en BD | 5 min |
-| 2 | Completar 9 templates SQL | 30 min |
-| 3 | Copiar scripts al servidor | 5 min |
-| 4 | Reiniciar worldserver (si aplica) | 2 min |
-| 5 | Validar en juego | 15 min |
-| **Total** | | **57 minutos** |
+| 1 | Run 6 queries on your DB | 5 min |
+| 2 | Complete 9 SQL templates | 30 min |
+| 3 | Copy scripts to the server | 5 min |
+| 4 | Restart worldserver (if needed) | 2 min |
+| 5 | Validate in-game | 15 min |
+| **Total** | | **57 minutes** |
 
 ---
 
-## 🎯 Archivos Importantes
+## 🎯 Important Files
 
-- **README.md** - Documentación completa
-- **PARAMETROS_TECNICOS_DESARROLLO.md** - Configuración técnica
-- **BRACKET_DESCRIPTIONS_COMPLETE.md** - Descripción de brackets
-- **ARENA_SEASONS_VALIDATION.md** - Mapeo de seasons
+- **README.md** - Full documentation
+- **PARAMETROS_TECNICOS_DESARROLLO.md** - Technical configuration
+- **BRACKET_DESCRIPTIONS_COMPLETE.md** - Bracket descriptions
+- **ARENA_SEASONS_VALIDATION.md** - Season mapping
 
 ---
 
-**¿Necesitas ayuda?** Consulta README.md sección "FASE 0 - Control Total de Vendors"
+**Need help?** See the README section "PHASE 0 - Full Vendor Control"

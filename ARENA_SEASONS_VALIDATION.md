@@ -1,6 +1,6 @@
 -- Arena Season Progression Validation
 -- Verification script for proper Arena Season 1-8 implementation
--- Timeline note: Las fechas exactas varían por región/servidor. Aquí validamos coherencia S1-S8 y estructura de DB.
+-- Timeline note: Exact dates vary by region/server. Here we validate S1-S8 consistency and DB structure.
 
 -- ==========================================
 -- ARENA SEASON PROGRESSION GUIDE
@@ -8,52 +8,52 @@
 
 -- SEASON 1 (Gladiator) - TBC
 -- Bracket: Bracket_70_2_1
--- Dates: (aprox) 2007
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2007
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Gladiator
--- Vendors: depende de tu core/DB (entries pueden variar)
+-- Vendors: depends on your core/DB (entries can vary)
 
 -- SEASON 2 (Merciless) - TBC
 -- Bracket: Bracket_70_2_2
--- Dates: (aprox) 2007
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2007
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Merciless
--- NOTE: normalmente se mantiene gear anterior como legacy (más barato)
+-- NOTE: previous gear is usually kept as legacy (cheaper)
 
 -- SEASON 3 (Vengeful) - TBC
 -- Bracket: Bracket_70_5
--- Dates: (aprox) 2007-2008
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2007-2008
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Vengeful
 
 -- SEASON 4 (Brutal) - TBC
 -- Bracket: Bracket_70_6_2
--- Dates: (aprox) 2008
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2008
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Brutal
 
 -- SEASON 5 (Deadly) - WotLK
 -- Bracket: Bracket_80_1_2
--- Dates: (aprox) 2008-2009
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2008-2009
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Deadly
 
 -- SEASON 6 (Furious) - WotLK
 -- Bracket: Bracket_80_2
--- Dates: (aprox) 2009
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2009
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Furious
 
 -- SEASON 7 (Relentless) - WotLK
 -- Bracket: Bracket_80_3
--- Dates: (aprox) 2009-2010
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2009-2010
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Relentless
 
 -- SEASON 8 (Wrathful) - WotLK
 -- Bracket: Bracket_80_4_1
--- Dates: (aprox) 2010
--- Rating: depende del item (se expresa en item_extended_cost)
+-- Dates: (approx.) 2010
+-- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Wrathful
 
 -- ==========================================
@@ -120,8 +120,8 @@ WHERE v.entry IN (33609, 33610)
 --    Alliance: Stormwind (exact coordinates per expansion)
 
 -- 2. SEASON RESET MECHANICS:
---    - Gear anterior suele pasar a "legacy" (más barato)
---    - Los costes (honor/arena points/rating) se reflejan en item_extended_cost
+--    - Previous gear usually moves to "legacy" (cheaper)
+--    - Costs (honor/arena points/rating) are reflected in item_extended_cost
 
 -- 3. ITEM PROGRESSION:
 --    - Season 1: 1500+ rating recommended
@@ -152,7 +152,7 @@ WHERE v.entry IN (33609, 33610)
 --    Season 5+: Drakes and Hippogryphs based on season
 
 -- 8. CURRENCY NOTE:
---    En TBC/WotLK se usa principalmente Arena Points + Honor (no Conquest).
+--    In TBC/WotLK, the main currencies are Arena Points + Honor (not Conquest).
 
 -- NOTE: Make sure all seasonal vendors are properly enabled/disabled
 -- based on which bracket is active in your progression system

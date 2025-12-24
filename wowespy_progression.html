@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WOWESPY — Guía de Progresión</title>
+  <title>WOWESPY — Progression Guide</title>
   <style>
     :root {
       --bg: #0b1220;
@@ -317,7 +317,7 @@
   <div class="wrap">
     <header>
       <div class="title">
-        <h1>WOWESPY — Guía de Progresión (AzerothCore)</h1>
+        <h1>WOWESPY — Progression Guide (AzerothCore)</h1>
         <span class="pill">mod-progression-blizzlike</span>
         <span class="pill">MySQL 8.x</span>
         <span class="pill">3.3.5a</span>
@@ -326,7 +326,7 @@
       <div class="controls">
         <div class="now" id="nowBracket"></div>
         <div class="help">
-          Si sos jugador y no sabés tu bracket: preguntá al admin qué <span class="mono">ProgressionSystem.Bracket_*</span> está activo.
+          If you’re a player and don’t know your bracket: ask the admin which <span class="mono">ProgressionSystem.Bracket_*</span> is active.
         </div>
       </div>
     </header>
@@ -342,11 +342,11 @@
     // =====================
     // CONFIG
     // =====================
-    // Bracket actual (para mostrar arriba y resaltar la card).
+    // Current bracket (to show above and highlight the card).
     const WOWESPY_CURRENT_BRACKET_KEY = "Bracket_80_1_2";
 
     // =====================
-    // FIRMA (ofuscada)
+    // SIGNATURE (obfuscated)
     // =====================
     function signatureText() {
       const bytes = [
@@ -365,184 +365,184 @@
     // =====================
     // DATA
     // =====================
-    // Objetivo: explicación "a prueba de tontos".
-    // - Cada card dice: qué es, qué podés hacer, y qué NO corresponde todavía.
-    // - En modo 0 mostramos solo lo esencial.
+    // Goal: an "idiot-proof" explanation.
+    // - Each card says: what it is, what you can do, and what does NOT belong yet.
+    // - In mode 0 we show only the essentials.
 
     const BRACKETS = [
       {
         expansion: "Vanilla",
-        subtitle: "1–60 (progresión clásica)",
+        subtitle: "1–60 (classic progression)",
         items: [
-          { key: "Bracket_0", level: "1–10", title: "Inicio", can: [
-            "Hacé las misiones iniciales de tu raza: te enseñan el recorrido correcto.",
-            "Entrená tus habilidades/spells cada vez que subas niveles (no te quedes ‘sin skills’).",
-            "Equipate con lo que caiga: el objetivo es sobrevivir y matar rápido, no el ‘BIS’.",
-            "Acomodá tu inventario: comprá bolsas baratas si hay, y vendé basura al vendor.",
-            "Aprendé lo básico: comida/bebida, vender/repair, usar el hearthstone.",
-            "Si el server lo permite: empezá 1–2 profesiones (ej: minería/herboristería) para oro."
+          { key: "Bracket_0", level: "1–10", title: "Start", can: [
+            "Do your race’s starter quests: they teach the right route.",
+            "Train your abilities/spells every time you level up (don’t fall behind on ‘skills’).",
+            "Equip whatever drops: the goal is to survive and kill fast, not to be ‘BiS’.",
+            "Tidy your inventory: buy cheap bags if available, and sell junk to the vendor.",
+            "Learn the basics: food/drink, selling/repairing, using the hearthstone.",
+            "If the server allows it: start 1–2 professions (e.g., mining/herbalism) for gold."
           ], also: [
-            "Si ves un dungeon o contenido ‘raro’ muy temprano, consultá al admin: puede estar bloqueado por bracket.",
-            "No gastes oro en cosas caras todavía: en leveleo se reemplaza rápido.",
-            "Dungeons habilitados: — (normalmente no hay dungeons relevantes en 1–10).",
-            "Raids habilitadas: —."
+            "If you see a dungeon or ‘weird’ content very early, ask the admin: it may be bracket-locked.",
+            "Don’t spend gold on expensive things yet: while leveling, you replace gear quickly.",
+            "Enabled dungeons: — (usually there are no relevant dungeons at 1–10).",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_1_19", level: "10–19", title: "Temprano", can: [
-            "Seguí cadenas de misiones de tu zona y empezá a moverte a la próxima región recomendada.",
-            "Probá tu primer dungeon (si está habilitado): aprendés rol (tanque/heal/dps) y mecánicas.",
-            "Armá un set simple de leveleo: stamina + stats de tu clase (no te obsesiones).",
-            "Entrená habilidades de arma (si aplica) para no fallar golpes.",
-            "Subí profesiones y juntá materiales: te financia montura más adelante.",
-            "Configurá tu UI/hotkeys: cuanto antes lo hagas, más fácil el resto del progreso."
+          { key: "Bracket_1_19", level: "10–19", title: "Early", can: [
+            "Follow your zone’s quest chains and start moving to the next recommended region.",
+            "Try your first dungeon (if enabled): you learn your role (tank/heal/dps) and mechanics.",
+            "Put together a simple leveling set: stamina + your class stats (don’t obsess).",
+            "Train weapon skills (if applicable) so you don’t miss attacks.",
+            "Level professions and gather materials: it helps fund your mount later.",
+            "Set up your UI/hotkeys: the sooner you do it, the easier the rest of progression."
           ], also: [
-            "PvP/World PvP depende del server: si te matan mucho, cambiá de zona y seguí leveleando.",
-            "Si un vendor de ‘set’ aparece antes de tiempo, avisá al admin (posible bracket mal aplicado).",
-            "Dungeons habilitados (típicos del rango): Ragefire Chasm (Horda), The Deadmines (Alianza), Wailing Caverns.",
-            "Raids habilitadas: —."
+            "PvP/World PvP depends on the server: if you’re getting killed a lot, change zones and keep leveling.",
+            "If a ‘set’ vendor appears too early, tell the admin (possible bracket misapplied).",
+            "Enabled dungeons (typical for this range): Ragefire Chasm (Horde), The Deadmines (Alliance), Wailing Caverns.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_20_29", level: "20–29", title: "Medio", can: [
-            "Hacé dungeons de tu rango para upgrades grandes (armas/trinkets).",
-            "Empezá a priorizar stats correctos (ej: int/espíritu para caster; agi/str para melee).",
-            "Aprendé rutas: dónde reparar, dónde vender, y cómo viajar sin perder tiempo.",
-            "Si el server usa progresión estricta: enfocá el contenido que ‘corresponde’ a este bracket.",
-            "Empezá a guardar consumibles básicos (comida/bebida/primeros auxilios).",
-            "Revisá reputaciones útiles si tu clase necesita recetas o items específicos."
+          { key: "Bracket_20_29", level: "20–29", title: "Mid", can: [
+            "Run dungeons in your range for big upgrades (weapons/trinkets).",
+            "Start prioritizing the right stats (e.g., int/spirit for casters; agi/str for melee).",
+            "Learn routes: where to repair, where to sell, and how to travel without wasting time.",
+            "If the server uses strict progression: focus on the content that ‘belongs’ to this bracket.",
+            "Start saving basic consumables (food/drink/first aid).",
+            "Check useful reputations if your class needs recipes or specific items."
           ], also: [
-            "No intentes ‘saltar’ brackets: si el contenido está bloqueado, vas a perder tiempo.",
-            "Dungeons habilitados (típicos del rango): Shadowfang Keep, Blackfathom Deeps, The Stockade (Alianza).",
-            "Raids habilitadas: —."
+            "Don’t try to ‘skip’ brackets: if content is locked, you’ll waste time.",
+            "Enabled dungeons (typical for this range): Shadowfang Keep, Blackfathom Deeps, The Stockade (Alliance).",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_30_39", level: "30–39", title: "Avanzando", can: [
-            "Meté dungeons más largos/difíciles: acá se nota si tu grupo coordina.",
-            "Empezá a pensar en tu rol: interrupciones, dispels, crowd control y posicionamiento.",
-            "Juntá oro de forma consistente: se viene la montura y costos de entrenamiento.",
-            "Actualizá talentos/build si sentís que te cuesta: un buen build acelera muchísimo.",
-            "Si jugás healer/tanque: conseguí un set alternativo (algo de stamina/defensa) si el server lo requiere.",
-            "Andá preparando el salto a 40+: zonas, cadenas largas y dungeons de ‘entrada’ a endgame."
+          { key: "Bracket_30_39", level: "30–39", title: "Advancing", can: [
+            "Run longer/harder dungeons: this is where group coordination starts to matter.",
+            "Start thinking about your role: interrupts, dispels, crowd control, and positioning.",
+            "Earn gold consistently: mounts and training costs are coming.",
+            "Update talents/build if you feel stuck: a good build speeds things up a lot.",
+            "If you play healer/tank: get an alternate set (some stamina/defense) if the server requires it.",
+            "Start preparing the jump to 40+: zones, long chains, and ‘entry’ dungeons to endgame."
           ], also: [
-            "Si tu server tiene attunements/llaves, empezá a preguntar cuáles existen para no trabarte después.",
-            "Dungeons habilitados (típicos del rango): Scarlet Monastery (GY/LIB/ARM/CATH), Razorfen Kraul.",
-            "Raids habilitadas: —."
+            "If your server has attunements/keys, start asking which ones exist so you don’t get stuck later.",
+            "Enabled dungeons (typical for this range): Scarlet Monastery (GY/LIB/ARM/CATH), Razorfen Kraul.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_40_49", level: "40–49", title: "Camino a endgame", can: [
-            "Sacá tu montura si corresponde: te cambia el leveleo y farmeo.",
-            "Enfocate en dungeons con buen loot por hora para tu clase.",
-            "Ordená tu economía: reparaciones, skills, profesiones y consumibles empiezan a pesar.",
-            "Revisá cadenas de misiones largas que suelen dar recompensas fuertes.",
-            "Aprendé a farmear materiales útiles para 50–60 (resistencias/consumibles).",
-            "Si el server define ‘pre-raid’ temprano: empezá a guardar piezas con buenas stats."
+          { key: "Bracket_40_49", level: "40–49", title: "On the way to endgame", can: [
+            "Get your mount if applicable: it changes leveling and farming.",
+            "Focus on dungeons with good loot-per-hour for your class.",
+            "Get your economy in order: repairs, skills, professions, and consumables start to add up.",
+            "Check long quest chains that often give strong rewards.",
+            "Learn to farm materials useful for 50–60 (resistances/consumables).",
+            "If the server defines early ‘pre-raid’: start saving pieces with good stats."
           ], also: [
-            "No te frustres si no cae tu item: el objetivo es llegar sólido a 50–60.",
-            "Dungeons habilitados (típicos del rango): Uldaman, Zul'Farrak.",
-            "Raids habilitadas: —."
+            "Don’t get frustrated if your item doesn’t drop: the goal is to reach 50–60 in a solid spot.",
+            "Enabled dungeons (typical for this range): Uldaman, Zul'Farrak.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_50_59_1", level: "50–59", title: "Pre-60 (preparación)", can: [
-            "Entrá a dungeons de alto nivel (para este rango) y aprendé mecánicas más ‘serias’.",
-            "Armá un set ‘pre-raid’ básico: priorizá piezas que te sirvan al llegar a 60.",
-            "Juntá consumibles: pociones, comida, vendas y reagents de tu clase.",
-            "Subí profesiones a niveles útiles: enchants/ingeniería/primeros auxilios se notan.",
-            "Si tu server usa llaves/attunements (ej: UBRS/Onyxia): empezá las cadenas ahora.",
-            "Organizate con guild/grupo fijo: en 60 el progreso es más coordinado."
+          { key: "Bracket_50_59_1", level: "50–59", title: "Pre-60 (prep)", can: [
+            "Go into higher-level dungeons (for this range) and learn more ‘serious’ mechanics.",
+            "Build a basic ‘pre-raid’ set: prioritize pieces that will still help at 60.",
+            "Stock up on consumables: potions, food, bandages, and your class reagents.",
+            "Level professions to useful thresholds: enchants/engineering/first aid matter.",
+            "If your server uses keys/attunements (e.g., UBRS/Onyxia): start the chains now.",
+            "Get organized with a guild/static group: at 60 progression is more coordinated."
           ], also: [
-            "Si te falta daño/aguante: priorizá armas y trinkets, suelen ser los upgrades más grandes.",
-            "Dungeons habilitados (típicos del rango): Sunken Temple, Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: —."
+            "If you lack damage/toughness: prioritize weapons and trinkets; they’re often the biggest upgrades.",
+            "Enabled dungeons (typical for this range): Sunken Temple, Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_50_59_2", level: "50–59", title: "Pre-60 (cierre)", can: [
-            "Terminá cadenas pendientes y dejá todo listo para subir a 60 sin ‘deudas’.",
-            "Hacé runs repetidas de dungeons claves para cerrar huecos de equipo.",
-            "Aprendé tu rotación/rol en peleas largas: mana/aggro/threat management.",
-            "Prepará oro para los gastos de 60 (skills, consumibles, reparaciones).",
-            "Si el server lo pide: coordiná acceso/attunements con tu raid leader.",
-            "Llegá a 60 con inventario ordenado: pociones, reagents y espacio para loot."
+          { key: "Bracket_50_59_2", level: "50–59", title: "Pre-60 (wrap-up)", can: [
+            "Finish pending chains and have everything ready to hit 60 without ‘debts’.",
+            "Repeat key dungeons to fill remaining gear gaps.",
+            "Learn your rotation/role in long fights: mana/aggro/threat management.",
+            "Save gold for 60 expenses (skills, consumables, repairs).",
+            "If the server requires it: coordinate access/attunements with your raid leader.",
+            "Reach 60 with an organized inventory: potions, reagents, and space for loot."
           ], also: [
-            "No te quedes farmeando ‘perfecto’ en 59: el salto real de gear empieza en 60.",
-            "Dungeons habilitados (típicos del rango): Sunken Temple, Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: —."
+            "Don’t stay farming ‘perfect’ at 59: the real gear jump starts at 60.",
+            "Enabled dungeons (typical for this range): Sunken Temple, Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_60_1_1", level: "60", title: "Molten Core (inicio raids)", can: [
-            "Entrá a tu primera raid: aprendé disciplina (consumibles, estar a horario, escuchar calls).",
-            "Objetivo: armar base de equipo para el siguiente escalón de raids.",
-            "Traé consumibles y resistencia si tu server los exige.",
-            "Aprendé tu rol en raids: dispels, decurse, interrupciones y posicionamiento.",
-            "Si el server usa DKP/loot rules: entendé el sistema para evitar problemas.",
-            "Aprovechá drops/quests de raid para completar set inicial."
+          { key: "Bracket_60_1_1", level: "60", title: "Molten Core (raid entry)", can: [
+            "Join your first raid: learn discipline (consumables, being on time, listening to calls).",
+            "Goal: build a gear foundation for the next raid tier.",
+            "Bring consumables and resistance if your server requires them.",
+            "Learn your raid role: dispels, decurse, interrupts, and positioning.",
+            "If the server uses DKP/loot rules: understand the system to avoid problems.",
+            "Use raid drops/quests to complete your initial set."
           ], also: [
-            "Si todavía no estás listo, reforzá con dungeons 60/pre-raid antes de insistir.",
-            "Dungeons habilitados (soporte/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: Molten Core."
+            "If you’re not ready yet, reinforce with level 60/pre-raid dungeons before insisting.",
+            "Enabled dungeons (support/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: Molten Core."
           ] },
-          { key: "Bracket_60_1_2", level: "60", title: "Onyxia (raid corta)", can: [
-            "Hacé Onyxia para loot clave y práctica de mecánicas simples (fases).",
-            "Si existe cadena de acceso/llave: completala (muchos servers la usan).",
-            "Aprendé a moverte con el grupo: fear/whelps/fase aérea (según tuning del server).",
-            "Usá Onyxia como ‘chequeo’ rápido semanal: útil para mantener progreso.",
-            "Combiná con tu raid principal para cerrar upgrades específicos.",
-            "Guardá materiales/consumibles para el salto a BWL."
+          { key: "Bracket_60_1_2", level: "60", title: "Onyxia (short raid)", can: [
+            "Do Onyxia for key loot and practice simple mechanics (phases).",
+            "If there’s an access/key chain: complete it (many servers use it).",
+            "Learn to move with the group: fear/whelps/air phase (depending on server tuning).",
+            "Use Onyxia as a quick weekly ‘check’: useful to maintain progression.",
+            "Combine it with your main raid to finish specific upgrades.",
+            "Save materials/consumables for the jump to BWL."
           ], also: [
-            "Si tu raid falla por coordinación, no es gear: es disciplina. Practicá.",
-            "Dungeons habilitados (soporte/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: Onyxia's Lair."
+            "If your raid fails due to coordination, it’s not gear: it’s discipline. Practice.",
+            "Enabled dungeons (support/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: Onyxia's Lair."
           ] },
           { key: "Bracket_60_2_1", level: "60", title: "Blackwing Lair (T2)", can: [
-            "Progresión de raid más exigente: mecánicas y coordinación importan mucho.",
-            "Objetivo: upgrades mayores (equipo tipo T2) y experiencia como raid.",
-            "Revisá consumibles y resistencias según jefes (depende del server).",
-            "Aprendé asignaciones: interrupciones, dispels, kites, y manejo de adds.",
-            "Optimización: enchants y gemas (si aplica) empiezan a ser obligatorios.",
-            "Si te quedás atrás en dps/heal: revisá build, consumibles y rotación."
+            "A more demanding raid tier: mechanics and coordination matter a lot.",
+            "Goal: major upgrades (T2-type gear) and raid experience.",
+            "Review consumables and resistances by boss (depends on the server).",
+            "Learn assignments: interrupts, dispels, kites, and add management.",
+            "Optimization: enchants and gems (if applicable) start becoming mandatory.",
+            "If you fall behind in dps/heal: review your build, consumables, and rotation."
           ], also: [
-            "No ‘carrees’ gente sin preparación: BWL castiga errores repetidos.",
-            "Dungeons habilitados (soporte/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: Blackwing Lair."
+            "Don’t ‘carry’ unprepared people: BWL punishes repeated mistakes.",
+            "Enabled dungeons (support/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: Blackwing Lair."
           ] },
           { key: "Bracket_60_2_2", level: "60", title: "Zul'Gurub (catch-up)", can: [
-            "Raid de 20 jugadores ideal para ponerse al día y equipar al raid.",
-            "Farmear reputación y recompensas útiles para varias clases.",
-            "Buen lugar para practicar coordinación sin tanta presión como BWL.",
-            "Entrá con grupo más chico y constante: se farmea rápido y eficientemente.",
-            "Usalo para cerrar piezas ‘faltantes’ antes de AQ.",
-            "Aprovechá para juntar consumibles y oro mientras progresás."
+            "A 20-player raid ideal for catching up and gearing the raid.",
+            "Farm reputation and rewards useful for many classes.",
+            "A good place to practice coordination without as much pressure as BWL.",
+            "Go with a smaller consistent group: it farms fast and efficiently.",
+            "Use it to finish ‘missing’ pieces before AQ.",
+            "Also use it to stock up on consumables and gold while you progress."
           ], also: [
-            "ZG suele ser ‘complemento’: no reemplaza totalmente el progreso de raids mayores.",
-            "Dungeons habilitados (soporte/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: Zul'Gurub."
+            "ZG is usually a ‘supplement’: it doesn’t fully replace progression in larger raids.",
+            "Enabled dungeons (support/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: Zul'Gurub."
           ] },
           { key: "Bracket_60_3_1", level: "60", title: "AQ20 (pre-AQ40)", can: [
-            "Raid de 20 con buen loot para preparar el contenido final.",
-            "Aprendé mecánicas de Ahn'Qiraj (posicionamiento, adds) en versión más accesible.",
-            "Farmear piezas específicas para tu rol y completar sets.",
-            "Si el server tiene evento de apertura: consultá estado/progreso con el admin.",
-            "Usalo como escalón para fortalecer roster y coordinación.",
-            "Preparación: consumibles, reparaciones y enchants al día."
+            "A 20-player raid with strong loot to prepare for the final content.",
+            "Learn Ahn'Qiraj mechanics (positioning, adds) in a more accessible version.",
+            "Farm role-specific pieces and complete sets.",
+            "If the server has an opening event: check status/progress with the admin.",
+            "Use it as a stepping stone to strengthen roster and coordination.",
+            "Prep: consumables, repairs, and enchants up to date."
           ], also: [
-            "Si AQ40 está cerrado, AQ20 es donde más rinde tu tiempo ahora.",
-            "Dungeons habilitados (soporte/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: Ruins of Ahn'Qiraj (AQ20)."
+            "If AQ40 is closed, AQ20 is where your time pays off the most right now.",
+            "Enabled dungeons (support/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: Ruins of Ahn'Qiraj (AQ20)."
           ] },
-          { key: "Bracket_60_3_2", level: "60", title: "AQ40 (endgame Vanilla)", can: [
-            "Contenido top de Vanilla: requiere roster serio y buena ejecución.",
-            "Objetivo: mejores upgrades disponibles en esta etapa.",
-            "Traé consumibles completos: en endgame, ir ‘sin preparar’ es perder la noche.",
-            "Coordinar resistencias/roles según jefes (si el server lo exige).",
-            "Aprendé a jugar seguro: menos muertes = más progreso.",
-            "Mantené disciplina de raid: assignments, pulls limpios, y comunicación."
+          { key: "Bracket_60_3_2", level: "60", title: "AQ40 (Vanilla endgame)", can: [
+            "Top Vanilla content: requires a serious roster and solid execution.",
+            "Goal: the best upgrades available at this stage.",
+            "Bring full consumables: in endgame, going ‘unprepared’ wastes the night.",
+            "Coordinate resistances/roles by boss (if the server requires it).",
+            "Learn to play safely: fewer deaths = more progress.",
+            "Maintain raid discipline: assignments, clean pulls, and communication."
           ], also: [
-            "Si el contenido te supera, volvé a MC/BWL/ZG/AQ20 para cerrar gear y práctica.",
-            "Dungeons habilitados (soporte/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
-            "Raids habilitadas: Temple of Ahn'Qiraj (AQ40)."
+            "If the content overwhelms you, go back to MC/BWL/ZG/AQ20 to finish gear and practice.",
+            "Enabled dungeons (support/catch-up): Blackrock Depths, LBRS/UBRS, Dire Maul, Stratholme, Scholomance.",
+            "Enabled raids: Temple of Ahn'Qiraj (AQ40)."
           ] },
-          { key: "Bracket_60_3_3", level: "60", title: "Cierre / transición", can: [
-            "Fase final: limpiar pendientes, completar sets y preparar salto a la expansión siguiente.",
-            "Ordená banco/inventario: materiales, consumibles y oro para la transición.",
-            "Ayudá a la guild: alinear roster y equipar nuevos para mantener el progreso.",
-            "Si hay eventos/ajustes del server: seguí anuncios del admin.",
-            "Ajustá talentos/roles pensando en el contenido que viene.",
-            "Dejá listas profesiones y recetas importantes."
+          { key: "Bracket_60_3_3", level: "60", title: "Wrap-up / transition", can: [
+            "Final phase: clean up loose ends, complete sets, and prepare the jump to the next expansion.",
+            "Organize bank/inventory: materials, consumables, and gold for the transition.",
+            "Help the guild: align the roster and gear newcomers to keep progress moving.",
+            "If there are server events/adjustments: follow the admin’s announcements.",
+            "Adjust talents/roles with upcoming content in mind.",
+            "Have professions and important recipes ready."
           ], also: [
-            "No compres cosas ‘de lujo’ si se viene cambio de bracket: se reemplaza rápido.",
-            "Dungeons habilitados: (según el server; normalmente los 60 ‘clásicos’ siguen disponibles).",
-            "Raids habilitadas: (según el server; esta fase suele ser cierre/ajustes)."
+            "Don’t buy ‘luxury’ items if a bracket change is coming: you’ll replace them quickly.",
+            "Enabled dungeons: (depends on the server; usually the classic level 60 dungeons remain available).",
+            "Enabled raids: (depends on the server; this phase is usually wrap-up/adjustments)."
           ] }
         ]
       },
@@ -550,186 +550,186 @@
         expansion: "The Burning Crusade",
         subtitle: "61–70 + Arenas S1–S4",
         items: [
-          { key: "Bracket_61_64", level: "61–64", title: "Outland (inicio)", can: [
-            "Entrá a Outland y seguí la historia principal de la primera zona disponible.",
-            "Reemplazá gear de 60 gradualmente: las recompensas de misiones suelen ser grandes upgrades.",
-            "Hacé dungeons introductorios si están habilitados: sirven para practicar pulls y roles.",
-            "Empezá reputaciones base (te abren llaves/heroics si el server las usa).",
-            "Ordená tus talentos para leveleo en TBC: cambia el ritmo respecto a Vanilla.",
-            "Guardá oro: en TBC la economía y consumibles empiezan a escalar."
+          { key: "Bracket_61_64", level: "61–64", title: "Outland (start)", can: [
+            "Enter Outland and follow the main story of the first available zone.",
+            "Replace level 60 gear gradually: quest rewards are often big upgrades.",
+            "Do introductory dungeons if enabled: they help you practice pulls and roles.",
+            "Start base reputations (they unlock keys/heroics if the server uses them).",
+            "Adjust your talents for TBC leveling: the pace changes compared to Vanilla.",
+            "Save gold: in TBC the economy and consumables start to scale."
           ], also: [
-            "Si no podés entrar a Outland o dungeons, el admin puede tener el bracket bloqueado.",
-            "Dungeons habilitados (típicos del rango): Hellfire Ramparts, The Blood Furnace, The Slave Pens.",
-            "Raids habilitadas: —."
+            "If you can’t enter Outland or dungeons, the admin may have the bracket locked.",
+            "Enabled dungeons (typical for this range): Hellfire Ramparts, The Blood Furnace, The Slave Pens.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_65_69", level: "65–69", title: "Outland (medio)", can: [
-            "Encadená zonas/dungeons para subir rápido sin quedarte sin quests.",
-            "Empezá a armar ‘pre-70’: piezas con buenas stats para llegar a 70 listo.",
-            "Subí reputaciones clave (según tu clase): te facilitan gear y recetas.",
-            "Si el server usa attunements: consultá cuáles existen para raids/heroics.",
-            "Practica supervivencia y control: pulls con adds y silencios son comunes.",
-            "Prepará consumibles/reagents para el salto a 70."
+          { key: "Bracket_65_69", level: "65–69", title: "Outland (mid)", can: [
+            "Chain zones/dungeons to level fast without running out of quests.",
+            "Start building ‘pre-70’: pieces with good stats so you hit 70 ready.",
+            "Raise key reputations (depending on your class): they help with gear and recipes.",
+            "If the server uses attunements: ask which ones exist for raids/heroics.",
+            "Practice survivability and control: pulls with adds and silences are common.",
+            "Prepare consumables/reagents for the push to 70."
           ], also: [
-            "No te atasques farmeando 1 dungeon: alterná para evitar burnout y completar slots.",
-            "Dungeons habilitados (típicos del rango): Mana-Tombs, Auchenai Crypts, Sethekk Halls, The Steamvault, Shadow Labyrinth.",
-            "Raids habilitadas: —."
+            "Don’t get stuck farming a single dungeon: rotate to avoid burnout and fill slots.",
+            "Enabled dungeons (typical for this range): Mana-Tombs, Auchenai Crypts, Sethekk Halls, The Steamvault, Shadow Labyrinth.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_70_1_1", level: "70", title: "70 (normales + pre-raid)", can: [
-            "Hacé dungeons normales 70 para cerrar gear básico (armas/colas difíciles).",
-            "Priorizá reputaciones de dungeons: suelen desbloquear rewards y entradas a heroics.",
-            "Aprendé tu rotación/rol para peleas largas: en 70 los encuentros duran más.",
-            "Armá un set pre-raid (aunque no sea perfecto): objetivo es poder entrar a raids.",
-            "Si el server habilita PvP: empezá a juntar honor para piezas iniciales.",
-            "Coordina con tu guild: 70 se hace mucho más fácil con grupo fijo."
+          { key: "Bracket_70_1_1", level: "70", title: "70 (normals + pre-raid)", can: [
+            "Run level 70 normal dungeons to finish basic gear (weapons/hard-to-fill slots).",
+            "Prioritize dungeon reputations: they often unlock rewards and heroic access.",
+            "Learn your rotation/role for long fights: at 70, encounters last longer.",
+            "Build a pre-raid set (even if it’s not perfect): the goal is to be able to enter raids.",
+            "If the server enables PvP: start earning honor for starter pieces.",
+            "Coordinate with your guild: 70 is much easier with a static group."
           ], also: [
-            "Si no estás listo para raids, quedate en este bracket hasta estabilizar tu equipo.",
-            "Dungeons habilitados (normales, típicos): The Shattered Halls, Shadow Labyrinth, The Steamvault, The Arcatraz, The Mechanar, The Botanica.",
-            "Raids habilitadas: —."
+            "If you’re not ready for raids, stay in this bracket until your gear stabilizes.",
+            "Enabled dungeons (normal, typical): The Shattered Halls, Shadow Labyrinth, The Steamvault, The Arcatraz, The Mechanar, The Botanica.",
+            "Enabled raids: —."
           ] },
           { key: "Bracket_70_1_2", level: "70", title: "70 (heroics)", can: [
-            "Entrá a heroics (si están habilitados): mecánicas más duras y mejor loot.",
-            "Traé consumibles: en heroics se nota si el grupo va ‘pelado’.",
-            "Aprendé a interrumpir/dispeliar: muchos wipes son por no cortar casts.",
-            "Farmear badges/moneda del server si existe (depende del setup).",
-            "Terminá reputaciones/llaves requeridas por el server.",
-            "Dejá listo tu equipo para T4 (aguante, hit, etc según rol)."
+            "Go into heroics (if enabled): tougher mechanics and better loot.",
+            "Bring consumables: in heroics you can tell when a group is ‘bare’.",
+            "Learn to interrupt/dispel: many wipes happen because casts aren’t stopped.",
+            "Farm badges/server currency if it exists (depends on the setup).",
+            "Finish server-required reputations/keys.",
+            "Have your gear ready for T4 (stamina, hit, etc. by role)."
           ], also: [
-            "Si te ‘one-shot’, tu problema suele ser gear, consumibles o pulls sin control.",
-            "Dungeons habilitados: Heroic (todas las versiones heroicas de Outland, si el server las habilita).",
-            "Raids habilitadas: —."
+            "If you get ‘one-shot’, the issue is usually gear, consumables, or uncontrolled pulls.",
+            "Enabled dungeons: Heroic (all heroic versions of Outland, if the server enables them).",
+            "Enabled raids: —."
           ] },
           { key: "Bracket_70_2_1", level: "70", title: "T4 + Arena S1 (Gladiator)", can: [
-            "Raids T4: entran roster y coordinación (Gruul’s / Magtheridon, según el server).",
-            "Prepará consumibles/enchants: a esta altura ya se esperan.",
-            "Si jugás Arenas: empezá a hacer tus partidas semanales para puntos.",
-            "Arenas S1: Gladiator — gear de season activo (costes blizzlike vía ExtendedCost).",
-            "Entendé el sistema: algunos ítems pueden requerir rating + puntos/honor (según configuración).",
-            "Si no hacés arenas: igual podés progresar en PvE; no es obligatorio para todos los roles."
+            "T4 raids: roster and coordination matter (Gruul’s / Magtheridon, depending on the server).",
+            "Prepare consumables/enchants: at this point they’re expected.",
+            "If you play Arenas: start doing your weekly matches for points.",
+            "Arenas S1: Gladiator — active season gear (blizzlike costs via ExtendedCost).",
+            "Understand the system: some items may require rating + points/honor (depending on configuration).",
+            "If you don’t do arenas: you can still progress in PvE; it’s not mandatory for all roles."
           ], also: [
-            "Los vendors de season los define el admin con SQL templates: si faltan ítems, avisá.",
-            "Si ves gear de S2/S3/S4 en S1, el bracket o vendors están mal configurados.",
-            "Dungeons habilitados: (soporte) heroics y normales 70 para gear/rep, según el server.",
-            "Raids habilitadas: Gruul's Lair, Magtheridon's Lair."
+            "Season vendors are defined by the admin via SQL templates: if items are missing, report it.",
+            "If you see S2/S3/S4 gear in S1, the bracket or vendors are misconfigured.",
+            "Enabled dungeons: (support) heroics and level 70 normals for gear/rep, depending on the server.",
+            "Enabled raids: Gruul's Lair, Magtheridon's Lair."
           ] },
           { key: "Bracket_70_2_2", level: "70", title: "Karazhan + Arena S2 (Merciless)", can: [
-            "Raid Karazhan: excelente para equipar y entrenar coordinación.",
-            "Armá rutinas semanales: Kara + raids del bracket + arenas (si aplican).",
-            "Arenas S2: Merciless — se habilita el gear nuevo y suele quedar el legacy.",
-            "Revisá vendors: set actual + set anterior (legacy) si el server lo configuró así.",
-            "Mejorá tu rendimiento: hit cap/defense caps (según rol), enchants y consumibles.",
-            "Si te falta equipo: combiná Kara con heroics para cerrar slots."
+            "Karazhan raid: excellent for gearing and training coordination.",
+            "Build weekly routines: Kara + bracket raids + arenas (if applicable).",
+            "Arenas S2: Merciless — new gear unlocks and the legacy set usually remains.",
+            "Check vendors: current set + previous (legacy) set if the server configured it that way.",
+            "Improve performance: hit cap/defense caps (by role), enchants, and consumables.",
+            "If you’re missing gear: combine Kara with heroics to fill slots."
           ], also: [
-            "No intentes contenido T5 sin base: el salto de dificultad se nota.",
-            "Dungeons habilitados: (soporte) heroics y normales 70 para gear/rep, según el server.",
-            "Raids habilitadas: Karazhan."
+            "Don’t attempt T5 content without a foundation: the difficulty jump is noticeable.",
+            "Enabled dungeons: (support) heroics and level 70 normals for gear/rep, depending on the server.",
+            "Enabled raids: Karazhan."
           ] },
-          { key: "Bracket_70_2_3", level: "70", title: "Mundo abierto (dailies)", can: [
-            "Contenido de mundo (dailies/reputación) si aplica al server.",
-            "Ideal para oro/consumibles: te financia reparaciones y enchants.",
-            "Subí reputaciones de facciones que den recipes útiles.",
-            "Si hay zonas tipo Ogri’la/Skettis: hacelas cuando tu gear lo permita.",
-            "Completá quests que den upgrades fáciles.",
-            "Aprovechá para armar profesiones (TBC tiene muchos crafts fuertes)."
+          { key: "Bracket_70_2_3", level: "70", title: "Open world (dailies)", can: [
+            "World content (dailies/reputation) if it applies on your server.",
+            "Great for gold/consumables: it funds repairs and enchants.",
+            "Build reputation with factions that offer useful recipes.",
+            "If there are zones like Ogri’la/Skettis: do them when your gear allows.",
+            "Complete quests that give easy upgrades.",
+            "Use this time to work on professions (TBC has many strong crafts)."
           ], also: [
-            "Si preferís PvE ‘instanciado’, esto es opcional: no te quedes estancado acá.",
-            "Dungeons habilitados: — (esto es contenido de mundo; los dungeons 70 siguen según server/bracket).",
-            "Raids habilitadas: —."
+            "If you prefer instanced PvE, this is optional: don’t get stuck here.",
+            "Enabled dungeons: — (this is world content; level 70 dungeons continue per server/bracket).",
+            "Enabled raids: —."
           ] },
           { key: "Bracket_70_3_1", level: "70", title: "SSC (T5)", can: [
-            "Raid Serpentshrine Cavern: mecánicas de T5 y coordinación de roster.",
-            "Prepará consumibles más completos (potions/flasks/food) según tu guild.",
-            "Revisá resistencias si el server las usa para algunos encuentros.",
-            "Aprendé a reaccionar: adds, interrupts y posiciones marcan la diferencia.",
-            "Objetivo: gear para sostener T5 y habilitar el siguiente escalón.",
-            "Si te cuesta: reforzá con Kara/heroics para estabilizar."
+            "Serpentshrine Cavern raid: T5 mechanics and roster coordination.",
+            "Prepare more complete consumables (potions/flasks/food) per your guild.",
+            "Review resistances if the server uses them for some encounters.",
+            "Learn to react: adds, interrupts, and positioning make the difference.",
+            "Goal: gear to sustain T5 and enable the next tier.",
+            "If it’s hard: reinforce with Kara/heroics to stabilize."
           ], also: [
-            "No es ‘solo gear’: la ejecución en T5 importa muchísimo.",
-            "Dungeons habilitados: (soporte) heroics y dungeons 70 para consumibles/rep, según server.",
-            "Raids habilitadas: Serpentshrine Cavern."
+            "It’s not ‘just gear’: execution in T5 matters a lot.",
+            "Enabled dungeons: (support) heroics and level 70 dungeons for consumables/rep, depending on the server.",
+            "Enabled raids: Serpentshrine Cavern."
           ] },
           { key: "Bracket_70_3_2", level: "70", title: "The Eye (TK) + S2", can: [
-            "Raid The Eye (Tempest Keep): otro pilar T5 con mecánicas distintas.",
-            "Arenas S2 suele seguir activa según progresión del server.",
-            "Mantené rutina de consumibles/enchants: acá se asume.",
-            "Coordiná asignaciones: interrupciones, dispels y manejo de adds.",
-            "Conseguí upgrades que te preparen para Hyjal/BT.",
-            "Si tu guild progresa lento: consolidá roster y roles, no cambies cada pull."
+            "The Eye (Tempest Keep) raid: another T5 pillar with different mechanics.",
+            "Arenas S2 often stays active depending on server progression.",
+            "Keep up your consumables/enchants routine: it’s assumed here.",
+            "Coordinate assignments: interrupts, dispels, and add management.",
+            "Get upgrades that prepare you for Hyjal/BT.",
+            "If your guild progresses slowly: consolidate roster and roles; don’t change every pull."
           ], also: [
-            "Si arenas están activas, revisá que vendors sean S2 (Merciless) y legacy correcto.",
-            "Dungeons habilitados: (soporte) heroics y dungeons 70 para consumibles/rep, según server.",
-            "Raids habilitadas: Tempest Keep: The Eye."
+            "If arenas are active, check that vendors are S2 (Merciless) and legacy is correct.",
+            "Enabled dungeons: (support) heroics and level 70 dungeons for consumables/rep, depending on the server.",
+            "Enabled raids: Tempest Keep: The Eye."
           ] },
           { key: "Bracket_70_4_1", level: "70", title: "Mount Hyjal", can: [
-            "Raid Mount Hyjal: peleas largas, waves y gestión de recursos.",
-            "Llevá consumibles extra: es normal gastar más en este tipo de raid.",
-            "Aprendé a jugar ‘seguro’: morir en waves atrasa mucho el progreso.",
-            "Coordiná defensivos/cooldowns (según clase) para momentos críticos.",
-            "Objetivo: gear y práctica para Black Temple.",
-            "Si tu rol es tanque/heal: revisá caps y preparación; se nota."
+            "Mount Hyjal raid: long fights, waves, and resource management.",
+            "Bring extra consumables: it’s normal to spend more in this kind of raid.",
+            "Learn to play ‘safe’: dying in waves delays progression a lot.",
+            "Coordinate defensives/cooldowns (by class) for critical moments.",
+            "Goal: gear and practice for Black Temple.",
+            "If your role is tank/heal: review caps and preparation; it shows."
           ], also: [
-            "Si tu guild se traba acá, volvés a T5 para reforzar gear y ejecución.",
-            "Dungeons habilitados: (soporte) heroics y dungeons 70 para consumibles/rep, según server.",
-            "Raids habilitadas: Hyjal Summit."
+            "If your guild gets stuck here, go back to T5 to reinforce gear and execution.",
+            "Enabled dungeons: (support) heroics and level 70 dungeons for consumables/rep, depending on the server.",
+            "Enabled raids: Hyjal Summit."
           ] },
           { key: "Bracket_70_4_2", level: "70", title: "Black Temple", can: [
-            "Raid Black Temple: contenido top de TBC (alta exigencia).",
-            "Se espera ejecución sólida: interrupciones, control, posicionamiento y disciplina.",
-            "Traé todo listo: enchants, consumibles y reparaciones.",
-            "Aprendé asignaciones y respetalas: BT castiga improvisación.",
-            "Objetivo: cerrar upgrades fuertes y preparar el contenido final.",
-            "Si te falta equipo: reforzá con Hyjal/T5 para no frenar al roster."
+            "Black Temple raid: top TBC content (high demands).",
+            "Solid execution is expected: interrupts, control, positioning, and discipline.",
+            "Bring everything ready: enchants, consumables, and repairs.",
+            "Learn assignments and stick to them: BT punishes improvisation.",
+            "Goal: finish major upgrades and prepare for the final content.",
+            "If you’re undergeared: reinforce with Hyjal/T5 so you don’t slow the roster."
           ], also: [
-            "Si el server habilita PvP por fases, revisá que el gear de arena coincida con el bracket.",
-            "Dungeons habilitados: (soporte) heroics y dungeons 70 para consumibles/rep, según server.",
-            "Raids habilitadas: Black Temple."
+            "If the server enables PvP by phases, check that arena gear matches the bracket.",
+            "Enabled dungeons: (support) heroics and level 70 dungeons for consumables/rep, depending on the server.",
+            "Enabled raids: Black Temple."
           ] },
           { key: "Bracket_70_5", level: "70", title: "Zul’Aman + Arena S3 (Vengeful)", can: [
-            "Raid Zul’Aman: útil para catch-up y para equipar rápido.",
-            "Arenas S3: Vengeful — nuevo gear + legacy anterior si corresponde.",
-            "Usá ZA para cerrar piezas faltantes sin depender solo de BT/Hyjal.",
-            "Mejorá tu rendimiento en arenas: composición, comunicación y práctica.",
-            "Organizá horarios: ZA suele ser ‘rápida’ pero requiere coordinación.",
-            "SeguÍ reputaciones/dailies para consumibles si el server las usa."
+            "Zul’Aman raid: useful for catch-up and gearing quickly.",
+            "Arenas S3: Vengeful — new gear + previous legacy if applicable.",
+            "Use ZA to finish missing pieces without relying only on BT/Hyjal.",
+            "Improve your arena performance: composition, communication, and practice.",
+            "Organize schedules: ZA is usually ‘fast’ but requires coordination.",
+            "Keep up reputations/dailies for consumables if the server uses them."
           ], also: [
-            "Si ves S4 antes de tiempo, reportá: debería entrar recién en el bracket final.",
-            "Dungeons habilitados: (soporte) heroics y dungeons 70 para consumibles/rep, según server.",
-            "Raids habilitadas: Zul'Aman."
+            "If you see S4 too early, report it: it should only enter in the final bracket.",
+            "Enabled dungeons: (support) heroics and level 70 dungeons for consumables/rep, depending on the server.",
+            "Enabled raids: Zul'Aman."
           ] },
           { key: "Bracket_70_6_1", level: "70", title: "Isle of Quel’Danas", can: [
-            "Zona final TBC (dailies/reputación) si aplica.",
-            "Farmear oro/consumibles y reputación final.",
-            "Completar upgrades accesibles para alinear roster.",
-            "Ideal para jugadores nuevos: ponerse al día sin frenar raids.",
-            "Aprovechá para professions/crafts fuertes (dependen del server).",
-            "Prepará todo para Sunwell: consumibles y ejecución."
+            "Final TBC zone (dailies/reputation) if applicable.",
+            "Farm gold/consumables and final reputation.",
+            "Complete accessible upgrades to align the roster.",
+            "Great for new players: catch up without slowing raids.",
+            "Use it for strong professions/crafts (server-dependent).",
+            "Prepare everything for Sunwell: consumables and execution."
           ], also: [
-            "No te quedes solo farmeando dailies: el progreso real sigue en raids/arenas.",
-            "Dungeons habilitados: — (contenido de mundo; los dungeons 70 siguen según server/bracket).",
-            "Raids habilitadas: —."
+            "Don’t only farm dailies: real progression continues in raids/arenas.",
+            "Enabled dungeons: — (world content; level 70 dungeons continue per server/bracket).",
+            "Enabled raids: —."
           ] },
           { key: "Bracket_70_6_2", level: "70", title: "Sunwell + Arena S4 (Brutal)", can: [
-            "Raid Sunwell Plateau: el cierre más exigente de TBC.",
-            "Arenas S4: Brutal — gear final (nuevo + legacy) según configuración.",
-            "Traé consumibles completos y vení preparado: el margen de error es bajo.",
-            "Aprendé mecánicas y roles antes de ir: mirá guía de tu guild/server.",
-            "Objetivo: cerrar progresión y equipo final de la expansión.",
-            "Si sos nuevo: usá ZA/BT/Hyjal para ponerte a nivel primero."
+            "Sunwell Plateau raid: the most demanding TBC finale.",
+            "Arenas S4: Brutal — final gear (new + legacy) depending on configuration.",
+            "Bring full consumables and come prepared: the margin for error is low.",
+            "Learn mechanics and roles before going: check your guild/server guide.",
+            "Goal: complete progression and final expansion gear.",
+            "If you’re new: use ZA/BT/Hyjal to get up to speed first."
           ], also: [
-            "Si el vendor no vende lo esperado para S4, el admin debe aplicar/corregir los SQL templates.",
-            "Dungeons habilitados: (soporte) heroics y dungeons 70 para consumibles/rep, según server.",
-            "Raids habilitadas: Sunwell Plateau."
+            "If the vendor doesn’t sell what’s expected for S4, the admin must apply/fix the SQL templates.",
+            "Enabled dungeons: (support) heroics and level 70 dungeons for consumables/rep, depending on the server.",
+            "Enabled raids: Sunwell Plateau."
           ] },
-          { key: "Bracket_70_6_3", level: "70", title: "Cierre / transición", can: [
-            "Cierre de expansión: ordenar inventario y preparar salto a WotLK.",
-            "Juntá oro para training/consumibles del inicio en Northrend.",
-            "Terminá profesiones/recetas importantes.",
-            "Ayudá a equipar roster: la transición es más fácil si la guild está pareja.",
-            "Revisá anuncios del admin sobre cambios de bracket y vendors.",
-            "Dejá tu setup listo (UI, macros, keybinds) para el contenido nuevo."
+          { key: "Bracket_70_6_3", level: "70", title: "Wrap-up / transition", can: [
+            "End of expansion: organize inventory and prepare the jump to WotLK.",
+            "Save gold for Northrend early training/consumables.",
+            "Finish important professions/recipes.",
+            "Help gear the roster: the transition is easier if the guild is even.",
+            "Check admin announcements about bracket and vendor changes.",
+            "Have your setup ready (UI, macros, keybinds) for the new content."
           ], also: [
-            "Si hay mezcla de vendors/tiers entre expansiones, reportá: suele ser configuración de bracket.",
-            "Dungeons habilitados: (según el server; normalmente dungeons/heroics 70 siguen disponibles).",
-            "Raids habilitadas: (según el server; esta fase suele ser cierre/ajustes)."
+            "If there’s a mix of vendors/tiers between expansions, report it: it’s usually bracket configuration.",
+            "Enabled dungeons: (depends on the server; usually level 70 dungeons/heroics remain available).",
+            "Enabled raids: (depends on the server; this phase is usually wrap-up/adjustments)."
           ] }
         ]
       },
@@ -737,113 +737,113 @@
         expansion: "Wrath of the Lich King",
         subtitle: "71–80 + Arenas S5–S8",
         items: [
-          { key: "Bracket_71_74", level: "71–74", title: "Northrend (inicio)", can: [
-            "Entrá a Northrend y seguí la campaña de la primera zona (según facción).",
-            "Reemplazá gear de TBC: quest rewards en WotLK mejoran rápido tu personaje.",
-            "Hacé dungeons introductorios si están habilitados: practicá pulls y recursos.",
-            "Acomodá talentos/rotación: WotLK cambia muchas prioridades de clases.",
-            "Empezá reputaciones base: suelen destrabar rewards útiles.",
-            "No te estanques: el objetivo es llegar a 80 con ritmo constante."
+          { key: "Bracket_71_74", level: "71–74", title: "Northrend (start)", can: [
+            "Enter Northrend and follow the first zone’s campaign (by faction).",
+            "Replace TBC gear: WotLK quest rewards upgrade your character quickly.",
+            "Do introductory dungeons if enabled: practice pulls and resource management.",
+            "Adjust talents/rotation: WotLK changes many class priorities.",
+            "Start base reputations: they often unlock useful rewards.",
+            "Don’t stall: the goal is to reach 80 at a steady pace."
           ], also: [
-            "Si algún contenido 80 aparece antes de tiempo, reportá al admin: debe ser bracket.",
-            "Dungeons habilitados (típicos del rango): Utgarde Keep, The Nexus, Azjol-Nerub.",
-            "Raids habilitadas: —."
+            "If any level 80 content shows up too early, report it to the admin: it should be bracketed.",
+            "Enabled dungeons (typical for this range): Utgarde Keep, The Nexus, Azjol-Nerub.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_75_79", level: "75–79", title: "Northrend (medio)", can: [
-            "Encadená zonas para no quedarte sin misiones.",
-            "Hacé dungeons de tu rango para upgrades rápidos.",
-            "Prepará tu set para 80: hit/defense/regen (según rol).",
-            "Subí profesiones: en WotLK hay crafts importantes.",
-            "Juntá oro para gastos de 80 (consumibles, enchants, reparaciones).",
-            "Practicá tu rol: en 80 la exigencia sube bastante."
+          { key: "Bracket_75_79", level: "75–79", title: "Northrend (mid)", can: [
+            "Chain zones so you don’t run out of quests.",
+            "Run dungeons in your range for quick upgrades.",
+            "Prepare your level 80 set: hit/defense/regen (by role).",
+            "Level professions: WotLK has important crafts.",
+            "Earn gold for level 80 costs (consumables, enchants, repairs).",
+            "Practice your role: at 80 the demands increase a lot."
           ], also: [
-            "No gastes oro en gear ‘caro’ de 79 si vas a reemplazarlo al llegar a 80.",
-            "Dungeons habilitados (típicos del rango): Drak'Tharon Keep, Gundrak, Ahn'kahet, The Violet Hold, Halls of Stone, Halls of Lightning.",
-            "Raids habilitadas: —."
+            "Don’t spend gold on ‘expensive’ level 79 gear if you’ll replace it when you hit 80.",
+            "Enabled dungeons (typical for this range): Drak'Tharon Keep, Gundrak, Ahn'kahet, The Violet Hold, Halls of Stone, Halls of Lightning.",
+            "Enabled raids: —."
           ] },
-          { key: "Bracket_80_1_1", level: "80", title: "80 (normales + base)", can: [
-            "Hacé dungeons normales 80 para cerrar equipo base.",
-            "Terminá questlines que den piezas fuertes (varía por clase).",
-            "Armá un set ‘mínimo’ para heroics: caps y supervivencia según rol.",
-            "Si tu rol es tanque/heal: conseguí piezas específicas (no vayas con set de dps).",
-            "Ordená enchants y consumibles básicos: ya se notan.",
-            "Sumate a una guild/grupo fijo: acelera muchísimo el progreso."
+          { key: "Bracket_80_1_1", level: "80", title: "80 (normals + base)", can: [
+            "Run level 80 normal dungeons to finish your baseline gear.",
+            "Finish questlines that reward strong pieces (varies by class).",
+            "Build a ‘minimum’ set for heroics: caps and survivability by role.",
+            "If your role is tank/heal: get role-specific pieces (don’t go in with a dps set).",
+            "Get enchants and basic consumables in order: they matter now.",
+            "Join a guild/static group: it speeds up progression a lot."
           ], also: [
-            "Si te rechazan de grupos: revisá equipo/rol o empezá por runs más fáciles.",
-            "Dungeons habilitados (normales, típicos): The Culling of Stratholme, Utgarde Pinnacle, Halls of Stone/Lightning, The Oculus.",
-            "Raids habilitadas: — (depende de la progresión; suelen abrirse en el próximo bracket)."
+            "If groups reject you: review gear/role or start with easier runs.",
+            "Enabled dungeons (normal, typical): The Culling of Stratholme, Utgarde Pinnacle, Halls of Stone/Lightning, The Oculus.",
+            "Enabled raids: — (depends on progression; they often open in the next bracket)."
           ] },
           { key: "Bracket_80_1_2", level: "80", title: "Heroics + Arena S5 (Deadly)", can: [
-            "Entrá a heroics (si están habilitados): mejor loot y aprendizaje de mecánicas.",
-            "Farmear emblemas/monedas si el server las usa (depende del setup).",
-            "Arenas S5: Deadly — gear de season activo (ExtendedCost blizzlike).",
-            "Hacé arenas semanalmente si buscás gear PvP: constancia > ‘tryhard’ 1 día.",
-            "Revisá requisitos: algunos ítems pueden exigir rating + puntos/honor.",
-            "Dejá tu personaje listo para el primer raid grande del server (según progresión)."
+            "Go into heroics (if enabled): better loot and learning mechanics.",
+            "Farm emblems/currency if the server uses them (depends on the setup).",
+            "Arenas S5: Deadly — active season gear (blizzlike ExtendedCost).",
+            "Do arenas weekly if you want PvP gear: consistency > ‘tryhard’ one day.",
+            "Check requirements: some items may require rating + points/honor.",
+            "Have your character ready for the server’s first big raid tier (by progression)."
           ], also: [
-            "Si el vendor no vende S5 cuando corresponde, avisá: es configuración/SQL templates.",
-            "Dungeons habilitados: Heroic (todas las versiones heroicas de Northrend, si el server las habilita).",
-            "Raids habilitadas: — (el primer paquete de raids WotLK se habilita en Bracket_80_2, según configuración del server)."
+            "If the vendor doesn’t sell S5 when it should, report it: configuration/SQL templates.",
+            "Enabled dungeons: Heroic (all heroic versions of Northrend, if the server enables them).",
+            "Enabled raids: — (the first WotLK raid package unlocks in Bracket_80_2, depending on server configuration)."
           ] },
           { key: "Bracket_80_2", level: "80", title: "Ulduar + Arena S6 (Furious)", can: [
-            "Raid Ulduar (si está habilitado en tu progresión): más mecánicas y coordinación.",
-            "Arenas S6: Furious — nuevo gear + legacy anterior si corresponde.",
-            "Mejorá tu preparación: enchants completos y consumibles consistentes.",
-            "Aprendé peleas antes de entrar: menos wipes = más progreso.",
-            "Si sos PvP: armá composición y comunicación; no es solo gear.",
-            "Si sos PvE: cerrá upgrades con heroics/raids previas si el salto te cuesta."
+            "Ulduar raid (if enabled in your progression): more mechanics and coordination.",
+            "Arenas S6: Furious — new gear + previous legacy if applicable.",
+            "Improve your preparation: full enchants and consistent consumables.",
+            "Learn fights before you go in: fewer wipes = more progress.",
+            "If you do PvP: build composition and communication; it’s not just gear.",
+            "If you do PvE: finish upgrades with heroics/previous raids if the jump feels hard."
           ], also: [
-            "Si aparecen vendors de S7/S8 acá, reportá: bracket/vendoring desfasado.",
-            "Dungeons habilitados: (soporte) heroics para emblemas/gear, según server.",
-            "Raids habilitadas: Naxxramas (lvl 80), The Obsidian Sanctum, The Eye of Eternity, Ulduar."
+            "If S7/S8 vendors appear here, report it: bracket/vendor timeline is off.",
+            "Enabled dungeons: (support) heroics for emblems/gear, depending on the server.",
+            "Enabled raids: Naxxramas (lvl 80), The Obsidian Sanctum, The Eye of Eternity, Ulduar."
           ] },
           { key: "Bracket_80_3", level: "80", title: "Trial/Onyxia + Arena S7 (Relentless)", can: [
-            "Trial/Coliseum y Onyxia 80 (si aplica en tu server).",
-            "Arenas S7: Relentless — nuevo gear + legacy anterior si corresponde.",
-            "Rutina semanal: raid del bracket + arenas + contenido de soporte (heroics/emblemas).",
-            "Refiná tu performance: macros, keybinds, consumibles y cooldown usage.",
-            "Si tu gear está bajo: combiná contenido de catch-up permitido por el bracket.",
-            "Preparación para ICC: organización y disciplina."
+            "Trial/Coliseum and level 80 Onyxia (if applicable on your server).",
+            "Arenas S7: Relentless — new gear + previous legacy if applicable.",
+            "Weekly routine: bracket raid + arenas + support content (heroics/emblems).",
+            "Refine performance: macros, keybinds, consumables, and cooldown usage.",
+            "If your gear is low: combine catch-up content allowed by the bracket.",
+            "Preparation for ICC: organization and discipline."
           ], also: [
-            "Si el contenido se siente ‘demasiado fácil o difícil’, puede ser tuning del server, no tu culpa.",
-            "Dungeons habilitados: (soporte) heroics para emblemas/gear, según server.",
-            "Raids habilitadas: Trial of the Crusader, Onyxia's Lair (lvl 80)."
+            "If content feels ‘too easy or too hard’, it may be server tuning, not your fault.",
+            "Enabled dungeons: (support) heroics for emblems/gear, depending on the server.",
+            "Enabled raids: Trial of the Crusader, Onyxia's Lair (lvl 80)."
           ] },
           { key: "Bracket_80_4_1", level: "80", title: "ICC + Arena S8 (Wrathful)", can: [
-            "Raid Icecrown Citadel: endgame WotLK (alta coordinación).",
-            "Arenas S8: Wrathful — gear final (nuevo + legacy) según configuración.",
-            "Traé consumibles completos y vení preparado: ICC castiga errores.",
-            "Aprendé asignaciones: interrupciones, dispels, defensivos y movimiento.",
-            "Si sos PvP: esperá requisitos fuertes en algunos ítems (rating/puntos).",
-            "Objetivo: cierre de progresión del server en WotLK."
+            "Icecrown Citadel raid: WotLK endgame (high coordination).",
+            "Arenas S8: Wrathful — final gear (new + legacy) depending on configuration.",
+            "Bring full consumables and come prepared: ICC punishes mistakes.",
+            "Learn assignments: interrupts, dispels, defensives, and movement.",
+            "If you do PvP: expect strong requirements on some items (rating/points).",
+            "Goal: server progression wrap-up in WotLK."
           ], also: [
-            "Si ves gear de otras seasons mezclado, es casi seguro un problema de vendors/SQL.",
-            "Dungeons habilitados: (soporte) heroics para emblemas/gear, según server.",
-            "Raids habilitadas: Icecrown Citadel."
+            "If you see mixed gear from other seasons, it’s almost certainly a vendor/SQL issue.",
+            "Enabled dungeons: (support) heroics for emblems/gear, depending on the server.",
+            "Enabled raids: Icecrown Citadel."
           ] },
           { key: "Bracket_80_4_2", level: "80", title: "Ruby Sanctum", can: [
-            "Raid Ruby Sanctum (si aplica): contenido final complementario.",
-            "Ideal para cerrar upgrades específicos y mantener rutina semanal.",
-            "Si estás ‘atrás’, usalo como catch-up dependiendo del loot.",
-            "Traé consumibles: sigue siendo raid.",
-            "Coordiná con tu guild: no suele ser largo, pero requiere ejecución.",
-            "Sumalo a ICC según calendario del server."
+            "Ruby Sanctum raid (if applicable): complementary final content.",
+            "Ideal to finish specific upgrades and maintain a weekly routine.",
+            "If you’re ‘behind’, use it as catch-up depending on loot.",
+            "Bring consumables: it’s still a raid.",
+            "Coordinate with your guild: it’s usually not long, but it requires execution.",
+            "Add it alongside ICC per the server calendar."
           ], also: [
-            "Si RS está habilitado antes que ICC, consultá al admin: depende de la progresión del server.",
-            "Dungeons habilitados: (soporte) heroics para emblemas/gear, según server.",
-            "Raids habilitadas: The Ruby Sanctum."
+            "If RS is enabled before ICC, ask the admin: it depends on server progression.",
+            "Enabled dungeons: (support) heroics for emblems/gear, depending on the server.",
+            "Enabled raids: The Ruby Sanctum."
           ] },
           { key: "Bracket_Custom", level: "*", title: "Custom", can: [
-            "Contenido definido por el admin del servidor (puede variar muchísimo).",
-            "Preguntá qué está habilitado: raids, dungeons, vendors, eventos y recompensas.",
-            "No asumas que sigue el orden Blizzard: ‘Custom’ es por definición distinto.",
-            "Si hay vendors especiales: consultá qué moneda/costo usan y si hay requisitos.",
-            "Reportá inconsistencias (items fuera de etapa, vendors rotos) para que lo arreglen.",
-            "Si sos nuevo: pedí una ‘ruta recomendada’ al admin o a tu guild."
+            "Content defined by the server admin (it can vary a lot).",
+            "Ask what’s enabled: raids, dungeons, vendors, events, and rewards.",
+            "Don’t assume it follows Blizzard order: ‘Custom’ is different by definition.",
+            "If there are special vendors: ask what currency/cost they use and whether there are requirements.",
+            "Report inconsistencies (out-of-stage items, broken vendors) so they can fix them.",
+            "If you’re new: ask the admin or your guild for a ‘recommended route’."
           ], also: [
-            "Siempre revisá qué `ProgressionSystem.Bracket_*` está activo en el server.",
-            "Dungeons habilitados: (depende del admin).",
-            "Raids habilitadas: (depende del admin)."
+            "Always check which `ProgressionSystem.Bracket_*` is active on the server.",
+            "Enabled dungeons: (admin-defined).",
+            "Enabled raids: (admin-defined)."
           ] }
         ]
       }
@@ -873,7 +873,7 @@
             el("h2", { text: section.expansion }),
             el("span", { class: "desc", text: section.subtitle })
           ]),
-          el("span", { class: "pill", text: "Guía extendida" })
+          el("span", { class: "pill", text: "Extended guide" })
         ]);
 
         const cards = el("div", { class: "cards" });
@@ -903,9 +903,9 @@
               el("div", {}, [
                 el("h3", { text: `${b.key} — ${b.title}` }),
                 el("div", { class: "kv" }, [
-                  el("span", { class: "tag", text: `Nivel: ${b.level}` }),
-                  el("span", { class: "tag", text: "Guía para usuarios" }),
-                  ...(b.key === WOWESPY_CURRENT_BRACKET_KEY ? [el("span", { class: "tag", text: "BRACKET ACTUAL" })] : [])
+                  el("span", { class: "tag", text: `Level: ${b.level}` }),
+                  el("span", { class: "tag", text: "User guide" }),
+                  ...(b.key === WOWESPY_CURRENT_BRACKET_KEY ? [el("span", { class: "tag", text: "CURRENT BRACKET" })] : [])
                 ])
               ])
             ]),
@@ -924,8 +924,8 @@
       setSignature();
 
       const now = document.getElementById("nowBracket");
-      // Texto pedido por el usuario (mantenerlo simple y visible arriba)
-      now.innerHTML = `Ahora nos encontramos en esta Bracket 80.1.2. <span class="mono">(${WOWESPY_CURRENT_BRACKET_KEY})</span>`;
+      // User-requested text (keep it simple and visible at the top)
+      now.innerHTML = `We are currently in Bracket 80.1.2. <span class="mono">(${WOWESPY_CURRENT_BRACKET_KEY})</span>`;
 
       render();
     }

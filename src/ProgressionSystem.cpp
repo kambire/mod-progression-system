@@ -11,7 +11,9 @@ inline std::vector<std::string> GetDatabaseDirectories(std::string const& folder
 {
     std::vector<std::string> directories;
 
-    std::string const path = "/modules/mod-progression-blizzlike/src/Bracket_";
+    // DBUpdater expects paths relative to the worldserver working directory.
+    // Using a relative path here avoids platform-specific absolute paths.
+    std::string const path = "modules/mod-progression-blizzlike/src/Bracket_";
     for (std::string const& bracketName : ProgressionBracketsNames)
     {
         if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false)))

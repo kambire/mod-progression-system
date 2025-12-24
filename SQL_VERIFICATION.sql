@@ -1,4 +1,4 @@
--- VERIFICATION SCRIPT - Sistema de Progresión Blizzlike
+-- VERIFICATION SCRIPT - Blizzlike Progression System
 -- Use this to verify that all changes are correctly applied
 
 -- ========================================

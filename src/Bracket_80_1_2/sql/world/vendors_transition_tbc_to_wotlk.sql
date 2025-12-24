@@ -1,4 +1,4 @@
--- STUB / PRODUCCIÓN:
--- Este archivo se deja intencionalmente sin SQL ejecutable.
--- Motivo: era un TEMPLATE con placeholders ([...]) y rompía el autoload.
--- Template real: ../templates/transition_tbc_to_wotlk_vendors.sql.template
+-- STUB / PRODUCTION:
+-- This file is intentionally left without executable SQL.
+-- Reason: it was a TEMPLATE with placeholders ([...]) and it broke autoloading.
+-- Real template: ../templates/transition_tbc_to_wotlk_vendors.sql.template
