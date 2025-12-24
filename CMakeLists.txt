@@ -12,8 +12,14 @@ source_group(TREE "${CMAKE_CURRENT_LIST_DIR}/src" FILES ${sources_ProgressionSys
 # Add all sources to the worldserver
 CU_ADD_HOOK(AFTER_WORLDSERVER_CMAKE
     "
+    # Collect all source files from this module
     set(sources_ProgressionSystem
         ${sources_ProgressionSystem}
+    )
+    
+    # Add sources to worldserver target
+    target_sources(worldserver PRIVATE
+        \${sources_ProgressionSystem}
     )
     
     CU_RUN_HOOK(ON_AFTER_LOAD_CONF)

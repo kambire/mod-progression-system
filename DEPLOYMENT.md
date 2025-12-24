@@ -216,7 +216,7 @@ See main README.md for contribution guidelines.
 
 ## 📝 License
 
-GPL 3.0 - See LICENSE file
+GNU AGPL v3 - See LICENSE file
 
 ## 💬 Support
 

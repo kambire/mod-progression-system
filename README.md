@@ -2,7 +2,7 @@
 
 **Control total de progresión del servidor WoW - 38 brackets, 3 expansiones, 8 arena seasons**
 
-[![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-AGPL%203.0-blue.svg)](LICENSE)
 [![AzerothCore](https://img.shields.io/badge/AzerothCore-3.3.5a-brightgreen.svg)](https://www.azerothcore.org/)
 [![C++](https://img.shields.io/badge/C%2B%2B-17-green.svg)]()
 [![SQL](https://img.shields.io/badge/Database-MySQL-orange.svg)]()
@@ -487,7 +487,7 @@ WHERE entry = [VENDOR_ID] AND item = [ITEM_ID];
 
 ## 📝 Licencia
 
-Este proyecto está bajo licencia GPL 3.0. Ver archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo licencia GNU AGPL v3. Ver archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
