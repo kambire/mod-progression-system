@@ -166,21 +166,21 @@ cd ~/azerothcore-wotlk
 
 ## 🎮 Arena Seasons - Detalles Completos
 
-### Season 1-4 (TBC) - Vendor: Gadgetzan
+### Season 1-4 (TBC)
 | Season | Bracket | Período | Calificación | Gear | Coste (blizzlike) |
 |--------|---------|---------|--------------|------|------------------|
-| **S1** | 70_2_1 | Abr 2007-May 2007 | 1500+ | Gladiator | `ExtendedCost` (Arena Points/Honor/Rating) |
-| **S2** | 70_2_2 | May 2007-Ago 2007 | 1500+ | Gladiator S2 | `ExtendedCost` (nuevo + legacy) |
-| **S3** | 70_5_1 | Ago 2007-Nov 2007 | 1500+ | Hateful | `ExtendedCost` (nuevo + legacy) |
-| **S4** | 70_6_2 | Nov 2007-Feb 2008 | 1500+ | Brutal | `ExtendedCost` (nuevo + legacy) |
+| **S1** | 70_2_1 | (aprox) 2007 | (según `ExtendedCost`) | Gladiator | `ExtendedCost` (Arena Points/Honor/Rating) |
+| **S2** | 70_2_2 | (aprox) 2007 | (según `ExtendedCost`) | Merciless | `ExtendedCost` (nuevo + legacy) |
+| **S3** | 70_5 | (aprox) 2007-2008 | (según `ExtendedCost`) | Vengeful | `ExtendedCost` (nuevo + legacy) |
+| **S4** | 70_6_2 | (aprox) 2008 | (según `ExtendedCost`) | Brutal | `ExtendedCost` (nuevo + legacy) |
 
 ### Season 5-8 (WotLK)
 | Season | Bracket | Período | Calificación | Gear | Coste (blizzlike) |
 |--------|---------|---------|--------------|------|------------------|
-| **S5** | 80_1_2 | Nov 2008-Mar 2009 | 2000+ | Deadly | `ExtendedCost` (nuevo) |
-| **S6** | 80_2 | Mar 2009-Jun 2009 | 2000+ | Furious | `ExtendedCost` (nuevo + legacy) |
-| **S7** | 80_3 | Jun 2009-Ago 2009 | 2000+ | Relentless | `ExtendedCost` (nuevo + legacy) |
-| **S8** | 80_4_1 | Sep 2009-Jun 2010 | 2000+ | Wrathful | `ExtendedCost` (nuevo + legacy) |
+| **S5** | 80_1_2 | (aprox) 2008-2009 | (según `ExtendedCost`) | Deadly | `ExtendedCost` (nuevo) |
+| **S6** | 80_2 | (aprox) 2009 | (según `ExtendedCost`) | Furious | `ExtendedCost` (nuevo + legacy) |
+| **S7** | 80_3 | (aprox) 2009-2010 | (según `ExtendedCost`) | Relentless | `ExtendedCost` (nuevo + legacy) |
+| **S8** | 80_4_1 | (aprox) 2010 | (según `ExtendedCost`) | Wrathful | `ExtendedCost` (nuevo + legacy) |
 
 ---
 

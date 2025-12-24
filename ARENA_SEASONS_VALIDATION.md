@@ -1,70 +1,60 @@
 -- Arena Season Progression Validation
 -- Verification script for proper Arena Season 1-8 implementation
--- Blizzard Timeline: Jan 2007 - Dec 2009
+-- Timeline note: Las fechas exactas varían por región/servidor. Aquí validamos coherencia S1-S8 y estructura de DB.
 
 -- ==========================================
 -- ARENA SEASON PROGRESSION GUIDE
 -- ==========================================
 
--- SEASON 1 (Gladiator) - TBC Phase 1
+-- SEASON 1 (Gladiator) - TBC
 -- Bracket: Bracket_70_2_1
--- Dates: Jan 2007 - May 2007
--- Rating threshold: 1500 for Gladiator title
--- Rewards: Gladiator gear (arena_season_1)
--- Vendors: Orgrimmar & Stormwind (Season 1)
+-- Dates: (aprox) 2007
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Gladiator
+-- Vendors: depende de tu core/DB (entries pueden variar)
 
--- SEASON 2 (Merciless Gladiator) - TBC Phase 3
+-- SEASON 2 (Merciless) - TBC
 -- Bracket: Bracket_70_4_1
--- Dates: Aug 2007 - Dec 2007
--- Rating threshold: 2000 for Merciless Gladiator title
--- Rewards: Merciless Gladiator gear (arena_season_2)
--- Vendors: Orgrimmar & Stormwind (Season 2)
--- NOTE: Season 1 vendors still available for lower-tier items
+-- Dates: (aprox) 2007
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Merciless
+-- NOTE: normalmente se mantiene gear anterior como legacy (más barato)
 
--- SEASON 3 (Vengeful Gladiator) - TBC Phase 4
+-- SEASON 3 (Vengeful) - TBC
 -- Bracket: Bracket_70_5
--- Dates: Dec 2007 - Mar 2008
--- Rating threshold: 2000 for Vengeful Gladiator title
--- Rewards: Vengeful Gladiator gear (arena_season_3)
--- Vendors: Orgrimmar & Stormwind (Season 3)
+-- Dates: (aprox) 2007-2008
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Vengeful
 
--- SEASON 4 (Brutal Gladiator) - TBC Phase 5 / WotLK
+-- SEASON 4 (Brutal) - TBC
 -- Bracket: Bracket_70_6_2 / Bracket_80_1_1
--- Dates: Mar 2008 - Nov 2008
--- Rating threshold: 2000 for Brutal Gladiator title
--- Rewards: Brutal Gladiator gear (arena_season_4)
--- Vendors: Orgrimmar & Stormwind (Season 4)
+-- Dates: (aprox) 2008
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Brutal
 
--- SEASON 5 (Hateful Gladiator) - WotLK Phase 1
+-- SEASON 5 (Deadly) - WotLK
 -- Bracket: Bracket_80_1_2
--- Dates: Nov 2008 - Apr 2009
--- Rating threshold: 2000 for Hateful Gladiator title
--- Rewards: Hateful Gladiator gear (arena_season_5)
--- Vendors: Orgrimmar & Stormwind (Season 5)
+-- Dates: (aprox) 2008-2009
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Deadly
 
--- SEASON 6 (Deadly Gladiator / Glorious Gladiator) - WotLK Phase 2
+-- SEASON 6 (Furious) - WotLK
 -- Bracket: Bracket_80_2
--- Dates: Apr 2009 - Aug 2009
--- Rating threshold: 2000 for Deadly Gladiator, 2200 for Glorious Gladiator
--- Rewards: Glorious Gladiator gear (arena_season_6)
--- Vendors: Orgrimmar & Stormwind (Season 6)
--- T8 gear from Ulduar becomes PvP farmable
+-- Dates: (aprox) 2009
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Furious
 
--- SEASON 7 (Furious Gladiator) - WotLK Phase 3
+-- SEASON 7 (Relentless) - WotLK
 -- Bracket: Bracket_80_3
--- Dates: Aug 2009 - Dec 2009
--- Rating threshold: 2000 for Furious Gladiator title
--- Rewards: Furious Gladiator gear (arena_season_7)
--- Vendors: Orgrimmar & Stormwind (Season 7)
--- T9 gear from Trial of the Crusader becomes PvP farmable
+-- Dates: (aprox) 2009-2010
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Relentless
 
--- SEASON 8 (Wrathful Gladiator) - WotLK Phase 4
+-- SEASON 8 (Wrathful) - WotLK
 -- Bracket: Bracket_80_4_1
--- Dates: Dec 2009 - Nov 2010 (overlaps with Cataclysm)
--- Rating threshold: 2000 for Wrathful Gladiator title
--- Rewards: Wrathful Gladiator gear (arena_season_8)
--- Vendors: Orgrimmar & Stormwind (Season 8)
--- T10 gear from Icecrown Citadel becomes PvP farmable
+-- Dates: (aprox) 2010
+-- Rating: depende del item (se expresa en item_extended_cost)
+-- Rewards: Wrathful
 
 -- ==========================================
 -- VALIDATION QUERIES
@@ -74,44 +64,52 @@
 SELECT 
     'Bracket_70_2_1 (Season 1)' as Season,
     COUNT(*) as VendorCount
-FROM npc_vendor 
-WHERE entry IN (33609, 33610, 33611, 33612)
-    AND item_template LIKE 'season_1'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610, 33611, 33612)
+    AND it.name LIKE '%Gladiator%'
 UNION ALL
 SELECT 'Bracket_70_4_1 (Season 2)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_2'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Merciless%'
 UNION ALL
 SELECT 'Bracket_70_5 (Season 3)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_3'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Vengeful%'
 UNION ALL
 SELECT 'Bracket_70_6_2 (Season 4)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_4'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Brutal%'
 UNION ALL
 SELECT 'Bracket_80_1_2 (Season 5)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_5'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Deadly%'
 UNION ALL
 SELECT 'Bracket_80_2 (Season 6)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_6'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Furious%'
 UNION ALL
 SELECT 'Bracket_80_3 (Season 7)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_7'
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Relentless%'
 UNION ALL
 SELECT 'Bracket_80_4_1 (Season 8)', COUNT(*)
-FROM npc_vendor 
-WHERE entry IN (33609, 33610)
-    AND item_template LIKE 'season_8';
+FROM npc_vendor v
+JOIN item_template it ON it.entry = v.item
+WHERE v.entry IN (33609, 33610)
+    AND it.name LIKE '%Wrathful%';
 
 -- ==========================================
 -- IMPORTANT NOTES FOR ARENA SEASONS
@@ -122,9 +120,8 @@ WHERE entry IN (33609, 33610)
 --    Alliance: Stormwind (exact coordinates per expansion)
 
 -- 2. SEASON RESET MECHANICS:
---    - Old season gear becomes cheaper when new season starts
---    - New season gear is more expensive initially
---    - Conquest points reset each season
+--    - Gear anterior suele pasar a "legacy" (más barato)
+--    - Los costes (honor/arena points/rating) se reflejan en item_extended_cost
 
 -- 3. ITEM PROGRESSION:
 --    - Season 1: 1500+ rating recommended
@@ -132,14 +129,14 @@ WHERE entry IN (33609, 33610)
 --    - Seasonal weapons > seasonal armor > seasonal off-pieces
 
 -- 4. PvP TIER NAMING:
---    - Arena Season 1 = Gladiator
---    - Arena Season 2 = Merciless Gladiator
---    - Arena Season 3 = Vengeful Gladiator
---    - Arena Season 4 = Brutal Gladiator
---    - Arena Season 5 = Hateful Gladiator / Deadly Gladiator
---    - Arena Season 6 = Glorious Gladiator / Deadly Gladiator (S5 legacy)
---    - Arena Season 7 = Furious Gladiator
---    - Arena Season 8 = Wrathful Gladiator
+--    - TBC S1 = Gladiator
+--    - TBC S2 = Merciless
+--    - TBC S3 = Vengeful
+--    - TBC S4 = Brutal
+--    - WotLK S5 = Deadly
+--    - WotLK S6 = Furious
+--    - WotLK S7 = Relentless
+--    - WotLK S8 = Wrathful
 
 -- 5. RATINGS AND TITLES:
 --    Most seasons require 2000+ arena rating for top-tier items
@@ -154,11 +151,8 @@ WHERE entry IN (33609, 33610)
 --    Each season typically has an exclusive mount for top-rated players
 --    Season 5+: Drakes and Hippogryphs based on season
 
--- 8. CONQUEST POINT AWARDS:
---    Varies per season but generally:
---    - 3v3 Arenas: 10 points/win
---    - 5v5 Arenas: 15-20 points/win
---    - RBGs (not in classic WotLK): 20-30 points/win
+-- 8. CURRENCY NOTE:
+--    En TBC/WotLK se usa principalmente Arena Points + Honor (no Conquest).
 
 -- NOTE: Make sure all seasonal vendors are properly enabled/disabled
 -- based on which bracket is active in your progression system

@@ -60,25 +60,31 @@ LIMIT 200;
 ### Query 4: Items por Season (ejemplos, ajusta nombres según tu DB)
 
 ```sql
--- Season 1-2 (Gladiator)
-SELECT entry, name FROM item_template WHERE name LIKE '%Gladiator%' AND name NOT LIKE '%Hateful%' AND name NOT LIKE '%Brutal%' ORDER BY entry;
+-- TBC Season 1 (Gladiator)
+SELECT entry, name FROM item_template WHERE name LIKE '%Gladiator%' ORDER BY entry;
 
--- Season 3 (Hateful)
-SELECT entry, name FROM item_template WHERE name LIKE '%Hateful%' ORDER BY entry;
+-- TBC Season 2 (Merciless)
+SELECT entry, name FROM item_template WHERE name LIKE '%Merciless%' ORDER BY entry;
 
--- Season 4 (Brutal)
+-- TBC Season 3 (Vengeful)
+SELECT entry, name FROM item_template WHERE name LIKE '%Vengeful%' ORDER BY entry;
+
+-- TBC Season 4 (Brutal)
 SELECT entry, name FROM item_template WHERE name LIKE '%Brutal%' ORDER BY entry;
 
--- Season 5-6 (Wrathful)
+-- WotLK Season 5 (Deadly)
 SELECT entry, name FROM item_template WHERE name LIKE '%Deadly%' ORDER BY entry;
 
--- Season 7 (Vindictive)
+-- WotLK Season 6 (Furious)
 SELECT entry, name FROM item_template WHERE name LIKE '%Furious%' ORDER BY entry;
 
--- Season 8 (Relentless)
+-- WotLK Season 7 (Relentless)
+SELECT entry, name FROM item_template WHERE name LIKE '%Relentless%' ORDER BY entry;
+
+-- WotLK Season 8 (Wrathful)
 SELECT entry, name FROM item_template WHERE name LIKE '%Wrathful%' ORDER BY entry;
 
--- Si tu DB usa otros nombres (Relentless/Furious/Deadly/Wrathful), ajusta los LIKE.
+-- Si tu DB usa otros nombres o idioma distinto, ajusta los LIKE.
 -- Lo importante es construir listas S1_ITEM_IDS ... S8_ITEM_IDS con los IDs correctos.
 
 ### Query 5: Encontrar ExtendedCost IDs (costes) para PvP/Arena
