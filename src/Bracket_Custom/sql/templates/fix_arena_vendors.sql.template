@@ -1,0 +1,62 @@
+-- fix_arena_vendors.sql.template
+-- Purpose: Manual template to (re)populate Arena PvP vendors with BLIZZLIKE costs.
+--
+-- IMPORTANT (blizzlike / AzerothCore):
+-- - npc_vendor DOES NOT store a gold price.
+-- - Gold prices come from item_template.BuyPrice.
+-- - Currency + requirements are controlled via npc_vendor.ExtendedCost, which must reference item_extended_cost.ID.
+-- - If ExtendedCost = 0, the item will be bought for gold (BuyPrice) if BuyPrice > 0.
+--
+-- How to find the correct ExtendedCost IDs:
+-- 1) From your DB's existing PvP vendors (recommended):
+--    SELECT item, ExtendedCost FROM npc_vendor WHERE item IN ([ITEM_IDS]);
+-- 2) Or from item_extended_cost (schema varies by core/DB; search by arena/honor requirements).
+--
+-- =====================
+-- CONFIG (FILL THESE)
+-- =====================
+-- Replace placeholders with real vendor creature_template.entry values.
+-- Example: (34093, 34094)
+--
+-- [VENDOR_ENTRIES]
+-- [ITEM_IDS] (optional, for partial cleanup)
+--
+
+-- =====================
+-- STEP 1) CLEANUP
+-- =====================
+-- Option A (recommended when rebuilding): wipe the vendor inventory completely
+-- DELETE FROM `npc_vendor` WHERE `entry` IN ([VENDOR_ENTRIES]);
+
+-- Option B (safer): delete only the items you are about to reinsert
+-- DELETE FROM `npc_vendor`
+-- WHERE `entry` IN ([VENDOR_ENTRIES])
+--   AND `item` IN ([ITEM_IDS]);
+
+
+-- =====================
+-- STEP 2) INSERT (BLIZZLIKE)
+-- =====================
+-- Use slot=0 (or increment if you prefer); maxcount/incrtime usually 0.
+-- ExtendedCost must be a valid item_extended_cost.ID.
+INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `ExtendedCost`, `VerifiedBuild`) VALUES
+  ([VENDOR_ENTRY], 0, [ITEM_ID], 0, 0, [EXTENDED_COST_ID], 0)
+  -- ,([VENDOR_ENTRY], 0, [ITEM_ID_2], 0, 0, [EXTENDED_COST_ID_2], 0)
+;
+
+
+-- =====================
+-- STEP 3) VERIFY
+-- =====================
+-- Check what you just inserted
+SELECT `entry`, `item`, `ExtendedCost`
+FROM `npc_vendor`
+WHERE `entry` IN ([VENDOR_ENTRIES])
+ORDER BY `entry`, `item`;
+
+-- Find accidental gold-priced entries (ExtendedCost=0)
+SELECT `entry`, `item`, `ExtendedCost`
+FROM `npc_vendor`
+WHERE `entry` IN ([VENDOR_ENTRIES])
+  AND `ExtendedCost` = 0
+ORDER BY `entry`, `item`;
