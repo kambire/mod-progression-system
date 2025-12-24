@@ -29,7 +29,9 @@ public:
     {
         static ChatCommandTable progressionTable =
         {
-            { "info", HandleProgModuleInfoCommand, SEC_MODERATOR, Console::Yes }
+            { "info",    HandleProgModuleInfoCommand,    SEC_MODERATOR, Console::Yes },
+            { "status",  HandleProgModuleStatusCommand,  SEC_MODERATOR, Console::Yes },
+            { "list",    HandleProgModuleListCommand,    SEC_MODERATOR, Console::Yes }
         };
 
         static ChatCommandTable commandTable =
@@ -42,12 +44,56 @@ public:
 
     static bool HandleProgModuleInfoCommand(ChatHandler* handler)
     {
-        handler->SendSysMessage("Progression Module Settings");
+        handler->SendSysMessage("=== Progression System Module ===");
+        handler->PSendSysMessage("Version: 1.0");
+        handler->PSendSysMessage("Total Brackets: {}", PROGRESSION_BRACKET_MAX);
+        handler->PSendSysMessage("Load Scripts: {}", sConfigMgr->GetOption<bool>("ProgressionSystem.LoadScripts", true) ? "Enabled" : "Disabled");
+        handler->PSendSysMessage("Load Database: {}", sConfigMgr->GetOption<bool>("ProgressionSystem.LoadDatabase", true) ? "Enabled" : "Disabled");
+        handler->PSendSysMessage("Reapply Updates: {}", sConfigMgr->GetOption<bool>("ProgressionSystem.ReapplyUpdates", false) ? "Enabled" : "Disabled");
+        handler->SendSysMessage("================================");
+        handler->SendSysMessage("Use '.progression list' to see all brackets");
+        handler->SendSysMessage("Use '.progression status' to see active brackets");
+
+        return true;
+    }
+
+    static bool HandleProgModuleStatusCommand(ChatHandler* handler)
+    {
+        handler->SendSysMessage("=== Active Progression Brackets ===");
+        
+        uint32 activeCount = 0;
+        for (std::string const& bracketName : ProgressionBracketsNames)
+        {
+            if (sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false))
+            {
+                handler->PSendSysMessage("  [ACTIVE] Bracket_{}", bracketName);
+                activeCount++;
+            }
+        }
+        
+        if (activeCount == 0)
+        {
+            handler->SendSysMessage("  No brackets are currently active");
+        }
+        
+        handler->PSendSysMessage("================================");
+        handler->PSendSysMessage("Total Active: {} / {}", activeCount, PROGRESSION_BRACKET_MAX);
+
+        return true;
+    }
+
+    static bool HandleProgModuleListCommand(ChatHandler* handler)
+    {
+        handler->SendSysMessage("=== All Progression Brackets ===");
 
         for (std::string const& bracketName : ProgressionBracketsNames)
-            handler->PSendSysMessage("Bracket: {} (Enabled: {})", bracketName, (sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false)));
+        {
+            bool enabled = sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false);
+            handler->PSendSysMessage("  Bracket_{}: {}", bracketName, enabled ? "[ENABLED]" : "[DISABLED]");
+        }
 
-        handler->PSendSysMessage("ReapplyUpdates: {}", sConfigMgr->GetOption<bool>("ProgressionSystem.ReapplyUpdates", false));
+        handler->SendSysMessage("================================");
+        handler->SendSysMessage("Use '.progression status' to see only active brackets");
 
         return true;
     }

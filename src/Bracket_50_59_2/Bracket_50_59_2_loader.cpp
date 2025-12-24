@@ -9,8 +9,7 @@ void AddSC_boss_drakkisath_50_59_B();
 
 void AddBracket_50_59_B_Scripts()
 {
-    if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_50_59_2", false)))
-        return;
+    CHECK_BRACKET_ENABLED("50_59_2");
 
     // Patch 3.0.8 (2009-01-20): No longer requires the Seal of Ascension to enter.
     if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_80_1_1", false)))

@@ -11,8 +11,7 @@ void AddSC_event_hallows_end_1_19();
 
 void AddBracket_1_19_Scripts()
 {
-    if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_1_19", false)))
-        return;
+    CHECK_BRACKET_ENABLED("1_19");
 
     AddSC_event_love_in_the_air_1_19();
     AddSC_event_brewfest_1_19();

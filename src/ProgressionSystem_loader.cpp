@@ -3,6 +3,7 @@
  */
 
 #include "Config.h"
+#include "Log.h"
 
 void AddProgressionSystemScripts();
 void AddBracket_0_Scripts();
@@ -47,12 +48,19 @@ void AddSC_progression_module_commandscript();
 
 void Addmod_progression_systemScripts()
 {
+    LOG_INFO("server.loading", ">> Loading Progression System Module...");
+    
     AddProgressionSystemScripts();
     AddSC_progression_module_commandscript();
 
     if (!sConfigMgr->GetOption<bool>("ProgressionSystem.LoadScripts", true))
+    {
+        LOG_INFO("server.loading", ">> Progression System: Script loading disabled by configuration");
         return;
+    }
 
+    LOG_INFO("server.loading", ">> Loading bracket-specific scripts based on configuration...");
+    
     AddBracket_0_Scripts();
     AddBracket_1_19_Scripts();
     AddBracket_20_29_Scripts();
@@ -91,4 +99,6 @@ void Addmod_progression_systemScripts()
     AddBracket_80_4_A_Scripts();
     AddBracket_80_4_B_Scripts();
     AddBracket_Custom_Scripts();
+    
+    LOG_INFO("server.loading", ">> Progression System: Bracket scripts loaded successfully");
 }

@@ -8,8 +8,7 @@ void AddSC_the_eye_70();
 
 void AddBracket_70_3_B_Scripts()
 {
-    if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_70_3_2", false)))
-        return;
+    CHECK_BRACKET_ENABLED("70_3_2");
 
     AddSC_the_eye_70();
 }

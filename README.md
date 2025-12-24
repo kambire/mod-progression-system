@@ -14,12 +14,46 @@
 Sistema modular de progresión para AzerothCore que permite liberar contenido de forma gradual, replicando exactamente el timeline de expansiones de World of Warcraft de **Noviembre 2004 a Junio 2010**.
 
 **Características**:
+- ✅ **Carga dinámica sin recompilación** - Cambia timeline solo con configuración
 - ✅ 38 brackets independientes (Vanilla, TBC, WotLK)
 - ✅ 8 Arena Seasons integradas (S1-S8)
 - ✅ Control granular de vendors por season
 - ✅ Bloqueo automático de contenido futuro
 - ✅ Carga de SQL y scripts dinámicos por bracket
 - ✅ Sistema de configuración centralizado
+
+---
+
+## 🚀 Quick Start
+
+1. **Clone the module**:
+```bash
+cd ~/azerothcore-wotlk/modules
+git clone https://github.com/kambire/mod-progression-blizzlike.git
+```
+
+2. **Compile** (one-time only):
+```bash
+cd ~/azerothcore-wotlk/build
+make -j$(nproc)
+```
+
+3. **Configure brackets**:
+```bash
+cd ~/azerothcore-wotlk/etc/modules
+cp mod-progression-blizzlike/conf/progression_system.conf.dist progression_system.conf
+nano progression_system.conf
+# Enable desired brackets
+```
+
+4. **Restart server** - Changes take effect immediately, no recompilation needed!
+
+5. **Verify**:
+```
+.progression status   # In-game command to see active brackets
+```
+
+📖 **[Read the Dynamic Loading Guide](DYNAMIC_LOADING.md)** for detailed architecture explanation
 
 ---
 

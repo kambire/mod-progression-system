@@ -7,8 +7,18 @@
 
 #include "Config.h"
 #include "ScriptMgr.h"
+#include "Log.h"
 
 #define PROGRESSION_BRACKET_MAX 38
+
+// Helper macro to check and log bracket loading
+#define CHECK_BRACKET_ENABLED(bracketName) \
+    if (!sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" bracketName, false)) \
+    { \
+        return; \
+    } \
+    LOG_INFO("server.loading", "  -> Loading Bracket_{} scripts", bracketName);
+
 std::array<std::string, PROGRESSION_BRACKET_MAX> const ProgressionBracketsNames =
 {
     "0",

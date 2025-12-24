@@ -8,8 +8,7 @@ void AddSC_temple_of_ahn_qiraj_tuning();
 
 void AddBracket_60_3_C_Scripts()
 {
-    if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_60_3_3", false)))
-        return;
+    CHECK_BRACKET_ENABLED("60_3_3");
 
     AddSC_temple_of_ahn_qiraj_tuning();
 }

@@ -6,6 +6,5 @@
 
 void AddBracket_Custom_Scripts()
 {
-    if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_Custom", false)))
-        return;
+    CHECK_BRACKET_ENABLED("Custom");
 }
