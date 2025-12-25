@@ -41,5 +41,11 @@ DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (
 	13820, 13681, 13627
 );
 
--- Unlock: Inside the Frozen Citadel
+-- Block quests that require locked ICC content (deny-by-default).
+-- Alliance: Inside the Frozen Citadel (24510)
+-- Horde: Inside the Frozen Citadel (24506)
+-- NOTE: These quests must only be enabled in Bracket_80_4.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
+INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(1, 24506, 0, '', '', "Inside the Frozen Citadel (Horde)"),
+(1, 24510, 0, '', '', "Inside the Frozen Citadel (Alliance)");
