@@ -11,6 +11,13 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (2, 668, 3, '', '', 'Halls of Reflection'),
 (2, 724, 15, '', '', 'The Ruby Sanctum');
 
+-- Extra hard-lock for RDF/LFG teleport (deny-by-default):
+DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (249, 649, 650);
+INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(8, 249, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Onyxia 80'),
+(8, 649, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Crusader'),
+(8, 650, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Champion');
+
 -- Argent Tournament: deny-by-default until Bracket_80_3.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (
 	13667, 13668, 13633, 13634,
