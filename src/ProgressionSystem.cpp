@@ -9,7 +9,7 @@
 
 #include <filesystem>
 
-inline std::string DetermineBracketBasePath(std::string const& folderName)
+inline std::string DetermineModuleBracketBasePath()
 {
     namespace fs = std::filesystem;
 
@@ -26,8 +26,9 @@ inline std::string DetermineBracketBasePath(std::string const& folderName)
 
     for (std::string const& base : candidates)
     {
-        // Use a known always-present bracket folder to test existence.
-        fs::path const probe = fs::path(base + "0") / "sql" / folderName;
+        // Probe only the module/bracket folder itself (independent of auth/characters/world).
+        // Not every bracket ships sql/auth or sql/characters, so those folders must not be required.
+        fs::path const probe = fs::path(base + "0");
         if (fs::exists(probe) && fs::is_directory(probe))
         {
             LOG_INFO("server.server", "[mod-progression-blizzlike] Using bracket SQL base path: '{}'", base);
@@ -49,7 +50,7 @@ inline std::vector<std::string> GetDatabaseDirectories(std::string const& folder
 
     // DBUpdater expects paths relative to the worldserver working directory.
     // Using a relative path here avoids platform-specific absolute paths.
-    std::string const path = DetermineBracketBasePath(folderName);
+    std::string const path = DetermineModuleBracketBasePath();
     for (std::string const& bracketName : ProgressionBracketsNames)
     {
         if (!(sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false)))
@@ -61,18 +62,32 @@ inline std::vector<std::string> GetDatabaseDirectories(std::string const& folder
         fs::path const bracketDir = fs::path(bracketPath);
         if (!fs::exists(bracketDir) || !fs::is_directory(bracketDir))
         {
-            LOG_WARN("server.server",
-                "[mod-progression-blizzlike] Enabled bracket '{}' but SQL directory not found: '{}' (cwd-sensitive)",
-                bracketName, bracketPath);
+            // Many brackets will not have sql/auth or sql/characters folders; that's OK.
+            // Warn only for missing world folders since those carry the bulk of progression changes.
+            if (folderName == "world")
+            {
+                LOG_WARN("server.server",
+                    "[mod-progression-blizzlike] Enabled bracket '{}' but SQL directory not found: '{}' (cwd-sensitive)",
+                    bracketName, bracketPath);
+            }
             continue;
         }
 
         directories.push_back(std::move(bracketPath));
     }
 
-    LOG_INFO("server.server",
-        "[mod-progression-blizzlike] DBUpdater will scan {} '{}' directories.",
-        directories.size(), folderName);
+    if (directories.empty())
+    {
+        LOG_INFO("server.server",
+            "[mod-progression-blizzlike] DBUpdater will scan 0 '{}' directories (this can be normal).",
+            folderName);
+    }
+    else
+    {
+        LOG_INFO("server.server",
+            "[mod-progression-blizzlike] DBUpdater will scan {} '{}' directories.",
+            directories.size(), folderName);
+    }
 
     return directories;
 }
