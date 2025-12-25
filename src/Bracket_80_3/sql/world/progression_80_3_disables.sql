@@ -27,3 +27,6 @@ DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (
 	14096, 14142, 14076, 14092, 14090, 14141, 14112, 14145,
 	13820, 13681, 13627
 );
+
+-- Unlock: Inside the Frozen Citadel
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);

@@ -13,6 +13,14 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (2, 668, 3, '', '', 'Halls of Reflection'),
 (2, 724, 15, '', '', 'The Ruby Sanctum');
 
+-- Block quests that require locked ICC content (deny-by-default).
+-- Ally: Inside the Frozen Citadel (24510)
+-- Horde: Inside the Frozen Citadel (24506)
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
+INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(1, 24506, 0, '', '', "Inside the Frozen Citadel (Horde)"),
+(1, 24510, 0, '', '', "Inside the Frozen Citadel (Alliance)");
+
 -- Argent Tournament: deny-by-default until Bracket_80_3.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (
 	13667, 13668, 13633, 13634,
