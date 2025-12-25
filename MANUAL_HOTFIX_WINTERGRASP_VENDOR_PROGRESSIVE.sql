@@ -24,6 +24,18 @@ SET @WG_ZONE_ID = 4197;
 -- 5 = Deadly (S5), 6 = Furious (S6), 7 = Relentless (S7), 8 = Wrathful (S8)
 SET @ALLOW_UP_TO_SEASON = 5;
 
+-- Enforcement mode:
+--   0 = CAP MODE (default): remove only seasons above cap; keep everything else.
+--   1 = STRICT MODE: "block all" then enable only what is allowed by season_tag.
+--       This matches the progression philosophy of starting closed and opening gradually.
+SET @STRICT_MODE = 0;
+
+-- STRICT MODE option:
+--   0 = do NOT restore items with unknown/non-season tagging (season_tag=0)
+--   1 = restore unknown/non-season items too (useful if your WG vendors have legit items
+--       that don't include Deadly/Furious/etc in their name)
+SET @STRICT_INCLUDE_UNKNOWN = 0;
+
 -- 1 = create/populate backup for discovered WG vendors
 SET @INIT_BACKUP = 1;
 
@@ -97,6 +109,14 @@ WHERE @DO_BACKUP = 1;
 --   - Delete rows for seasons > cap
 --   - Restore rows for seasons <= cap (from backup)
 
+-- 3) STRICT MODE (optional): wipe vendor first ("block all")
+-- This guarantees the vendor ends up with ONLY the rows we restore below.
+-- NOTE: This is intentionally aggressive.
+DELETE nv
+FROM npc_vendor nv
+JOIN tmp_wg_vendor_entries v ON v.entry = nv.entry
+WHERE @STRICT_MODE = 1;
+
 -- 3a) Delete "future" season items
 DELETE nv
 FROM npc_vendor nv
@@ -106,7 +126,8 @@ JOIN mod_progression_wg_vendor_backup b
  AND b.slot = nv.slot
  AND b.item = nv.item
  AND b.ExtendedCost = IFNULL(nv.ExtendedCost, 0)
-WHERE b.season_tag > @ALLOW_UP_TO_SEASON;
+WHERE @STRICT_MODE = 0
+  AND b.season_tag > @ALLOW_UP_TO_SEASON;
 
 -- 3b) Restore allowed season items that might have been deleted earlier
 INSERT IGNORE INTO npc_vendor
@@ -120,7 +141,16 @@ SELECT
   b.ExtendedCost
 FROM mod_progression_wg_vendor_backup b
 JOIN tmp_wg_vendor_entries v ON v.entry = b.entry
-WHERE b.season_tag <= @ALLOW_UP_TO_SEASON;
+WHERE (
+    -- CAP MODE: restore everything with season_tag <= cap (including unknowns)
+    (@STRICT_MODE = 0 AND b.season_tag <= @ALLOW_UP_TO_SEASON)
+    OR
+    -- STRICT MODE: restore ONLY allowed seasons, optionally include unknowns
+    (@STRICT_MODE = 1 AND (
+        (b.season_tag BETWEEN 5 AND @ALLOW_UP_TO_SEASON)
+        OR (@STRICT_INCLUDE_UNKNOWN = 1 AND b.season_tag = 0)
+    ))
+  );
 
 -- 4) Report: counts by season_tag after applying
 SELECT
