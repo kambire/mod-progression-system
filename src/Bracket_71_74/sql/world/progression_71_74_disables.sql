@@ -5,6 +5,9 @@
 -- Some servers/world DBs do not have baseline `disables` rows inserted for ICC/ToC/RS/Onyxia80.
 -- If these rows do not exist, the instances can be accessible earlier than intended.
 --
+-- NOTE: "locked/blocked" here means "access denied" via `world.disables`.
+-- It does NOT delete any instance content from the DB; players will simply be prevented from entering.
+--
 -- Locks applied here:
 -- - ICC raid + ICC 5-mans: 631, 632, 658, 668
 -- - ToC raid + ToC 5-man: 649, 650

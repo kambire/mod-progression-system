@@ -23,6 +23,10 @@ Important note about instance locks (WotLK):
 - If your server jumps straight to a later WotLK bracket (e.g. enabling only `Bracket_80_2`), you must ensure the bracket SQL enforces the lock FIRST (INSERT into `disables`) before it unlocks the intended content (DELETE from `disables`).
 - Otherwise, ICC/ToC/Ruby Sanctum may be accessible simply because your world DB never had those `disables` rows inserted.
 
+Terminology note: "blocked" means the instance is disabled (access denied) via `world.disables`.
+This does NOT delete maps, creatures, loot, or scripts from your database; the portals still exist.
+Players attempting to enter a blocked instance should receive an in-game message indicating the instance/content is disabled or they don't have access.
+
 ## 1) Validate and build a release (on your PC)
 
 Run packaging/validation from the repo root:
