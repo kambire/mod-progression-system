@@ -22,5 +22,31 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 24589, 0, '', '', "Lord Jaraxxus Must Die!"),
 (1, 26013, 0, '', '', "Assault on the Sanctum");
 
+-- ICC 5-mans (FoS/PoS/HoR): block dungeon-internal quests while the dungeons are locked.
+-- This is computed dynamically from quest starters/enders that spawn inside maps 632/658/668.
+-- We store a stable comment prefix so later brackets can reliably remove these disables.
+DELETE FROM `disables`
+WHERE `sourceType` = 1 AND `comment` LIKE '[mod-progression-blizzlike] ICC5:%';
+
+INSERT IGNORE INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`)
+SELECT
+	1 AS sourceType,
+	q.quest AS entry,
+	0 AS flags,
+	'' AS params_0,
+	'' AS params_1,
+	CONCAT('[mod-progression-blizzlike] ICC5: ', q.quest) AS comment
+FROM (
+	SELECT DISTINCT qs.`quest`
+	FROM `creature_queststarter` qs
+	JOIN `creature` c ON c.`id1` = qs.`id`
+	WHERE c.`map` IN (632, 658, 668)
+	UNION
+	SELECT DISTINCT qe.`quest`
+	FROM `creature_questender` qe
+	JOIN `creature` c ON c.`id1` = qe.`id`
+	WHERE c.`map` IN (632, 658, 668)
+) q;
+
 -- Removes the weekely gossip and quest/gossip flags for Archmage Lan'dalock
 UPDATE `creature_template` SET `gossip_menu_id` = 0, `npcflag` = `npcflag` &~ 3 WHERE `entry` = 20735;
