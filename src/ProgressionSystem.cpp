@@ -92,6 +92,28 @@ inline std::vector<std::string> GetDatabaseDirectories(std::string const& folder
     return directories;
 }
 
+template <typename TDatabase>
+static void DeleteModuleUpdatesForEnabledBrackets(TDatabase& db, std::string const& folderName)
+{
+    // DBUpdater records executed updates into the `updates` table.
+    // To force reapply, delete only rows that belong to this module's enabled bracket directories.
+    // This is intentionally scoped (we do NOT delete global 'progression_%' entries).
+    std::string const base = DetermineModuleBracketBasePath();
+
+    for (std::string const& bracketName : ProgressionBracketsNames)
+    {
+        if (!sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false))
+            continue;
+
+        std::string const dirPrefix = base + bracketName + "/sql/" + folderName + "/";
+
+        // Most AzerothCore setups store the relative path (including directory) in `updates.name`.
+        // If a custom core stores only the filename, this won't match; in that case, force reapply
+        // must be done by clearing `updates` manually.
+        db.Query("DELETE FROM updates WHERE name LIKE '{}'", dirPrefix + "%");
+    }
+}
+
 class ProgressionSystemLoadingDBUpdates : public DatabaseScript
 {
 public:
@@ -105,7 +127,7 @@ public:
         {
             if (sConfigMgr->GetOption<bool>("ProgressionSystem.ReapplyUpdates", false))
             {
-                LoginDatabase.Query("DELETE FROM updates WHERE name LIKE '%progression%'");
+                DeleteModuleUpdatesForEnabledBrackets(LoginDatabase, "auth");
             }
 
             std::vector<std::string> loginDatabaseDirectories = GetDatabaseDirectories("auth");
@@ -119,7 +141,7 @@ public:
         {
             if (sConfigMgr->GetOption<bool>("ProgressionSystem.ReapplyUpdates", false))
             {
-                CharacterDatabase.Query("DELETE FROM updates WHERE name LIKE '%progression%'");
+                DeleteModuleUpdatesForEnabledBrackets(CharacterDatabase, "characters");
             }
 
             std::vector<std::string> charactersDatabaseDirectories = GetDatabaseDirectories("characters");
@@ -133,7 +155,7 @@ public:
         {
             if (sConfigMgr->GetOption<bool>("ProgressionSystem.ReapplyUpdates", false))
             {
-                WorldDatabase.Query("DELETE FROM updates WHERE name LIKE '%progression%'");
+                DeleteModuleUpdatesForEnabledBrackets(WorldDatabase, "world");
             }
 
             std::vector<std::string> worldDatabaseDirectories = GetDatabaseDirectories("world");
