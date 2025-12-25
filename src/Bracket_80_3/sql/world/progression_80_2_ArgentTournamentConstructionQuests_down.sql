@@ -1,5 +1,3 @@
-UPDATE `creature_template` SET `npcflag` = `npcflag`&~2 WHERE `entry` IN (33434, 33435);
-
-DELETE FROM `creature_queststarter` WHERE `quest` IN (13820, 13681, 13627);
-
-DELETE FROM `creature_questender` WHERE `quest` IN (13820, 13681, 13627);
+-- Argent Tournament belongs to Bracket_80_3.
+-- This file used to DISABLE AT construction quests in Bracket_80_3; it is now intentionally a no-op.
+-- See: Bracket_80_3/sql/world/progression_80_3_ArgentTournamentConstructionQuests.sql

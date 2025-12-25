@@ -1,1 +1,3 @@
-DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (14016, 14105, 14101, 14102, 14104, 14107, 14108, 14074, 14143, 14152, 14136, 14080, 14140, 14077, 14144, 14096, 14142, 14076, 14092, 14090, 14141, 14112, 14145);
+-- Argent Tournament belongs to Bracket_80_3.
+-- This file was accidentally placed under a nested path inside Bracket_80_3. It is now intentionally a no-op.
+-- The unlock is handled in Bracket_80_3/sql/world/progression_80_3_disables.sql

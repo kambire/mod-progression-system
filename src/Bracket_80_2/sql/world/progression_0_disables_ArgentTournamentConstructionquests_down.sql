@@ -1,1 +1,3 @@
-DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (13667, 13668, 13633, 13634);
+-- Argent Tournament belongs to Bracket_80_3.
+-- This file used to UNLOCK some AT quest disables in Bracket_80_2; it is now intentionally a no-op.
+-- The unlock is handled in Bracket_80_3/sql/world/progression_80_3_disables.sql

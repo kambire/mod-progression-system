@@ -18,3 +18,12 @@ DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (249, 649, 65
 
 -- Make the quests  Lord Jaraxxus Must Die! and available again.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24589;
+
+-- Argent Tournament: unlock in Bracket_80_3.
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (
+	13667, 13668, 13633, 13634,
+	14016, 14105, 14101, 14102, 14104, 14107, 14108,
+	14074, 14143, 14152, 14136, 14080, 14140, 14077, 14144,
+	14096, 14142, 14076, 14092, 14090, 14141, 14112, 14145,
+	13820, 13681, 13627
+);

@@ -19,6 +19,16 @@ DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (631,632,658,
 -- Make the quests Inside the Frozen Citadel available again.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
 
+-- Argent Tournament: should be available from Bracket_80_3 onward.
+-- This also prevents bracket-skips (e.g. 80_2 -> 80_4_1) from leaving AT locked.
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (
+	13667, 13668, 13633, 13634,
+	14016, 14105, 14101, 14102, 14104, 14107, 14108,
+	14074, 14143, 14152, 14136, 14080, 14140, 14077, 14144,
+	14096, 14142, 14076, 14092, 14090, 14141, 14112, 14145,
+	13820, 13681, 13627
+);
+
 -- ICC 5-mans (FoS/PoS/HoR): re-enable dungeon-internal quests.
 DELETE FROM `disables`
 WHERE `sourceType` = 1 AND `comment` LIKE '[mod-progression-blizzlike] ICC5:%';
