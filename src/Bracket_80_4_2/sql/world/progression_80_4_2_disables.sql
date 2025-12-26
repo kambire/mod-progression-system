@@ -13,6 +13,9 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (2, 668, 3, '', '', 'Halls of Reflection'),
 (2, 724, 15, '', '', 'The Ruby Sanctum');
 
+-- Bracket-skip safety: keep ICC and ICC 5-mans available in later phases too.
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (631, 632, 658, 668);
+
 -- Makes instance (and RDF) Ruby Sanctum available again.
 DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` = 724;
 

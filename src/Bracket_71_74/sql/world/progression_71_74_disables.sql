@@ -29,11 +29,15 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 
 -- Extra hard-lock for RDF/LFG teleport (deny-by-default):
 -- Some servers allow access via RDF even when map access is disabled.
-DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (249, 649, 650);
+DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (249, 631, 632, 649, 650, 658, 668);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (8, 249, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Onyxia 80'),
+(8, 631, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Icecrown Citadel'),
+(8, 632, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): The Forge of Souls'),
 (8, 649, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Crusader'),
-(8, 650, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Champion');
+(8, 650, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Champion'),
+(8, 658, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Pit of Saron'),
+(8, 668, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Halls of Reflection');
 
 -- Archmage Lan'dalock quest: must NOT be available until Bracket_80_4.
 -- https://www.wowhead.com/wotlk/quest=24582/instructor-razuvious-must-die

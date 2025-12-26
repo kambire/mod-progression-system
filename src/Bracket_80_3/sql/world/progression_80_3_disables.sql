@@ -13,6 +13,14 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (2, 668, 3, '', '', 'Halls of Reflection'),
 (2, 724, 15, '', '', 'The Ruby Sanctum');
 
+-- Extra hard-lock for RDF/LFG teleport (deny-by-default):
+DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (631, 632, 658, 668);
+INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(8, 631, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Icecrown Citadel'),
+(8, 632, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): The Forge of Souls'),
+(8, 658, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Pit of Saron'),
+(8, 668, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Halls of Reflection');
+
 -- Makes instances (and RDF) Trial of the Crusader available again.
 -- NOTE: Onyxia (249) is intentionally kept locked until Bracket_80_4.
 -- NOTE: Trial of the Champion (650) is intentionally kept locked.
