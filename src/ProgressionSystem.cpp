@@ -296,4 +296,9 @@ void AddProgressionSystemScripts()
     {
         new ProgressionSystemLoadingDBUpdates();
     }
+
+    // Optional: GS gate for heroic dungeons (implemented as a pseudo-GS derived from equipped average item level).
+    // Enabled via ProgressionSystem.HeroicGs.Enabled.
+    extern void AddProgressionSystemHeroicGsScripts();
+    AddProgressionSystemHeroicGsScripts();
 }
