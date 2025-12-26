@@ -33,6 +33,7 @@ dist/
 #
 /.settings/
 /.externalToolBuilders/*
+.vscode/
 # exclude in all levels
 nbproject/
 .sync.ffs_db
