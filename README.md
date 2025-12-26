@@ -474,6 +474,7 @@ WHERE entry = [VENDOR_ID] AND item = [ITEM_ID];
 ## 📚 Additional Documentation
 
 - **BRACKET_DESCRIPTIONS_COMPLETE.md** - Detailed description of each of the 38 brackets
+- **audit/README.md** - Manual SQL + audit/validation index
 - **audit/ARENA_SEASONS_VALIDATION.md** - Complete mapping of 8 Arena Seasons
 - **audit/PARAMETROS_TECNICOS_DESARROLLO.md** - Technical parameters and SQL validations
 
