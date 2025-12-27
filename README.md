@@ -239,21 +239,12 @@ ProgressionSystem.Bracket_80_4_1 = 1  # Arena S8
 ✅ AFTER: Each bracket only sees its correct items
 ```
 
-### Solution: DELETE + INSERT Pattern
-```sql
--- 1. CLEAN - Delete invalid items
-DELETE FROM npc_vendor 
-WHERE entry = [VENDOR_ID] 
-  AND item NOT IN ([VALID_ITEMS_FOR_THIS_SEASON]);
+### How it works (high level)
+This module keeps PvP/Arena vendors aligned with the active bracket/season using SQL updates.
 
--- 2. ADD - Insert correct items with blizzlike cost (ExtendedCost)
--- Note: the cost is NOT gold; it is defined by `ExtendedCost` (Arena Points/Honor/Rating)
-INSERT INTO npc_vendor (entry, slot, item, maxcount, incrtime, ExtendedCost, VerifiedBuild)
-VALUES ([VENDOR_ID], 0, [ITEM_ID], 0, 0, [EXTENDED_COST_ID], 0);
-
--- 3. VALIDATE - Verify it worked
-SELECT COUNT(*) FROM npc_vendor WHERE entry = [VENDOR_ID];
-```
+- You enable the bracket(s) you want.
+- The server applies that bracket’s SQL updates at startup (via AzerothCore `DBUpdater`) when `ProgressionSystem.LoadDatabase = 1`.
+- Each bracket update ensures vendors offer only the intended season items and prices.
 
 ### SQL Script Structure
 
@@ -297,14 +288,9 @@ Important:
 -- `*_WITH_EXTENDEDCOST_NEW`: current season costs
 -- `*_WITH_EXTENDEDCOST_LEGACY`: discounted costs (or no requirements) for previous seasons
 
-Quick check (to detect accidental gold pricing):
-```sql
--- If this returns rows for your arena vendors, they are selling for gold (ExtendedCost=0)
-SELECT `entry`, `item`, `ExtendedCost`
-FROM `npc_vendor`
-WHERE `entry` IN ([Sx_VENDOR_ENTRIES])
-  AND `ExtendedCost` = 0;
-```
+Quick sanity check (to detect accidental gold pricing):
+- If items show up “for gold”, it usually means `ExtendedCost = 0`.
+- Fix by using the correct `ExtendedCost` IDs from your core/DB.
 
 ### Required Configuration for PHASE 0
 
@@ -322,74 +308,19 @@ ProgressionSystem.Bracket_70_2_1 = 1
 ## 📖 Step-by-Step Implementation
 
 ### Step 1: Identify Vendor IDs in your DB
-
-```sql
--- Vendors (entries)
-SELECT entry, name
-FROM creature_template
-WHERE name LIKE '%Gladiator%'
-  OR name LIKE '%Arena%'
-  OR name LIKE '%PvP%'
-LIMIT 50;
-
--- Costs (ExtendedCost)
-SELECT DISTINCT v.ExtendedCost
-FROM npc_vendor v
-WHERE v.entry IN (33609, 33610)
-ORDER BY v.ExtendedCost;
-```
+Identify the NPC entries used as arena/PvP vendors in your database. This varies by DB pack, so use whichever tooling you prefer (SQL editor, DB browser, or in-game GM inspection).
 
 ### Step 2: Map Items by Season
-
-```sql
--- S1-S2 items
-SELECT entry, name FROM item_template WHERE name LIKE '%Gladiator%' ORDER BY entry;
-
--- S3 items
-SELECT entry, name FROM item_template WHERE name LIKE '%Hateful%' ORDER BY entry;
-
--- S4 items
-SELECT entry, name FROM item_template WHERE name LIKE '%Brutal%' ORDER BY entry;
-
--- S5-S6 items
-SELECT entry, name FROM item_template WHERE name LIKE '%Wrathful%' ORDER BY entry;
-
--- S7 items
-SELECT entry, name FROM item_template WHERE name LIKE '%Vindictive%' ORDER BY entry;
-
--- S8 items
-SELECT entry, name FROM item_template WHERE name LIKE '%Relentless%' ORDER BY entry;
-```
+Decide which item sets belong to each season in your environment. The repository provides templates per season; you only need to fill in the correct item IDs and vendor NPC entries for your DB.
 
 ### Step 3: Create SQL Scripts
 
 **Template for each bracket:**
+Start from the corresponding template under `src/Bracket_*/sql/templates/` and replace the placeholders:
 
-```sql
--- File (template): src/Bracket_70_2_1/sql/templates/arena_s1_vendors_cleanup.sql.template
--- =====================================================
--- ARENA SEASON 1 - CLEANUP & ADD
--- Bracket: 70_2_1 (TBC S1)
--- =====================================================
-
--- CLEAN: Delete everything except valid items
-DELETE FROM npc_vendor 
-WHERE entry = [VENDOR_ID]
-  AND item NOT IN ([S1_ITEM_1], [S1_ITEM_2], ... [S1_ITEM_60]);
-
--- ADD: Insert S1 items with blizzlike ExtendedCost
-INSERT INTO npc_vendor (entry, slot, item, maxcount, incrtime, ExtendedCost, VerifiedBuild)
-VALUES
-  ([VENDOR_ID], 0, [S1_ITEM_1], 0, 0, [EXTENDED_COST_ID_1], 0),
-  ([VENDOR_ID], 0, [S1_ITEM_2], 0, 0, [EXTENDED_COST_ID_2], 0)
-  -- ... etc ...
-;
-
--- VALIDATE
-SELECT COUNT(*) as s1_items FROM npc_vendor 
-WHERE entry = [VENDOR_ID];
--- Expected result: 60
-```
+- Vendor NPC entry IDs
+- Item IDs for that season
+- `ExtendedCost` IDs (from your DB/core)
 
 ### Step 4: Run on Server
 
@@ -431,52 +362,24 @@ Bracket_80_1_2 (WotLK S5):
 ## 🔧 Troubleshooting
 
 ### Vendor not visible
-```sql
--- Verify that the NPC has the vendor flag (bit 128)
-SELECT entry, name, npcflag
-FROM creature_template
-WHERE entry = [VENDOR_ID];
-
--- Enable vendor flag (bit 128)
-UPDATE creature_template
-SET npcflag = (npcflag | 128)
-WHERE entry = [VENDOR_ID];
-```
+- Check the vendor NPC is spawned and has the vendor flag enabled (vendor flag / `npcflag` depends on core/DB).
+- Verify the bracket that controls that vendor is enabled and its SQL updates were applied.
 
 ### Incorrect items showing
-```sql
--- Check which items the vendor has
-SELECT nv.entry, nv.item, it.name, nv.ExtendedCost
-FROM npc_vendor nv
-INNER JOIN item_template it ON nv.item = it.entry
-WHERE nv.entry = [VENDOR_ID]
-ORDER BY nv.item;
+- Confirm you filled the correct template for the current season.
+- Confirm no other update pack/custom SQL is re-adding items after cleanup.
 
--- Run cleanup manually
-DELETE FROM npc_vendor WHERE entry = [VENDOR_ID];
-```
-
-### Incorrect ExtendedCost
-```sql
--- Check ExtendedCost
-SELECT nv.entry, nv.item, nv.ExtendedCost
-FROM npc_vendor nv
-WHERE nv.entry = [VENDOR_ID];
-
--- Update ExtendedCost
-UPDATE npc_vendor
-SET ExtendedCost = [CORRECT_EXTENDED_COST_ID]
-WHERE entry = [VENDOR_ID] AND item = [ITEM_ID];
-```
+### Incorrect ExtendedCost / items cost gold
+- If an item costs gold, it usually means `ExtendedCost = 0`.
+- Fix by applying the correct `ExtendedCost` IDs for that season.
 
 ---
 
 ## 📚 Additional Documentation
 
 - **BRACKET_DESCRIPTIONS_COMPLETE.md** - Detailed description of each of the 38 brackets
-- **audit/README.md** - Manual SQL + audit/validation index
-- **audit/ARENA_SEASONS_VALIDATION.md** - Complete mapping of 8 Arena Seasons
-- **audit/PARAMETROS_TECNICOS_DESARROLLO.md** - Technical parameters and SQL validations
+- **ARENA_SEASONS_VALIDATION.md** - Complete mapping of 8 Arena Seasons
+- **PARAMETROS_TECNICOS_DESARROLLO.md** - Technical parameters and SQL validations
 
 ---
 
