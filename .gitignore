@@ -28,6 +28,21 @@ CMakeLists.txt.user
 # Build / release artifacts
 dist/
 
+# Local DB dumps / extracts (do not commit)
+acore_world*.sql
+creature*.sql
+item_template*.sql
+npc_vendor*.sql
+quest_template*.sql
+gameobject_template*.sql
+
+# Local audit outputs (do not commit)
+audit/
+
+# One-off local helper scripts (do not commit)
+scripts/offline_extract_wintergrasp_vendors.ps1
+scripts/world_emblems_lfg_by_bracket_*.sql
+
 #
 # IDE & other softwares
 #

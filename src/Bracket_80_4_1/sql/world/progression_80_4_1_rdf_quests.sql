@@ -1,11 +1,8 @@
--- Set RDF/LFG daily quest rewards for ICC + Dungeon Finder era (Bracket 80_4_1)
--- Desired behavior (blizzlike 3.3):
--- - 1st random heroic of the day: 2x Emblem of Frost (49426)
--- - Subsequent random heroics: 2x Emblem of Triumph (47241)
---
--- Quest IDs (AzerothCore WotLK):
--- 24788: Daily heroic random (1st)
--- 24789: Daily heroic random (Nth)
+-- ProgressionSystem - LFG daily rewards (Bracket_80_4_1)
+-- SERVER SOURCE OF TRUTH (default):
+-- - Diaria LFG: TRIUNFO (47241)
+-- If you want this bracket to give FROST (49426), change the item below to 49426.
 
-UPDATE `quest_template` SET `rewarditem1` = 49426, `RewardAmount1` = 2 WHERE `ID` = 24788; -- Daily 1st, Frost x2 (heroic)
-UPDATE `quest_template` SET `rewarditem1` = 47241, `RewardAmount1` = 2 WHERE `ID` = 24789; -- Daily Nth, Triumph x2 (heroic)
+UPDATE `quest_template` SET `rewarditem1` = 47241, `RewardAmount1` = 1 WHERE `ID` IN (24788,24789,24790);
+-- Optional override (uncomment):
+-- UPDATE `quest_template` SET `rewarditem1` = 49426, `RewardAmount1` = 1 WHERE `ID` IN (24788,24789,24790);

@@ -6,14 +6,98 @@
 
 #include "Chat.h"
 #include "Config.h"
+#include "DatabaseEnv.h"
 #include "DBCEnums.h"
 #include "Item.h"
 #include "Map.h"
 #include "Player.h"
 #include "ScriptMgr.h"
 
+#include <mutex>
+#include <unordered_map>
+
 namespace
 {
+    struct DbHeroicGsConfig
+    {
+        bool tablePresent = false;
+        bool enabled = false;
+        float avgIlvlMultiplier = 0.0f;
+        uint32 requiredIcc5Normal = 0;
+        uint32 requiredIcc5Heroic = 0;
+        std::unordered_map<std::string, uint32> requiredByBracket;
+    };
+
+    DbHeroicGsConfig const& GetDbHeroicGsConfig()
+    {
+        static DbHeroicGsConfig cfg;
+        static std::once_flag once;
+
+        std::call_once(once, []()
+        {
+            // Probe for table existence without emitting SQL errors.
+            QueryResult probe = WorldDatabase.Query("SHOW TABLES LIKE 'mod_progression_heroic_gs'");
+            if (!probe)
+            {
+                cfg.tablePresent = false;
+                return;
+            }
+
+            cfg.tablePresent = true;
+
+            QueryResult result = WorldDatabase.Query(
+                "SELECT bracket, enabled, avg_ilvl_multiplier, required_heroic, required_icc5_normal, required_icc5_heroic "
+                "FROM mod_progression_heroic_gs");
+
+            if (!result)
+                return;
+
+            do
+            {
+                Field* fields = result->Fetch();
+                std::string const bracket = fields[0].Get<std::string>();
+                bool const enabled = fields[1].Get<uint8>() != 0;
+                float const mult = fields[2].Get<float>();
+                uint32 const requiredHeroic = fields[3].Get<uint32>();
+                uint32 const reqIcc5Normal = fields[4].Get<uint32>();
+                uint32 const reqIcc5Heroic = fields[5].Get<uint32>();
+
+                if (bracket == "GLOBAL")
+                {
+                    cfg.enabled = enabled;
+                    cfg.avgIlvlMultiplier = mult;
+                    cfg.requiredIcc5Normal = reqIcc5Normal;
+                    cfg.requiredIcc5Heroic = reqIcc5Heroic;
+                }
+                else
+                {
+                    cfg.requiredByBracket[bracket] = requiredHeroic;
+                }
+            } while (result->NextRow());
+        });
+
+        return cfg;
+    }
+
+    bool IsHeroicGsGateEnabled()
+    {
+        bool const enabledByConf = sConfigMgr->GetOption<bool>("ProgressionSystem.HeroicGs.Enabled", false);
+        if (enabledByConf)
+            return true;
+
+        DbHeroicGsConfig const& dbCfg = GetDbHeroicGsConfig();
+        return dbCfg.tablePresent && dbCfg.enabled;
+    }
+
+    float GetAvgIlvlMultiplier()
+    {
+        float const multByConf = sConfigMgr->GetOption<float>("ProgressionSystem.HeroicGs.AvgIlvlMultiplier", 20.0f);
+        DbHeroicGsConfig const& dbCfg = GetDbHeroicGsConfig();
+        if (dbCfg.tablePresent && dbCfg.avgIlvlMultiplier > 0.0f)
+            return dbCfg.avgIlvlMultiplier;
+        return multByConf;
+    }
+
     // ICC 5-man dungeons
     constexpr uint32 kMapForgeOfSouls = 632;
     constexpr uint32 kMapPitOfSaron = 658;
@@ -53,7 +137,7 @@ namespace
 
     uint32 CalculatePseudoGsFromAvgIlvl(float avgIlvl)
     {
-        float const multiplier = sConfigMgr->GetOption<float>("ProgressionSystem.HeroicGs.AvgIlvlMultiplier", 20.0f);
+        float const multiplier = GetAvgIlvlMultiplier();
         float const pseudo = avgIlvl * multiplier;
         return pseudo > 0.0f ? static_cast<uint32>(pseudo + 0.5f) : 0;
     }
@@ -72,13 +156,21 @@ namespace
 
     uint32 GetRequiredGsForCurrentBracket(uint32 mapId, Difficulty difficulty)
     {
+        DbHeroicGsConfig const& dbCfg = GetDbHeroicGsConfig();
+
         // Instance-specific overrides for ICC 5-mans.
         if (IsIcc5Map(mapId))
         {
             if (difficulty == DIFFICULTY_HEROIC)
+            {
+                if (dbCfg.tablePresent && dbCfg.requiredIcc5Heroic > 0)
+                    return dbCfg.requiredIcc5Heroic;
                 return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Heroic", 5400)));
+            }
 
             // Normal mode (still an endgame dungeon set; optional requirement).
+            if (dbCfg.tablePresent && dbCfg.requiredIcc5Normal > 0)
+                return dbCfg.requiredIcc5Normal;
             return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Normal", 5000)));
         }
 
@@ -86,6 +178,14 @@ namespace
         std::string const bracket = GetHighestEnabledBracketName();
         if (bracket.empty())
             return 0;
+
+        // DB override per bracket.
+        if (dbCfg.tablePresent)
+        {
+            auto it = dbCfg.requiredByBracket.find(bracket);
+            if (it != dbCfg.requiredByBracket.end() && it->second > 0)
+                return it->second;
+        }
 
         // Only enforce when a bracket explicitly provides a threshold.
         // Defaults target the WotLK heroic brackets.
@@ -114,8 +214,7 @@ namespace
             if (!player || !player->GetSession())
                 return;
 
-            bool const enabled = sConfigMgr->GetOption<bool>("ProgressionSystem.HeroicGs.Enabled", false);
-            if (!enabled)
+            if (!IsHeroicGsGateEnabled())
                 return;
 
             Map* map = player->GetMap();

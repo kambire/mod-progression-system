@@ -8,29 +8,59 @@
 -- Conquest 45624
 -- Triumph 47241
 
+-- Scope (server-defined): ONLY level-80 5-man dungeon heroic maps
+-- 574,576,578,595,599,600,601,602,604,608,619,650,632,658,668
+
+SET @TARGET_EMBLEM := 40752;
+SET @MAPS := '574,576,578,595,599,600,601,602,604,608,619,650,632,658,668';
+
+-- Schema compatibility: some cores use creature.id1 as templateEntry, others use creature.id.
+SELECT COUNT(*) INTO @HAS_CREATURE_ID1
+FROM information_schema.COLUMNS
+WHERE TABLE_SCHEMA = DATABASE()
+  AND TABLE_NAME = 'creature'
+  AND COLUMN_NAME = 'id1';
+
+SET @CREATURE_ENTRY_COL := IF(@HAS_CREATURE_ID1 = 1, 'cr.`id1`', 'cr.`id`');
+
 -- Direct emblem rows on boss loot
-UPDATE `creature_loot_template` cl
-JOIN `creature_template` ct ON ct.`entry` = cl.`entry`
-SET cl.`Item` = 40752
-WHERE cl.`Item` IN (47241, 40753, 45624)
-	AND ct.`rank` = 3
-	AND EXISTS (
-		SELECT 1
-		FROM `creature` cr
-		WHERE cr.`map` IN (574,575,576,578,595,599,600,601,602,604,608,619)
-			AND cr.`id1` = cl.`entry`
-	);
+SET @SQL := CONCAT(
+	'UPDATE `creature_loot_template` cl ',
+	'JOIN `creature_template` ct ON ct.`entry` = cl.`entry` ',
+	'SET cl.`Item` = ', @TARGET_EMBLEM, ' ',
+	'WHERE cl.`Item` IN (40752,40753,45624,47241,49426) ',
+	'  AND cl.`Item` <> ', @TARGET_EMBLEM, ' ',
+	'	AND ct.`rank` = 3 ',
+	'	AND EXISTS (',
+	'		SELECT 1 FROM `creature` cr ',
+	'		WHERE cr.`map` IN (', @MAPS, ') ',
+	'			AND ', @CREATURE_ENTRY_COL, ' = cl.`entry`',
+	'	)'
+);
+PREPARE stmt FROM @SQL; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 -- Emblems coming from reference loot templates
-UPDATE `reference_loot_template` rl
-JOIN `creature_loot_template` cl ON cl.`Reference` = rl.`Entry`
-JOIN `creature_template` ct ON ct.`entry` = cl.`entry`
-SET rl.`Item` = 40752
-WHERE rl.`Item` IN (47241, 40753, 45624)
-	AND ct.`rank` = 3
-	AND EXISTS (
-		SELECT 1
-		FROM `creature` cr
-		WHERE cr.`map` IN (574,575,576,578,595,599,600,601,602,604,608,619)
-			AND cr.`id1` = cl.`entry`
-	);
+SET @SQL := CONCAT(
+	'UPDATE `reference_loot_template` rl ',
+	'JOIN `creature_loot_template` cl ON cl.`Reference` = rl.`Entry` ',
+	'JOIN `creature_template` ct ON ct.`entry` = cl.`entry` ',
+	'SET rl.`Item` = ', @TARGET_EMBLEM, ' ',
+	'WHERE rl.`Item` IN (40752,40753,45624,47241,49426) ',
+	'  AND rl.`Item` <> ', @TARGET_EMBLEM, ' ',
+	'	AND ct.`rank` = 3 ',
+	'	AND EXISTS (',
+	'		SELECT 1 FROM `creature` cr ',
+	'		WHERE cr.`map` IN (', @MAPS, ') ',
+	'			AND ', @CREATURE_ENTRY_COL, ' = cl.`entry`',
+	'	)'
+);
+PREPARE stmt FROM @SQL; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+-- Optional: final chests (scoped by the same maps)
+UPDATE `gameobject_loot_template` gl
+JOIN `gameobject_template` got ON got.`type` = 3 AND got.`data1` = gl.`entry`
+JOIN `gameobject` go ON go.`id` = got.`entry`
+SET gl.`Item` = @TARGET_EMBLEM
+WHERE gl.`Item` IN (40752,40753,45624,47241,49426)
+	AND gl.`Item` <> @TARGET_EMBLEM
+	AND go.`map` IN (574,576,578,595,599,600,601,602,604,608,619,650,632,658,668);

@@ -1,5 +1,5 @@
--- Set RDF/LFG daily quest rewards for ToC era (Bracket 80_3)
--- Blizzlike 3.2 note:
--- - The (daily / 1st) heroic reward is 2x Emblem of Triumph.
-UPDATE `quest_template` SET `rewarditem1` = 47241, `RewardAmount1` = 1 WHERE `ID` = 24789; -- Daily Nth, Triumph (heroic)
-UPDATE `quest_template` SET `rewarditem1` = 47241, `RewardAmount1` = 2 WHERE `ID` = 24788; -- Daily 1st, Triumph x2 (heroic)
+-- ProgressionSystem - LFG daily rewards (Bracket_80_3)
+-- SERVER SOURCE OF TRUTH:
+-- - Diaria LFG: CONQUISTA (45624)
+
+UPDATE `quest_template` SET `rewarditem1` = 45624, `RewardAmount1` = 1 WHERE `ID` IN (24788,24789,24790);
