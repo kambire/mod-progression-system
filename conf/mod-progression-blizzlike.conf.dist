@@ -317,7 +317,7 @@ ProgressionSystem.Bracket_71_74   = 0
 # - Azjol-Nerub
 # - Ahn'kahet: The Old Kingdom
 # Features:
-# - Introduccion a Northrend: pulls mas grandes, primeros "stuns/cleaves" serios.
+# - Introducción a Northrend: pulls más grandes, primeros “stuns/cleaves” serios.
 # - Equipo azul/verdes de leveleo, reputaciones base (ej. Wyrmrest / Kirin Tor / etc.).
 # Release (Patch): 3.0.x (WotLK launch era)
 # Recommended Duration: 1-2 weeks
@@ -334,10 +334,10 @@ ProgressionSystem.Bracket_75_79   = 0
 # - The Culling of Stratholme
 # - Utgarde Pinnacle (se suele hacer 78-80)
 # Features:
-# - Ultimo tramo de leveleo, upgrades constantes de iLvl.
-# - Preparacion para 80: mecanicas mas "WotLK" (vehiculos en Oculus, waves en Violet Hold, etc.).
+# - Último tramo de leveleo, upgrades constantes de iLvl.
+# - Preparación para 80: mecánicas más “WotLK” (vehículos en Oculus, waves en Violet Hold, etc.).
 # IMPORTANT:
-# - NO incluir Forge of Souls / Pit of Saron / Halls of Reflection aca (son ICC-era, lvl 80, patch 3.3).
+# - NO incluir Forge of Souls / Pit of Saron / Halls of Reflection acá (son ICC-era, lvl 80, patch 3.3).
 # Release (Patch): 3.0.x (WotLK launch era)
 # Recommended Duration: 1-2 weeks
 
@@ -347,7 +347,7 @@ ProgressionSystem.Bracket_80_1_1    = 0
 # - Todas las dungeons normales de Northrend a nivel 80 (Utgarde Pinnacle, Oculus, CoS, HoL/HoS, Gundrak, Violet Hold, etc.).
 # Features:
 # - "Primer set" a 80: completar reputaciones, terminar quests de zonas, empezar a armar equipo inicial.
-# - Preparacion para entrar a heroicas (gemas/enchants basicos).
+# - Preparación para entrar a heroicas (gemas/enchants básicos).
 # Release (Patch): 3.0.x
 # Recommended Duration: 1-2 weeks
 
@@ -357,7 +357,7 @@ ProgressionSystem.Bracket_80_1_2    = 0
 # - Todas las dungeons de Northrend en Heroic (set original de salida).
 # - PvP: Arena Season 5 (Deadly era)
 # Features:
-# - Empieza el "farm" fuerte de equipo pre-raid (heroicas), badges/emblemas segun tu sistema.
+# - Empieza el “farm” fuerte de equipo pre-raid (heroicas), badges/emblemas según tu sistema.
 # - Primera etapa real de gear-check (tanks/heals ya importan).
 # Release (Patch): 3.0.x (heroics de salida) + S5 dentro de la era temprana de WotLK
 # Recommended Duration: 2-3 weeks
@@ -369,10 +369,10 @@ ProgressionSystem.Bracket_80_2_1  = 0
 # - The Obsidian Sanctum (10/25)
 # - The Eye of Eternity (10/25)
 # (Opcional):
-# - Vault of Archavon (VoA) 10/25 (si queres habilitarlo ya en T7 por simplicidad)
+# - Vault of Archavon (VoA) 10/25 (si querés habilitarlo ya en T7 por simplicidad)
 # Features:
-# - Primer "tier" de raids WotLK: coordinacion basica, checks de rol, primeras piezas epicas de raid.
-# - Ideal para progresion: gatear consumibles/enchants y primeras metas de raid.
+# - Primer “tier” de raids WotLK: coordinación básica, checks de rol, primeras piezas épicas de raid.
+# - Ideal para progresión: gatear consumibles/enchants y primeras metas de raid.
 # Release (Patch): 3.0.x (launch raids)
 # Recommended Duration: 6-10 weeks (depende si tu server es casual o competitivo)
 
@@ -382,36 +382,46 @@ ProgressionSystem.Bracket_80_2_2  = 0
 # - Ulduar (10/25) completo, incluidos hard-modes si tu progresion los permite.
 # - PvP: Arena Season 6 (Furious era)
 # Features:
-# - Salto real de dificultad: mecanicas complejas, hardmodes, mejores upgrades.
+# - Salto real de dificultad: mecánicas complejas, hardmodes, mejores upgrades.
 # - "Tier largo": se suele quedar mas tiempo (mucha gente farmea Ulduar bastante).
 # Release (Patch): 3.1.x (Ulduar era) + S6
 # Recommended Duration: 8-12 weeks
 
 ProgressionSystem.Bracket_80_3    = 0
-# Level 80 | WotLK: Raid Tier 2 | Trial of the Crusader + Onyxia 80 + Arena Season 7
-# Raids: Trial of the Crusader (25/10-man, 5 bosses), Onyxia's Lair 80 (25/10-man, 1 boss)
-# Bosses: Northrend Beasts, Lord Jaraxxus, Faction Champions, Twin Val'kyr, Anub'Arak (Trial); Onyxia (Onyxia 80)
-# NOTE: Trial of the CRUSADER is 25-man raid - NOT "Trial of the CHAMPION" (5-man dungeon)
-# Features: Faction warfare theme, arena-style encounters, classic dragon return, T8 epic gear, Arena Season 7
-# Release: August 4, 2009
-# Recommended Duration: 8-10 weeks
+# Level 80 | WotLK: Raid Tier 9 | Trial of the Crusader + Onyxia 80 + Arena Season 7
+# Content:
+# - Trial of the Crusader / Trial of the Grand Crusader (10/25)
+# - Onyxia's Lair (nivel 80) 10/25 (entra dentro de la era ToC)
+# - PvP: Arena Season 7 (Relentless era)
+# Features:
+# - Progresión “rápida”: raid corto, gear sube muy rápido.
+# - Excelente bracket para setear reglas de vendors/recompensas y evitar “salto” de tiers.
+# Release (Patch): 3.2.x (ToC era) + 3.2.2 (Onyxia 80) + S7
+# Recommended Duration: 6-10 weeks
 
 ProgressionSystem.Bracket_80_4_1  = 0
-# Level 80 | WotLK: Raid Tier 3 (Final) | Icecrown Citadel + ICC Dungeons + Arena Season 8
-# Raid: Icecrown Citadel (25/10-man, 12 bosses)
-# Bosses: Lord Marrowgar, Lady Deathwhisper, Gunship Battle, Saurfang, Festergut, Rotface, Professor Putricide, Blood Queen Lana'thel, Sindragosa, The Lich King (final)
-# Dungeons: Halls of Reflection, Pit of Saron, Forge of Souls (Heroic)
-# Features: Lich King final encounter, highest WotLK difficulty, T10 epic gear, Arena Season 8 (final)
-# Release: December 8, 2009
-# Recommended Duration: 10-16 weeks (final tier, longest phase)
+# Level 80 | WotLK: Raid Tier 10 | Icecrown Citadel + Frozen Halls 5-man + Arena Season 8
+# Content:
+# - Icecrown Citadel (10/25) + modos (normal/heroic) según tu progresión
+# - ICC 5-man (Frozen Halls, lvl 80):
+#   * Forge of Souls (632)
+#   * Pit of Saron (658)
+#   * Halls of Reflection (668)
+# - PvP: Arena Season 8 (Wrathful era)
+# Features:
+# - Último tier principal: mayor exigencia, mejores recompensas, y aquí sí entra el “pack ICC” de dungeons.
+# - Ideal para aplicar el GS gate de ICC5 (normal/heroic) si lo usás.
+# Release (Patch): 3.3.x (ICC + Frozen Halls) + 3.3.2 (S8 era)
+# Recommended Duration: 10-16 weeks (o más si querés endgame largo)
 
 ProgressionSystem.Bracket_80_4_2  = 0
-# Level 80 | WotLK: Post-Expansion | Ruby Sanctum
-# Raid: Ruby Sanctum (25/10-man, 3-4 bosses)
-# Bosses: Saviana Ragefire, Zarithrian, Halondria, Raid Event encounters
-# Features: Dragon-themed encounters, post-expansion content, final WotLK raid tier
-# Release: June 29, 2010 (Post-WotLK, Pre-Cataclysm)
-# Recommended Duration: 4-8 weeks (final bonus content)
+# Level 80 | WotLK: Post-ICC Bonus Raid | Ruby Sanctum
+# Content:
+# - Ruby Sanctum (10/25)
+# Features:
+# - “Bonus raid” final antes de Cataclysm; sirve como cierre y mini-progresión extra.
+# Release (Patch): 3.3.5
+# Recommended Duration: 4-8 weeks
 
 ProgressionSystem.Bracket_Custom  = 0
 

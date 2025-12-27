@@ -1,6 +1,6 @@
--- ProgressionSystem - dungeon dailies & RDF rewards (Bracket_80_1_2)
--- SERVER SOURCE OF TRUTH (pre-raid T7):
--- - Heroic 5-man bosses: Heroism (40752) [handled in progression_80_1_2_emblems.sql]
+-- ProgressionSystem - dungeon dailies & RDF rewards (Bracket_80_2_1)
+-- SERVER SOURCE OF TRUTH (T7 raids unlocked; heroics unchanged from launch):
+-- - Heroic 5-man bosses: Heroism (40752) [handled in progression_80_2_1_emblems.sql]
 -- - Daily normal ("Timear Foresees..."): Heroism (40752) x2
 -- - Daily heroic ("Proof of Demise..."): Valor (40753) x2
 -- - RDF (if enabled): keep Heroism (40752)
@@ -19,10 +19,8 @@
 UPDATE `quest_template` SET `rewarditem1` = 40752, `RewardAmount1` = 1 WHERE `ID` IN (24788,24789,24790);
 
 -- Dalaran normal dungeon daily quests (Archmage Timear): "Timear Foresees..."
--- 13240, 13241, 13243, 13244
 UPDATE `quest_template` SET `rewarditem1` = 40752, `RewardAmount1` = 2 WHERE `ID` IN (13240,13241,13243,13244);
 
 -- Dalaran heroic dungeon daily quests ("Proof of Demise...")
--- 13245..13256 (+ 14199 is ToC-era)
 UPDATE `quest_template` SET `rewarditem1` = 40753, `RewardAmount1` = 2
 WHERE `ID` IN (13245,13246,13247,13248,13249,13250,13251,13252,13253,13254,13255,13256);

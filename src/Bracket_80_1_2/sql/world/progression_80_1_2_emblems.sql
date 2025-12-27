@@ -9,10 +9,11 @@
 -- Triumph 47241
 
 -- Scope (server-defined): ONLY level-80 5-man dungeon heroic maps
--- 574,576,578,595,599,600,601,602,604,608,619,650,632,658,668
+-- Launch set (no ToC / no Frozen Halls):
+-- 574,576,578,595,599,600,601,602,604,608,619
 
 SET @TARGET_EMBLEM := 40752;
-SET @MAPS := '574,576,578,595,599,600,601,602,604,608,619,650,632,658,668';
+SET @MAPS := '574,576,578,595,599,600,601,602,604,608,619';
 
 -- Schema compatibility: some cores use creature.id1 as templateEntry, others use creature.id.
 SELECT COUNT(*) INTO @HAS_CREATURE_ID1
