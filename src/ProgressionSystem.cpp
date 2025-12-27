@@ -27,7 +27,7 @@ namespace
         { "ProgressionSystem.Bracket.ArenaSeason3", "ProgressionSystem.Bracket.ArenaSeason3.Enabled", "Bracket_70_5" },
         { "ProgressionSystem.Bracket.ArenaSeason4", "ProgressionSystem.Bracket.ArenaSeason4.Enabled", "Bracket_70_6_2" },
         { "ProgressionSystem.Bracket.ArenaSeason5", "ProgressionSystem.Bracket.ArenaSeason5.Enabled", "Bracket_80_1_2" },
-        { "ProgressionSystem.Bracket.ArenaSeason6", "ProgressionSystem.Bracket.ArenaSeason6.Enabled", "Bracket_80_2" },
+        { "ProgressionSystem.Bracket.ArenaSeason6", "ProgressionSystem.Bracket.ArenaSeason6.Enabled", "Bracket_80_2_2" },
         { "ProgressionSystem.Bracket.ArenaSeason7", "ProgressionSystem.Bracket.ArenaSeason7.Enabled", "Bracket_80_3" },
         { "ProgressionSystem.Bracket.ArenaSeason8", "ProgressionSystem.Bracket.ArenaSeason8.Enabled", "Bracket_80_4_1" },
     };

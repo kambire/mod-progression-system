@@ -185,14 +185,28 @@ namespace
             auto it = dbCfg.requiredByBracket.find(bracket);
             if (it != dbCfg.requiredByBracket.end() && it->second > 0)
                 return it->second;
+
+            // Backward compatibility: legacy bracket name used before the 80_2 split.
+            if (bracket == "80_2_2")
+            {
+                auto legacy = dbCfg.requiredByBracket.find("80_2");
+                if (legacy != dbCfg.requiredByBracket.end() && legacy->second > 0)
+                    return legacy->second;
+            }
         }
 
         // Only enforce when a bracket explicitly provides a threshold.
         // Defaults target the WotLK heroic brackets.
         if (bracket == "80_1_2")
             return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_1_2", 3500)));
-        if (bracket == "80_2")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2", 4000)));
+        if (bracket == "80_2_1")
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_1", 3500)));
+        if (bracket == "80_2_2")
+        {
+            int32 const value = sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_2",
+                sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2", 4000));
+            return static_cast<uint32>(std::max<int32>(0, value));
+        }
         if (bracket == "80_3")
             return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_3", 4400)));
         if (bracket == "80_4_1")

@@ -1,3 +1,0 @@
--- Argent Tournament belongs to Bracket_80_3.
--- This file was accidentally placed under a nested path inside Bracket_80_3. It is now intentionally a no-op.
--- The unlock is handled in Bracket_80_3/sql/world/progression_80_3_disables.sql

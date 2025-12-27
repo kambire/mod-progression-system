@@ -98,7 +98,7 @@ StringOption constexpr kUnsupportedStringOptions[] =
     { "ProgressionSystem.Bracket.ArenaSeason3", "Bracket_70_5" },
     { "ProgressionSystem.Bracket.ArenaSeason4", "Bracket_70_6_2" },
     { "ProgressionSystem.Bracket.ArenaSeason5", "Bracket_80_1_2" },
-    { "ProgressionSystem.Bracket.ArenaSeason6", "Bracket_80_2" },
+    { "ProgressionSystem.Bracket.ArenaSeason6", "Bracket_80_2_2" },
     { "ProgressionSystem.Bracket.ArenaSeason7", "Bracket_80_3" },
     { "ProgressionSystem.Bracket.ArenaSeason8", "Bracket_80_4_1" },
 };

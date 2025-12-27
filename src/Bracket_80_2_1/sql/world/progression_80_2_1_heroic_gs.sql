@@ -1,10 +1,8 @@
--- ProgressionSystem - Heroic pseudo-GS gate (Bracket 80_2)
+-- ProgressionSystem - Heroic pseudo-GS gate (Bracket 80_2_1)
 --
 -- This module enforces a "pseudo-GS" requirement when players enter heroic 5-man dungeons.
 -- Pseudo-GS is computed from equipped average item level (excluding shirt/tabard):
 --   pseudoGS = avgEquippedIlvl * multiplier
---
--- This SQL configures the requirement for bracket 80_2 and (optionally) enables the feature via DB.
 --
 -- Apply into the WORLD database.
 
@@ -30,9 +28,10 @@ ON DUPLICATE KEY UPDATE
   `required_icc5_heroic` = VALUES(`required_icc5_heroic`);
 
 -- Bracket-specific heroic requirement.
+-- Note: keep this equal-or-higher than 80_1_2; adjust as desired.
 INSERT INTO `mod_progression_heroic_gs`
   (`bracket`, `required_heroic`)
 VALUES
-  ('80_2', 4000)
+  ('80_2_1', 3500)
 ON DUPLICATE KEY UPDATE
   `required_heroic` = VALUES(`required_heroic`);

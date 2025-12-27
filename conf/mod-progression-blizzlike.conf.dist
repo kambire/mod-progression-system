@@ -76,6 +76,9 @@ ProgressionSystem.HeroicGs.AvgIlvlMultiplier = 20.0
 
 # WotLK Heroic bracket thresholds (pseudoGS)
 ProgressionSystem.HeroicGs.Required_80_1_2 = 3500
+ProgressionSystem.HeroicGs.Required_80_2_1 = 3500
+ProgressionSystem.HeroicGs.Required_80_2_2 = 4000
+# Legacy alias (pre-split). Used as fallback for 80_2_2.
 ProgressionSystem.HeroicGs.Required_80_2   = 4000
 ProgressionSystem.HeroicGs.Required_80_3   = 4400
 ProgressionSystem.HeroicGs.Required_80_4_1 = 4800
@@ -307,40 +310,82 @@ ProgressionSystem.Bracket_70_6_3  = 0
 # Recommended Duration: 3-4 weeks (transition to WotLK)
 
 ProgressionSystem.Bracket_71_74   = 0
-# Level Range: 71-74 | WotLK: Early Game | Northrend Introductory Dungeons
-# Content: Utgarde Keep, The Nexus, Azjol-Nerub, Drak'Tharon Keep (5-man)
-# Features: Northrend introduction, undead/ice themes, first Eternal materials, lich king lore
-# Release: November 13, 2008
+# Level Range: 71-74 | WotLK: Early Northrend | Leveling Dungeons (Normal)
+# Content (Normal dungeons):
+# - Utgarde Keep
+# - The Nexus
+# - Azjol-Nerub
+# - Ahn'kahet: The Old Kingdom
+# Features:
+# - Introduccion a Northrend: pulls mas grandes, primeros "stuns/cleaves" serios.
+# - Equipo azul/verdes de leveleo, reputaciones base (ej. Wyrmrest / Kirin Tor / etc.).
+# Release (Patch): 3.0.x (WotLK launch era)
 # Recommended Duration: 1-2 weeks
 
 ProgressionSystem.Bracket_75_79   = 0
-# Level Range: 75-79 | WotLK: Mid Game | Mid-Level Northrend Dungeons
-# Content: Halls of Lightning, Gundrak, Violet Hold, Pit of Saron (5-man)
-# Features: Dragon encounters in dungeons, tier 0.5 pre-raid gear, reputation farming
-# Release: November 13, 2008
+# Level Range: 75-79 | WotLK: Mid Northrend | Leveling Dungeons (Normal)
+# Content (Normal dungeons):
+# - Drak'Tharon Keep
+# - Gundrak
+# - Violet Hold
+# - Halls of Stone
+# - Halls of Lightning
+# - The Oculus
+# - The Culling of Stratholme
+# - Utgarde Pinnacle (se suele hacer 78-80)
+# Features:
+# - Ultimo tramo de leveleo, upgrades constantes de iLvl.
+# - Preparacion para 80: mecanicas mas "WotLK" (vehiculos en Oculus, waves en Violet Hold, etc.).
+# IMPORTANT:
+# - NO incluir Forge of Souls / Pit of Saron / Halls of Reflection aca (son ICC-era, lvl 80, patch 3.3).
+# Release (Patch): 3.0.x (WotLK launch era)
 # Recommended Duration: 1-2 weeks
 
 ProgressionSystem.Bracket_80_1_1    = 0
-# Level 80 | WotLK: Raid Prep | Normal Dungeons
-# Content: Halls of Reflection, Pit of Saron, Forge of Souls, Caverns of Time, Violet Hold
-# Features: Badge currency for epic gear, decent pre-raid equipment, accessible to all
-# Release: November 13, 2008
-# Recommended Duration: 2-3 weeks
+# Level 80 | WotLK: Pre-Raid | Normal Dungeons (Launch set)
+# Content:
+# - Todas las dungeons normales de Northrend a nivel 80 (Utgarde Pinnacle, Oculus, CoS, HoL/HoS, Gundrak, Violet Hold, etc.).
+# Features:
+# - "Primer set" a 80: completar reputaciones, terminar quests de zonas, empezar a armar equipo inicial.
+# - Preparacion para entrar a heroicas (gemas/enchants basicos).
+# Release (Patch): 3.0.x
+# Recommended Duration: 1-2 weeks
 
 ProgressionSystem.Bracket_80_1_2    = 0
-# Level 80 | WotLK: Raid Prep | Heroic Dungeons + Arena Season 5
-# Content: All level 80 dungeons in Heroic mode (increased mechanics)
-# Features: Badges of Valor for top-tier gear, attunement requirements, first difficult encounters
-# Release: November 13, 2008
+# Level 80 | WotLK: Pre-Raid | Heroic Dungeons (Launch set) + Arena Season 5
+# Content:
+# - Todas las dungeons de Northrend en Heroic (set original de salida).
+# - PvP: Arena Season 5 (Deadly era)
+# Features:
+# - Empieza el "farm" fuerte de equipo pre-raid (heroicas), badges/emblemas segun tu sistema.
+# - Primera etapa real de gear-check (tanks/heals ya importan).
+# Release (Patch): 3.0.x (heroics de salida) + S5 dentro de la era temprana de WotLK
 # Recommended Duration: 2-3 weeks
 
-ProgressionSystem.Bracket_80_2    = 0
-# Level 80 | WotLK: Raid Tier 1 | Ulduar + Naxxramas 80 + Eye of Eternity + Obsidian Sanctum + Arena Season 6
-# Raids: Ulduar (25/10-man, 14 bosses), Naxxramas 80 (25/10-man, 15 bosses), Eye of Eternity (25/10-man, 1 boss), Obsidian Sanctum (25/10-man, 4 bosses)
-# Key Bosses: Flame Leviathan, Mimiron, Yogg-Saron, Algalon (Ulduar); Kel'Thuzad (Naxx); Malygos (Eye); Sartharion (OS)
-# Features: Titan facility mechanics, vehicle combat, Drake encounters, T7 epic gear, Arena Season 6
-# Release: November 13, 2008 (Naxx/Eye/OS), April 16, 2009 (Ulduar), April 15, 2009 (Arena Season 6)
-# Recommended Duration: 8-12 weeks (long tier with multiple raids)
+ProgressionSystem.Bracket_80_2_1  = 0
+# Level 80 | WotLK: Raid Tier 7 (Launch raids)
+# Content (T7 Launch Raids):
+# - Naxxramas (10/25)
+# - The Obsidian Sanctum (10/25)
+# - The Eye of Eternity (10/25)
+# (Opcional):
+# - Vault of Archavon (VoA) 10/25 (si queres habilitarlo ya en T7 por simplicidad)
+# Features:
+# - Primer "tier" de raids WotLK: coordinacion basica, checks de rol, primeras piezas epicas de raid.
+# - Ideal para progresion: gatear consumibles/enchants y primeras metas de raid.
+# Release (Patch): 3.0.x (launch raids)
+# Recommended Duration: 6-10 weeks (depende si tu server es casual o competitivo)
+
+ProgressionSystem.Bracket_80_2_2  = 0
+# Level 80 | WotLK: Raid Tier 8 | Ulduar (10/25) + Arena Season 6
+# Content:
+# - Ulduar (10/25) completo, incluidos hard-modes si tu progresion los permite.
+# - PvP: Arena Season 6 (Furious era)
+# Features:
+# - Salto real de dificultad: mecanicas complejas, hardmodes, mejores upgrades.
+# - "Tier largo": se suele quedar mas tiempo (mucha gente farmea Ulduar bastante).
+# Release (Patch): 3.1.x (Ulduar era) + S6
+# Recommended Duration: 8-12 weeks
 
 ProgressionSystem.Bracket_80_3    = 0
 # Level 80 | WotLK: Raid Tier 2 | Trial of the Crusader + Onyxia 80 + Arena Season 7
@@ -418,7 +463,8 @@ ProgressionSystem.BlockFutureVendors = 0
 #
 # Defaults are based on the proposed progression table:
 # - 80_1_2 (T7):  3500
-# - 80_2   (T8):  4000
+# - 80_2_1 (T7):  3500
+# - 80_2_2 (T8):  4000
 # - 80_3   (T9):  4400
 # - 80_4_1 (ICC): 4800
 # - ICC5 normal:  5000 (FoS/PoS/HoR normal)
@@ -435,6 +481,9 @@ ProgressionSystem.HeroicGs.AvgIlvlMultiplier = 20.0
 
 # Per-bracket requirements (0 disables enforcement for that bracket).
 ProgressionSystem.HeroicGs.Required_80_1_2 = 3500
+ProgressionSystem.HeroicGs.Required_80_2_1 = 3500
+ProgressionSystem.HeroicGs.Required_80_2_2 = 4000
+# Legacy alias (pre-split). Used as fallback for 80_2_2.
 ProgressionSystem.HeroicGs.Required_80_2   = 4000
 ProgressionSystem.HeroicGs.Required_80_3   = 4400
 ProgressionSystem.HeroicGs.Required_80_4_1 = 4800
@@ -784,7 +833,7 @@ ProgressionSystem.Arena.Season5.BracketRestriction = 0
 
 #
 #    ProgressionSystem.Arena.Season6.BracketRestriction
-#        Description: CRITICAL - Restricts Season 6 Arena vendors to Bracket_80_2 only
+#        Description: CRITICAL - Restricts Season 6 Arena vendors to Bracket_80_2_2 only
 #                     Season 6 items (Furious gear) available only during Ulduar tier
 #        Default:   0 - Disabled
 #                   1 - Enabled (RECOMMENDED)
@@ -893,7 +942,7 @@ ProgressionSystem.Bracket.ArenaSeason5 = Bracket_80_1_2
 ProgressionSystem.Bracket.ArenaSeason5.Enabled = 0
 
 # Season 6: Ulduar era
-ProgressionSystem.Bracket.ArenaSeason6 = Bracket_80_2
+ProgressionSystem.Bracket.ArenaSeason6 = Bracket_80_2_2
 ProgressionSystem.Bracket.ArenaSeason6.Enabled = 0
 
 # Season 7: Trial of the Crusader era
