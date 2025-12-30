@@ -23,6 +23,9 @@ ProgressionSystem.LoadScripts = 1
 #
 #    ProgressionSystem.LoadDatabase
 #        Description: Enable loading SQL files from bracket modules
+#                     Note: This uses AzerothCore's DBUpdater. If core DB updates are disabled
+#                     (e.g. `Updates.EnableDatabases = 0` or a `--no-db-updates` flag), bracket SQL
+#                     will NOT be auto-applied (the module will log a warning).
 #        Default:     1 - Enabled
 #                     0 - Disabled
 #
@@ -35,7 +38,9 @@ ProgressionSystem.LoadDatabase = 1
 #                     Use this if worldserver is launched with a different working directory (e.g. Windows service),
 #                     or if the module folder name is not exactly `mod-progression-blizzlike`.
 #
-#                     This value should point to the module's `src` directory that contains `Bracket_0`, `Bracket_1_19`, etc.
+#                     This value should point to either:
+#                     - the module's `src` directory that contains `Bracket_0`, `Bracket_1_19`, etc, OR
+#                     - the module root (where brackets live under `src/Bracket_*`).
 #
 #        Default:     "" (auto-detect)
 #        Example:     ProgressionSystem.BracketSqlRoot = "D:/azerothcore-wotlk/modules/mod-progression-blizzlike/src"
@@ -137,6 +142,15 @@ ProgressionSystem.HeroicGs.Required_Icc5_Heroic = 270
 #        Description: Defines if the bracket should be loaded being 0 not loaded, 1 loaded.
 #        Default:     0 - Not loaded.
 #
+#        Docker/env-var note:
+#        - If you configure brackets via environment variables, AzerothCore may require double underscores for keys that
+#          contain `_` (example printed by the core: `ProgressionSystem.Bracket_0` -> `AC_PROGRESSION_SYSTEM_BRACKET__0`).
+#        - For this module it is strongly recommended to copy this file to `etc/modules/mod-progression-blizzlike.conf`
+#          and edit the `ProgressionSystem.Bracket_*` values there instead of setting dozens of env vars.
+#
+#        Technical details (autoload SQL + scripts):
+#        - `audit/BRACKET_RUNTIME_REPORT.md`
+#        - Regenerate: `powershell -ExecutionPolicy Bypass -File scripts/generate_bracket_report.ps1`
 
 ProgressionSystem.Bracket_0       = 1
 # Level Range: 1-10 | Vanilla: Pre-Launch | Starting Zones
@@ -557,7 +571,7 @@ ProgressionSystem.RequireSequentialProgression = 0
 #                   0 - Disabled (Enforce all dungeons)
 #
 
-ProgressionSystem.AllowDungeonBypass = 1
+ProgressionSystem.AllowDungeonBypass = 0
 
 #
 #    ProgressionSystem.RaidDifficultyScaling
@@ -770,7 +784,7 @@ ProgressionSystem.60.MoltenCore.AqualEssenceCooldownReduction = 0
 #
 #
 
-ProgressionSystem.60.WorldBosses.KazzakPhasing = 1
+ProgressionSystem.60.WorldBosses.KazzakPhasing = 0
 
 #
 #    ProgressionSystem.70.SerpentshrineCavern.RequireAllBosses
@@ -780,7 +794,7 @@ ProgressionSystem.60.WorldBosses.KazzakPhasing = 1
 #
 #
 
-ProgressionSystem.70.SerpentshrineCavern.RequireAllBosses = 1
+ProgressionSystem.70.SerpentshrineCavern.RequireAllBosses = 0
 
 #
 #    ProgressionSystem.70.TheEye.RequireAllBosses
@@ -790,7 +804,7 @@ ProgressionSystem.70.SerpentshrineCavern.RequireAllBosses = 1
 #
 #
 
-ProgressionSystem.70.TheEye.RequireAllBosses = 1
+ProgressionSystem.70.TheEye.RequireAllBosses = 0
 
 #    ProgressionSystem.DisabledAttunements
 #

@@ -9,6 +9,7 @@
 #include "StringConvert.h"
 
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <filesystem>
 #include <thread>
@@ -109,17 +110,34 @@ inline std::string DetermineModuleBracketBasePath()
             if (leaf.rfind("Bracket_", 0) == 0)
                 rootPath = rootPath.parent_path();
 
-            fs::path const probe = rootPath / "Bracket_0";
-            if (fs::exists(probe) && fs::is_directory(probe))
+            // Accept either ".../src" OR ".../<moduleRoot>" (where brackets live under "src/").
+            std::array<fs::path, 2> const candidates =
+            {
+                rootPath,
+                rootPath / "src"
+            };
+
+            fs::path foundBracket0;
+            for (fs::path const& candidate : candidates)
+            {
+                fs::path const probe = candidate / "Bracket_0";
+                if (fs::exists(probe) && fs::is_directory(probe))
+                {
+                    foundBracket0 = probe;
+                    break;
+                }
+            }
+
+            if (!foundBracket0.empty())
             {
                 fs::path canonicalProbe;
                 try
                 {
-                    canonicalProbe = fs::canonical(probe);
+                    canonicalProbe = fs::canonical(foundBracket0);
                 }
                 catch (...)
                 {
-                    canonicalProbe = fs::absolute(probe);
+                    canonicalProbe = fs::absolute(foundBracket0);
                 }
 
                 std::string const stableBase = Normalize(canonicalProbe.parent_path()) + "/Bracket_";
@@ -130,7 +148,7 @@ inline std::string DetermineModuleBracketBasePath()
             }
 
             LOG_WARN("server.server",
-                "[mod-progression-blizzlike] ProgressionSystem.BracketSqlRoot='{}' is set but Bracket_0 was not found under it; falling back to auto-detect.",
+                "[mod-progression-blizzlike] ProgressionSystem.BracketSqlRoot='{}' is set but Bracket_0 was not found under it (tried '<root>/Bracket_0' and '<root>/src/Bracket_0'); falling back to auto-detect.",
                 configuredRoot);
         }
 
@@ -223,7 +241,16 @@ template <typename TConnection, typename TDatabase>
 static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std::string const& folderName)
 {
     if (!DBUpdater<TConnection>::IsEnabled(updateFlags))
+    {
+        // This typically means core database updates are disabled (e.g. Updates.EnableDatabases=0 or a --no-db-updates flag).
+        // Without DBUpdater, bracket SQL cannot be auto-applied.
+        LOG_WARN("server.server",
+            "[mod-progression-blizzlike] Core DBUpdater is disabled for '{}' (updateFlags=0x{:X}). Bracket SQL will NOT be auto-applied. "
+            "Enable DB updates in your core config (worldserver.conf) or apply the bracket SQL manually.",
+            folderName,
+            updateFlags);
         return;
+    }
 
     if (sConfigMgr->GetOption<bool>("ProgressionSystem.ReapplyUpdates", false))
     {
@@ -239,16 +266,26 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
     uint32 const bracketDelayMs = static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.Debug.BracketApplyDelayMs", 0)));
 
     uint32 totalDirs = 0;
+    uint32 enabledBrackets = 0;
+    std::string firstEnabledBracket;
+    std::string firstMissingDir;
     for (std::string const& bracketName : ProgressionBracketsNames)
     {
         if (!IsProgressionBracketEnabled(bracketName))
             continue;
+
+        ++enabledBrackets;
+        if (firstEnabledBracket.empty())
+            firstEnabledBracket = bracketName;
 
         std::string const dir = base + bracketName + "/sql/" + folderName;
         fs::path const bracketDir = fs::path(dir);
 
         if (!fs::exists(bracketDir) || !fs::is_directory(bracketDir))
         {
+            if (firstMissingDir.empty())
+                firstMissingDir = dir;
+
             if (folderName == "world")
             {
                 LOG_WARN("server.server",
@@ -320,9 +357,33 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
 
     if (totalDirs == 0)
     {
-        LOG_INFO("server.server",
-            "[mod-progression-blizzlike] DBUpdater will scan 0 '{}' directories (this can be normal).",
-            folderName);
+        // This module currently ships world DB updates only; scanning 0 auth/characters directories is expected.
+        if (folderName != "world")
+        {
+            LOG_INFO("server.server",
+                "[mod-progression-blizzlike] DBUpdater will scan 0 '{}' directories (this can be normal).",
+                folderName);
+        }
+        else if (enabledBrackets == 0)
+        {
+            LOG_WARN("server.server",
+                "[mod-progression-blizzlike] DBUpdater will scan 0 '{}' directories because no brackets are effectively enabled. "
+                "Enable at least one `ProgressionSystem.Bracket_* = 1` in your active config (etc/modules/*.conf) and ensure it has a [worldserver] section.",
+                folderName);
+        }
+        else
+        {
+            LOG_WARN("server.server",
+                "[mod-progression-blizzlike] DBUpdater will scan 0 '{}' directories even though {} bracket(s) are enabled. "
+                "Example expected directory: '{}{}{}' (check that the module files are present in your runtime container and that ProgressionSystem.BracketSqlRoot points to the module's `src`). "
+                "First missing path seen: '{}'.",
+                folderName,
+                enabledBrackets,
+                base,
+                firstEnabledBracket.empty() ? "<bracket>" : firstEnabledBracket,
+                "/sql/" + folderName,
+                firstMissingDir.empty() ? "<none>" : firstMissingDir);
+        }
     }
     else
     {
