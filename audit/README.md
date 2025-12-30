@@ -59,6 +59,15 @@ It is intentionally **NOT** part of the bracket autoload pipeline (DBUpdater).
 - `WOTLK_WEEKLY_RAID_QUESTS_GUIDE.md`
   - Step-by-step guide for running the WotLK weekly raid quest audit.
 
+- `USURI_BRIGHTCOIN_35790_EMBLEM_EXCHANGE_AUDIT.sql`
+  - Validates the emblem exchange helper vendor (npc_vendor entry=35790) by bracket.
+
+- `USURI_BRIGHTCOIN_35790_EMBLEM_EXCHANGE_GUIDE.md`
+  - Step-by-step guide for running the emblem exchange vendor audit.
+
+- `USURI_BRIGHTCOIN_35790_EMBLEM_EXCHANGE_RESTORE.sql`
+  - Restores npc_vendor entry=35790 from `mod_progression_backup_npc_vendor_35790`.
+
 - `ARENA_SEASONS_VALIDATION.md`
 - `PARAMETROS_TECNICOS_DESARROLLO.md`
 - `BRACKET_DESCRIPTIONS_COMPLETE.md`
