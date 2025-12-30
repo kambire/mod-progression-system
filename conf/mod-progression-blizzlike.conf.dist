@@ -32,7 +32,7 @@ ProgressionSystem.LoadDatabase = 1
 #                     0 - Disabled
 #
 
-ProgressionSystem.ReapplyUpdates = 0
+ProgressionSystem.ReapplyUpdates = 1
 
 #
 #    ProgressionSystem.Debug.LogPendingSql
@@ -43,7 +43,7 @@ ProgressionSystem.ReapplyUpdates = 0
 #                     1 - Enabled
 #
 
-ProgressionSystem.Debug.LogPendingSql = 0
+ProgressionSystem.Debug.LogPendingSql = 1
 
 #
 #    ProgressionSystem.Debug.MaxSqlLogLines
@@ -61,7 +61,7 @@ ProgressionSystem.Debug.MaxSqlLogLines = 200
 #                     1 - Enabled
 #
 
-ProgressionSystem.Debug.LogAppliedSql = 0
+ProgressionSystem.Debug.LogAppliedSql = 1
 
 #
 #    ProgressionSystem.Debug.SqlLogDelayMs
@@ -70,7 +70,7 @@ ProgressionSystem.Debug.LogAppliedSql = 0
 #        Default:     0 (no delay)
 #
 
-ProgressionSystem.Debug.SqlLogDelayMs = 0
+ProgressionSystem.Debug.SqlLogDelayMs = 200
 
 #
 #    ProgressionSystem.Debug.BracketApplyDelayMs
@@ -79,7 +79,7 @@ ProgressionSystem.Debug.SqlLogDelayMs = 0
 #        Default:     0 (no delay)
 #
 
-ProgressionSystem.Debug.BracketApplyDelayMs = 0
+ProgressionSystem.Debug.BracketApplyDelayMs = 200
 
 #
 #    ProgressionSystem.HeroicGs.*
@@ -99,7 +99,7 @@ ProgressionSystem.Debug.BracketApplyDelayMs = 0
 #        Default:     Disabled
 #
 
-ProgressionSystem.HeroicGs.Enabled = 0
+ProgressionSystem.HeroicGs.Enabled = 1
 # WotLK Heroic bracket thresholds (avg equipped iLvl)
 ProgressionSystem.HeroicGs.Required_80_1_2 = 175
 ProgressionSystem.HeroicGs.Required_80_2_1 = 175
@@ -120,55 +120,56 @@ ProgressionSystem.HeroicGs.Required_Icc5_Heroic = 270
 #        Default:     0 - Not loaded.
 #
 
-ProgressionSystem.Bracket_0       = 0
+ProgressionSystem.Bracket_0       = 1
 # Level Range: 1-10 | Vanilla: Pre-Launch | Starting Zones
 # Content: Shadowfang Keep, Deadmines, Wailing Caverns, Blackfathom Deeps, Ragefire Chasm
 # Features: First dungeons for new players, class-specific quests, basic reputation farming
 # Release: November 23, 2004
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_1_19    = 0
+ProgressionSystem.Bracket_1_19    = 1
 # Level Range: 10-19 | Vanilla: Early Game | Early Dungeons & World Content
 # Content: Shadowfang Keep, Deadmines, Wailing Caverns, Blackfathom Deeps, Ragefire Chasm
 # Features: Class dungeons unlocking, faction reputation increases, crafting recipes, world boss intro
 # Release: November 23, 2004
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_20_29   = 0
+ProgressionSystem.Bracket_20_29   = 1
 # Level Range: 20-29 | Vanilla: Early Game | Mid-Level Dungeons
 # Content: Stormwind Stockades, Razorfen Kraul, Gnomeregan
 # Features: Reputation farming, profession recipes, PvP introduction, difficulty increases
 # Release: November 23, 2004
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_30_39   = 0
+ProgressionSystem.Bracket_30_39   = 1
 # Level Range: 30-39 | Vanilla: Early Game | Advanced Dungeons
 # Content: Uldaman (Dwarven heritage), Razorfen Downs (undead zone), Scarlet Monastery
 # Features: Higher-level enemies, better loot, profession recipes, world bosses become relevant
 # Release: November 23, 2004
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_40_49   = 0
+ProgressionSystem.Bracket_40_49   = 1
 # Level Range: 40-49 | Vanilla: Mid Game | World Dungeons & Attunement Prep
 # Content: Dire Maul, Blackrock Depths, Scholomance, Stratholme, World Bosses (Dragons, Kazzak)
 # Features: Attunement quest chains begin, world boss farming, pre-raid gear, PvP intensifies
 # Release: November 23, 2004
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_50_59_1 = 0
+ProgressionSystem.Bracket_50_59_1 = 1
 # Level Range: 50-59 | Vanilla: Late Game | UBRS Attunement Phase
 # Content: Upper Blackrock Spire attunement preparation, world bosses (Azuregos, Dragons, Kazzak)
 # Features: Attunement quest chains, raid-level difficulty encounters, epic world boss battles
 # Release: November 23, 2004
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_50_59_2 = 0
+ProgressionSystem.Bracket_50_59_2 = 1
 # Level Range: 50-59 | Vanilla: Late Game | Upper Blackrock Spire (10-man Raid-like)
 # Content: UBRS full progression, all bosses available, world boss farming
 # Features: Pre-raid gear optimization, dungeon farming, final preparation for Molten Core
 # Release: November 23, 2004
 # Recommended Duration: 2-3 weeks
-ProgressionSystem.Bracket_60_1_1  = 0
+
+ProgressionSystem.Bracket_60_1_1  = 1
 # Level 60 | Vanilla: Raid Tier 1 | Molten Core (40-man)
 # Bosses (8): Lucifron, Magmadar, Gehennas, Garr, Shazzrah, Baron Geddon, Golemagg, Ragnaros
 # Location: Blackrock Mountain (Molten Core instance)
@@ -176,7 +177,7 @@ ProgressionSystem.Bracket_60_1_1  = 0
 # Release: November 23, 2004
 # Recommended Duration: 6-8 weeks
 
-ProgressionSystem.Bracket_60_1_2  = 0
+ProgressionSystem.Bracket_60_1_2  = 1
 # Level 60 | Vanilla: Raid Tier 1 (Optional) | Onyxia's Lair (40-man)
 # Boss (1): Onyxia (The Broodmother)
 # Location: Onyxia's Lair (Dustwallow Marsh)
@@ -184,7 +185,7 @@ ProgressionSystem.Bracket_60_1_2  = 0
 # Release: November 23, 2004
 # Recommended Duration: 3-4 weeks (can overlap with Molten Core)
 
-ProgressionSystem.Bracket_60_2_1  = 0
+ProgressionSystem.Bracket_60_2_1  = 1
 # Level 60 | Vanilla: Raid Tier 2 | Blackwing Lair (40-man)
 # Bosses (8): Razorgore, Vaelastrasz, Broodlord Lashlayer, Firemaw, Ebonroc, Taerar, Ysondre, Lord Victor Nefarius
 # Location: Blackrock Mountain (Blackwing Tower)
@@ -192,7 +193,7 @@ ProgressionSystem.Bracket_60_2_1  = 0
 # Release: January 19, 2005
 # Recommended Duration: 6-8 weeks
 
-ProgressionSystem.Bracket_60_2_2  = 0
+ProgressionSystem.Bracket_60_2_2  = 1
 # Level 60 | Vanilla: Raid Tier 2.5 (Optional) | Zul'Gurub (20-man)
 # Bosses (6+): High Priest Thekal, High Priestess Mar'li, High Priest Venoxis, Bloodlord Mandokir, Edge of Madness, Gahz'ranka, Hakkar
 # Location: Zul'Gurub (Stranglethorn Vale)
@@ -200,7 +201,7 @@ ProgressionSystem.Bracket_60_2_2  = 0
 # Release: January 19, 2005
 # Recommended Duration: 4-6 weeks (can overlap with BWL)
 
-ProgressionSystem.Bracket_60_3_1  = 0
+ProgressionSystem.Bracket_60_3_1  = 1
 # Level 60 | Vanilla: Raid Tier 2.5 | Ruins of Ahn'Qiraj (20-man)
 # Bosses (3+): Kurinnaxx, General Rajaxx, Ossirian the Unscarred (optional: Taerar)
 # Location: Silithus Desert (AQ20 entrance)
@@ -208,7 +209,7 @@ ProgressionSystem.Bracket_60_3_1  = 0
 # Release: January 19, 2005
 # Recommended Duration: 4-6 weeks (can overlap with BWL)
 
-ProgressionSystem.Bracket_60_3_2  = 0
+ProgressionSystem.Bracket_60_3_2  = 1
 # Level 60 | Vanilla: Raid Tier 3 | Temple of Ahn'Qiraj (40-man)
 # Bosses (9): Dragons, Taerar, Mstruthas, Vem, Yauj, Taur, Fankriss, Viscidus, Princess Huhuran, Twin Emperors Vek'lor & Vek'nilash, C'Thun
 # Location: Silithus (AQ40 - The Temple)
@@ -216,42 +217,42 @@ ProgressionSystem.Bracket_60_3_2  = 0
 # Release: January 19, 2005
 # Recommended Duration: 6-8 weeks
 
-ProgressionSystem.Bracket_60_3_3  = 0
+ProgressionSystem.Bracket_60_3_3  = 1
 # Level 60 | Vanilla: Final Phase | AQ Post-Content (World Events)
 # Content: Dragons of Nightmare, Silithus world events, high-end dungeon accessibility
 # Features: World event coordination, dragon hunting, final Vanilla phase preparation
 # Release: January 19, 2005 onwards
 # Recommended Duration: 3-4 weeks (transition phase)
 
-ProgressionSystem.Bracket_61_64   = 0
+ProgressionSystem.Bracket_61_64   = 1
 # Level Range: 61-64 | TBC: Early Game | Outland Introductory Dungeons
 # Content: Hellfire Ramparts, The Blood Furnace, The Shattered Halls (5-man)
 # Features: Fel energy introduction, dark iron enemies, lich king lore begin
 # Release: January 16, 2007
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_65_69   = 0
+ProgressionSystem.Bracket_65_69   = 1
 # Level Range: 65-69 | TBC: Mid Game | Mid-Level Outland Dungeons
 # Content: Durnholde Keep, Hellfire Peninsula dungeons, Zangarmarsh dungeons
 # Features: Tier 0.5 pre-raid gear, reputation farming intensifies
 # Release: January 16, 2007
 # Recommended Duration: 1-2 weeks
 
-ProgressionSystem.Bracket_70_1_1  = 0
+ProgressionSystem.Bracket_70_1_1  = 1
 # Level 70 | TBC: Early Raid Prep | Normal Dungeons
 # Content: Black Morass, Shattered Halls, Slave Pens, Underbog, Mana Tombs, Auchenai Crypts, Sethekk Halls, Shadow Labyrinth
 # Features: Badge currency introduction, decent pre-raid gear, flying mount availability
 # Release: January 16, 2007
 # Recommended Duration: 2-3 weeks
 
-ProgressionSystem.Bracket_70_1_2  = 0
+ProgressionSystem.Bracket_70_1_2  = 1
 # Level 70 | TBC: Raid Prep | Heroic Dungeons
 # Content: All level 70 dungeons in Heroic difficulty (increased mechanics)
 # Features: Badges of Valor for epic gear, attunement requirements, first DPS checks
 # Release: January 16, 2007
 # Recommended Duration: 2-3 weeks
 
-ProgressionSystem.Bracket_70_2_1  = 0
+ProgressionSystem.Bracket_70_2_1  = 1
 # Level 70 | TBC: Raid Tier 1 | Gruul's Lair & Magtheridon's Lair + Arena Season 1
 # Raids: Gruul's Lair (25-man, 2 bosses) + Magtheridon's Lair (25-man, 1 boss)
 # Bosses: Gruul, High King Maulgar (Gruul's), Magtheridon (Magtheridon's)
@@ -259,7 +260,7 @@ ProgressionSystem.Bracket_70_2_1  = 0
 # Release: January 16, 2007
 # Recommended Duration: 4-6 weeks
 
-ProgressionSystem.Bracket_70_2_2  = 0
+ProgressionSystem.Bracket_70_2_2  = 1
 # Level 70 | TBC: Raid Tier 1 (10-man) | Karazhan + Arena Season 2
 # Raid: Karazhan (10-man, 11 encounters)
 # Bosses: Attumen, Moroes, Maiden of Virtue, Opera, Shade of Aran, Illhoof, Chess Event, Prince Malchezaar
@@ -267,14 +268,14 @@ ProgressionSystem.Bracket_70_2_2  = 0
 # Release: January 16, 2007
 # Recommended Duration: 4-6 weeks (can overlap with Gruul/Mag)
 
-ProgressionSystem.Bracket_70_2_3  = 0
+ProgressionSystem.Bracket_70_2_3  = 1
 # Level 70 | TBC: World Content | Ogri'la Dailies (Blade's Edge Mountains)
 # Content: Ogri'la daily quests, Skyguard reputation farming, world boss phases
 # NOTE: World content only - NOT a raid tier. Should consolidate with Bracket_70_6_1
 # Release: March 19, 2008
 # Recommended Duration: 2-3 weeks (world content, continuous)
 
-ProgressionSystem.Bracket_70_3_1  = 0
+ProgressionSystem.Bracket_70_3_1  = 1
 # Level 70 | TBC: Raid Tier 2 | Serpentshrine Cavern (25-man)
 # Raid: Serpentshrine Cavern (25-man, 6 bosses)
 # Bosses: Hydross the Unstable, The Lurker Below, Leotheras the Blind, Fathom-Lord Karathress, Morogrim Tidewalker, Lady Vashj
@@ -282,14 +283,15 @@ ProgressionSystem.Bracket_70_3_1  = 0
 # Release: May 15, 2007
 # Recommended Duration: 5-7 weeks
 
-ProgressionSystem.Bracket_70_3_2  = 0
+ProgressionSystem.Bracket_70_3_2  = 1
 # Level 70 | TBC: Raid Tier 2 | The Eye (25-man) + Sha'tari Skyguard (World Content)
 # Raid: The Eye (25-man, 4 bosses) - Tempest Keep floating fortress
 # Bosses: Al'ar (Phoenix), Void Reaver, Solarian, Kael'thas Sunstrider
 # Features: Arcane encounters, magical themes, T5 epic gear, flight requirements
 # Release: May 15, 2007
 # Recommended Duration: 5-7 weeks (can overlap with SSC)
-ProgressionSystem.Bracket_70_4_1  = 0
+
+ProgressionSystem.Bracket_70_4_1  = 1
 # Level 70 | TBC: Raid Tier 3 | Battle For Mount Hyjal (25-man) + Arena Season 2 + Netherwing
 # Raid: Battle For Mount Hyjal (25-man, 5 bosses)
 # Bosses: Rage Winterchill, Anetheron, Kaz'rogal, Azgalor, Archimonde (final)
@@ -297,7 +299,7 @@ ProgressionSystem.Bracket_70_4_1  = 0
 # Release: August 24, 2007
 # Recommended Duration: 5-7 weeks
 
-ProgressionSystem.Bracket_70_4_2  = 0
+ProgressionSystem.Bracket_70_4_2  = 1
 # Level 70 | TBC: Raid Tier 4 | Black Temple (25-man)
 # Raid: Black Temple (25-man, 9 bosses)
 # Bosses: High Warlord Naj'entus, Supremus, Shade of Akama, Teron Gorefiend, Gurtogg Bloodboil, Reliquary of Souls, Mother Shahraz, Illidari Council, Illidan Stormrage (final)
@@ -305,7 +307,7 @@ ProgressionSystem.Bracket_70_4_2  = 0
 # Release: September 24, 2007
 # Recommended Duration: 6-8 weeks
 
-ProgressionSystem.Bracket_70_5    = 0
+ProgressionSystem.Bracket_70_5    = 1
 # Level 70 | TBC: Raid Tier 2.5 (10-man) | Zul'Aman + Arena Season 3
 # Raid: Zul'Aman (10-man, 6 bosses)
 # Bosses: Nalorakk, Akil'zon, Jan'alai, Halazzi, Hex Lord Malacrass, Zul'jin
@@ -313,14 +315,14 @@ ProgressionSystem.Bracket_70_5    = 0
 # Release: December 11, 2007
 # Recommended Duration: 4-6 weeks (10-man alternative)
 
-ProgressionSystem.Bracket_70_6_1  = 0
+ProgressionSystem.Bracket_70_6_1  = 1
 # Level 70 | TBC: World Content | Isle of Quel'Danas (Shattered Sun Island)
 # Content: Magisters' Terrace (5-man & Heroic), daily quests, world bosses, island exploration
 # Features: New flying zones, world boss hunting, Shattered Sun Offensive reputation, zone events
 # Release: May 22, 2008
 # Recommended Duration: 2-3 weeks (world content, overlaps with raids)
 
-ProgressionSystem.Bracket_70_6_2  = 0
+ProgressionSystem.Bracket_70_6_2  = 1
 # Level 70 | TBC: Raid Tier 5 (Final) | Sunwell Plateau (25-man) + Arena Season 4
 # Raid: Sunwell Plateau (25-man, 6 bosses)
 # Bosses: Kalecgos, Brutallus, Felmyst, Erediss, Muru, Kil'jaeden (final - optional)
@@ -328,14 +330,14 @@ ProgressionSystem.Bracket_70_6_2  = 0
 # Release: May 22, 2008 (Raid), March 25, 2008 (Arena Season 4)
 # Recommended Duration: 8-12 weeks (final raid tier, longest phase)
 
-ProgressionSystem.Bracket_70_6_3  = 0
+ProgressionSystem.Bracket_70_6_3  = 1
 # Level 70 | TBC: Final Phase | World Events & Expansion Transition
 # Content: Dragons of Nightmare world events, world boss rotations, season finale activities
 # Features: World event participation, expansion transition quests, final TBC achievements
 # Release: August 19, 2008
 # Recommended Duration: 3-4 weeks (transition to WotLK)
 
-ProgressionSystem.Bracket_71_74   = 0
+ProgressionSystem.Bracket_71_74   = 1
 # Level Range: 71-74 | WotLK: Early Northrend | Leveling Dungeons (Normal)
 # Content (Normal dungeons):
 # - Utgarde Keep
@@ -958,23 +960,23 @@ ProgressionSystem.CustomLocks.Npcs.ClearNpcFlags.Mask = 128
 
 # Season 1: Gruul/Mag & Karazhan era (TBC)
 ProgressionSystem.Bracket.ArenaSeason1 = Bracket_70_2_1,Bracket_70_2_2
-ProgressionSystem.Bracket.ArenaSeason1.Enabled = 0
+ProgressionSystem.Bracket.ArenaSeason1.Enabled = 1
 
 # Season 2: Merciless era (TBC)
 ProgressionSystem.Bracket.ArenaSeason2 = Bracket_70_2_2,Bracket_70_3_2,Bracket_70_4_1
-ProgressionSystem.Bracket.ArenaSeason2.Enabled = 0
+ProgressionSystem.Bracket.ArenaSeason2.Enabled = 1
 
 # Season 3: Vengeful era (TBC)
 ProgressionSystem.Bracket.ArenaSeason3 = Bracket_70_5
-ProgressionSystem.Bracket.ArenaSeason3.Enabled = 0
+ProgressionSystem.Bracket.ArenaSeason3.Enabled = 1
 
 # Season 4: Sunwell Plateau era (TBC end)
 ProgressionSystem.Bracket.ArenaSeason4 = Bracket_70_6_2
-ProgressionSystem.Bracket.ArenaSeason4.Enabled = 0
+ProgressionSystem.Bracket.ArenaSeason4.Enabled = 1
 
 # Season 5: WotLK early Arena seasons (WotLK transition)
 ProgressionSystem.Bracket.ArenaSeason5 = Bracket_80_1_2
-ProgressionSystem.Bracket.ArenaSeason5.Enabled = 0
+ProgressionSystem.Bracket.ArenaSeason5.Enabled = 1
 
 # Season 6: Ulduar era
 ProgressionSystem.Bracket.ArenaSeason6 = Bracket_80_2_2
