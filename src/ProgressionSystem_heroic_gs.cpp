@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "ScriptMgr.h"
 
+#include <algorithm>
 #include <mutex>
 #include <unordered_map>
 
@@ -132,6 +133,8 @@ namespace
     constexpr uint32 kMapPitOfSaron = 658;
     constexpr uint32 kMapHallsOfReflection = 668;
 
+    constexpr Difficulty kDungeonDifficultyHeroic = static_cast<Difficulty>(1);
+
     bool IsIcc5Map(uint32 mapId)
     {
         return mapId == kMapForgeOfSouls || mapId == kMapPitOfSaron || mapId == kMapHallsOfReflection;
@@ -183,7 +186,7 @@ namespace
         // Instance-specific overrides for ICC 5-mans.
         if (IsIcc5Map(mapId))
         {
-            if (difficulty == DIFFICULTY_HEROIC)
+            if (difficulty == kDungeonDifficultyHeroic)
             {
                 if (dbCfg.tablePresent && dbCfg.requiredIcc5Heroic > 0)
                     return dbCfg.requiredIcc5Heroic;
@@ -261,7 +264,7 @@ namespace
             Difficulty const difficulty = map->GetDifficultyID();
 
             // Enforce for heroic dungeons, plus optional ICC5 normal-mode gate.
-            if (difficulty != DIFFICULTY_HEROIC && !IsIcc5Map(mapId))
+            if (difficulty != kDungeonDifficultyHeroic && !IsIcc5Map(mapId))
                 return;
 
             uint32 const requiredIlvl = GetRequiredIlvlForCurrentBracket(mapId, difficulty);

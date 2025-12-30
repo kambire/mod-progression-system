@@ -5,6 +5,7 @@
 
 #include "Config.h"
 #include "DatabaseEnv.h"
+#include "Database/QueryResult.h"
 #include "Log.h"
 #include "Tokenize.h"
 #include "StringConvert.h"

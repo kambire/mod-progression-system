@@ -34,6 +34,9 @@ namespace
     constexpr uint32 kMapPitOfSaron = 658;
     constexpr uint32 kMapHallsOfReflection = 668;
 
+    constexpr Difficulty kDungeonDifficultyNormal = static_cast<Difficulty>(0);
+    constexpr Difficulty kDungeonDifficultyHeroic = static_cast<Difficulty>(1);
+
     bool IsIcc5Map(uint32 mapId)
     {
         return mapId == kMapForgeOfSouls || mapId == kMapPitOfSaron || mapId == kMapHallsOfReflection;
@@ -139,7 +142,7 @@ namespace
         // ICC5 overrides
         if (IsIcc5Map(mapId))
         {
-            if (difficulty == DIFFICULTY_HEROIC)
+            if (difficulty == kDungeonDifficultyHeroic)
             {
                 if (dbGlobal.tablePresent && dbGlobal.reqIcc5Heroic > 0)
                     return dbGlobal.reqIcc5Heroic;
@@ -295,12 +298,12 @@ public:
         // Bracket requirement summary (heroics). Map/difficulty are generic here.
         if (!bracket.empty())
         {
-            uint32 const required = GetHeroicGsRequiredForCurrentBracket(/*mapId*/0, DIFFICULTY_HEROIC, bracket);
+            uint32 const required = GetHeroicGsRequiredForCurrentBracket(/*mapId*/0, kDungeonDifficultyHeroic, bracket);
             handler->PSendSysMessage("Heroic requirement (avg iLvl): {}", required);
         }
 
-        uint32 const icc5Normal = GetHeroicGsRequiredForCurrentBracket(kMapForgeOfSouls, DIFFICULTY_NORMAL, bracket);
-        uint32 const icc5Heroic = GetHeroicGsRequiredForCurrentBracket(kMapForgeOfSouls, DIFFICULTY_HEROIC, bracket);
+        uint32 const icc5Normal = GetHeroicGsRequiredForCurrentBracket(kMapForgeOfSouls, kDungeonDifficultyNormal, bracket);
+        uint32 const icc5Heroic = GetHeroicGsRequiredForCurrentBracket(kMapForgeOfSouls, kDungeonDifficultyHeroic, bracket);
         handler->PSendSysMessage("ICC5 requirements (avg iLvl): normal={} heroic={}", icc5Normal, icc5Heroic);
 
         return true;
@@ -317,7 +320,7 @@ public:
 
         std::string const bracket = GetHighestEnabledBracketName();
         float const avgIlvl = CalculateEquippedAverageItemLevel(player);
-        uint32 const required = GetHeroicGsRequiredForCurrentBracket(/*mapId*/0, DIFFICULTY_HEROIC, bracket);
+        uint32 const required = GetHeroicGsRequiredForCurrentBracket(/*mapId*/0, kDungeonDifficultyHeroic, bracket);
 
         handler->SendSysMessage("HeroicGs (your character)");
         handler->PSendSysMessage("Active bracket: {}", bracket.empty() ? "(none)" : bracket);
