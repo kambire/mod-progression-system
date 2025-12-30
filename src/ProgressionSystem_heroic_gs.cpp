@@ -22,7 +22,6 @@ namespace
     {
         bool tablePresent = false;
         bool enabled = false;
-        float avgIlvlMultiplier = 0.0f;
         uint32 requiredIcc5Normal = 0;
         uint32 requiredIcc5Heroic = 0;
         std::unordered_map<std::string, uint32> requiredByBracket;
@@ -43,7 +42,7 @@ namespace
         cfg.tablePresent = true;
 
         QueryResult result = WorldDatabase.Query(
-            "SELECT bracket, enabled, avg_ilvl_multiplier, required_heroic, required_icc5_normal, required_icc5_heroic "
+            "SELECT bracket, enabled, required_heroic, required_icc5_normal, required_icc5_heroic "
             "FROM mod_progression_heroic_gs");
 
         if (!result)
@@ -54,15 +53,13 @@ namespace
             Field* fields = result->Fetch();
             std::string const bracket = fields[0].Get<std::string>();
             bool const enabled = fields[1].Get<uint8>() != 0;
-            float const mult = fields[2].Get<float>();
-            uint32 const requiredHeroic = fields[3].Get<uint32>();
-            uint32 const reqIcc5Normal = fields[4].Get<uint32>();
-            uint32 const reqIcc5Heroic = fields[5].Get<uint32>();
+            uint32 const requiredHeroic = fields[2].Get<uint32>();
+            uint32 const reqIcc5Normal = fields[3].Get<uint32>();
+            uint32 const reqIcc5Heroic = fields[4].Get<uint32>();
 
             if (bracket == "GLOBAL")
             {
                 cfg.enabled = enabled;
-                cfg.avgIlvlMultiplier = mult;
                 cfg.requiredIcc5Normal = reqIcc5Normal;
                 cfg.requiredIcc5Heroic = reqIcc5Heroic;
             }
@@ -130,15 +127,6 @@ namespace
         return dbCfg.tablePresent && dbCfg.enabled;
     }
 
-    float GetAvgIlvlMultiplier()
-    {
-        float const multByConf = sConfigMgr->GetOption<float>("ProgressionSystem.HeroicGs.AvgIlvlMultiplier", 20.0f);
-        DbHeroicGsConfig const dbCfg = GetDbHeroicGsConfigSnapshot();
-        if (dbCfg.tablePresent && dbCfg.avgIlvlMultiplier > 0.0f)
-            return dbCfg.avgIlvlMultiplier;
-        return multByConf;
-    }
-
     // ICC 5-man dungeons
     constexpr uint32 kMapForgeOfSouls = 632;
     constexpr uint32 kMapPitOfSaron = 658;
@@ -176,13 +164,6 @@ namespace
         return count ? (static_cast<float>(sum) / static_cast<float>(count)) : 0.0f;
     }
 
-    uint32 CalculatePseudoGsFromAvgIlvl(float avgIlvl)
-    {
-        float const multiplier = GetAvgIlvlMultiplier();
-        float const pseudo = avgIlvl * multiplier;
-        return pseudo > 0.0f ? static_cast<uint32>(pseudo + 0.5f) : 0;
-    }
-
     std::string GetHighestEnabledBracketName()
     {
         std::string last;
@@ -195,7 +176,7 @@ namespace
         return last;
     }
 
-    uint32 GetRequiredGsForCurrentBracket(uint32 mapId, Difficulty difficulty)
+    uint32 GetRequiredIlvlForCurrentBracket(uint32 mapId, Difficulty difficulty)
     {
         DbHeroicGsConfig const dbCfg = GetDbHeroicGsConfigSnapshot();
 
@@ -206,13 +187,13 @@ namespace
             {
                 if (dbCfg.tablePresent && dbCfg.requiredIcc5Heroic > 0)
                     return dbCfg.requiredIcc5Heroic;
-                return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Heroic", 5400)));
+                return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Heroic", 270)));
             }
 
             // Normal mode (still an endgame dungeon set; optional requirement).
             if (dbCfg.tablePresent && dbCfg.requiredIcc5Normal > 0)
                 return dbCfg.requiredIcc5Normal;
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Normal", 5000)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Normal", 250)));
         }
 
         // Generic per-bracket requirements.
@@ -239,23 +220,23 @@ namespace
         // Only enforce when a bracket explicitly provides a threshold.
         // Defaults target the WotLK heroic brackets.
         if (bracket == "80_1_2")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_1_2", 3500)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_1_2", 175)));
         if (bracket == "80_2_1")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_1", 3500)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_1", 175)));
         if (bracket == "80_2_2")
         {
             int32 const value = sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_2",
-                sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2", 4000));
+                sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2", 200));
             return static_cast<uint32>(std::max<int32>(0, value));
         }
         if (bracket == "80_3")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_3", 4400)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_3", 220)));
         if (bracket == "80_4_1")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_1", 4800)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_1", 240)));
         if (bracket == "80_4_2")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_2", 4800)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_2", 240)));
 
-        // Everything else: no GS gate by default.
+        // Everything else: no iLvl gate by default.
         return 0;
     }
 
@@ -283,21 +264,17 @@ namespace
             if (difficulty != DIFFICULTY_HEROIC && !IsIcc5Map(mapId))
                 return;
 
-            uint32 const requiredGs = GetRequiredGsForCurrentBracket(mapId, difficulty);
-            if (requiredGs == 0)
+            uint32 const requiredIlvl = GetRequiredIlvlForCurrentBracket(mapId, difficulty);
+            if (requiredIlvl == 0)
                 return;
 
             float const avgIlvl = CalculateEquippedAverageItemLevel(player);
-            uint32 const pseudoGs = CalculatePseudoGsFromAvgIlvl(avgIlvl);
-
-            if (pseudoGs >= requiredGs)
+            if (avgIlvl >= static_cast<float>(requiredIlvl))
                 return;
 
-            float const mult = GetAvgIlvlMultiplier();
-
             ChatHandler(player->GetSession()).PSendSysMessage(
-                "Necesitas un requisito de equipo minimo para entrar aqui. Requisito: %u (iLvlProm*%.2f). Tu iLvl promedio: %.1f (valor: %u).",
-                requiredGs, mult, avgIlvl, pseudoGs);
+                "Necesitas un iLvl promedio minimo para entrar aqui. Requisito: %u. Tu iLvl promedio: %.1f.",
+                requiredIlvl, avgIlvl);
 
             // Best-effort safe exit. (Core provides this on AzerothCore/Trinity-derived codebases.)
             player->TeleportToHomebind();

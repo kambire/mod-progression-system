@@ -371,35 +371,51 @@
 
 ---
 
-### Bracket_80_2
+### Bracket_80_2_1
 **Level Range**: 80  
-**Content**: Ulduar (Raid Tier 1), Naxxramas 80, Eye of Eternity, Obsidian Sanctum, Arena Season 6  
-**Description**: First major raid tier of WotLK with multiple raid instances. Ulduar is the primary 25-man raid, with Naxxramas 80 as an alternative 25-man/10-man raid. Eye of Eternity features Malygos as a unique encounter. Obsidian Sanctum challenges players with Sartharion and his dragon companions.  
+**Content**: Naxxramas 80, Eye of Eternity, Obsidian Sanctum (Raid Tier 1 / T7)  
+**Description**: First raid package of WotLK at level 80. Naxxramas 80 is the main multi-wing raid, with Eye of Eternity (Malygos) and Obsidian Sanctum (Sartharion + drakes) as complementary raids.  
 **Raid Instances**:
-- **Ulduar** (25-man/10-man, 14 bosses) - Complex mechanical encounters
 - **Naxxramas 80** (25-man/10-man, 15 bosses) - Scaled version of Vanilla's Naxxramas
 - **Eye of Eternity** (25-man/10-man, 1 boss) - Malygos encounter
 - **Obsidian Sanctum** (25-man/10-man, 1 main boss + 3 dragon drakes)
 
-**Arena Content**: Season 6 (Glorious gear) - Begins April 15, 2009, rating-based PvP rewards  
 **Release Dates**:
 - Naxxramas 80: November 13, 2008
 - Obsidian Sanctum: November 13, 2008
 - Eye of Eternity: November 13, 2008
+
+**Highlights**:
+- **Naxxramas 80**: Classic raid refreshed for new expansion, multiple boss wings
+- **Eye of Eternity**: Dragon archon final battle, Malygos lore
+- **Obsidian Sanctum**: Optional dragon encounters, raid event coordination
+
+**Notable Bosses**: Anub'Rekhan, Grand Widow Faerlina, Maexxna (Arachnid Quarter), Patchwerk, Grobbulus, Gluth (Plague Quarter), Thaddius (Military Quarter), Sapphiron, Kel'Thuzad (Naxxramas); Malygos (Eye); Sartharion + Dragons (Obsidian Sanctum)  
+**Difficulty Ranking**: Medium  
+**Historical Release**: November 13, 2008
+
+---
+
+### Bracket_80_2_2
+**Level Range**: 80  
+**Content**: Ulduar (Raid Tier 2), Vault of Archavon, Arena Season 6  
+**Description**: Ulduar era with complex mechanics, hard modes, and Arena Season 6. Earlier raids (Naxx/Eye/OS) typically remain available as optional/alternative content.  
+**Raid Instances**:
+- **Ulduar** (25-man/10-man, 14 bosses) - Complex mechanical encounters
+- **Vault of Archavon** (25-man/10-man, 4 bosses) - PvP zone raid (Wintergrasp)
+
+**Arena Content**: Season 6 (Glorious gear) - Begins April 15, 2009, rating-based PvP rewards  
+**Release Dates**:
 - Ulduar: April 16, 2009
 - Arena Season 6: April 15, 2009
 
 **Highlights**:
 - **Ulduar**: Titan facility with complex mechanics, Mimiron and Yogg-Saron encounters, vehicle mechanics
-- **Naxxramas 80**: Classic raid refreshed for new expansion, multiple boss wings
-- **Eye of Eternity**: Dragon archon final battle, Malygos lore
-- **Obsidian Sanctum**: Optional dragon encounters, raid event coordination
 - **Arena Season 6**: PvP competition peaks with Glorious Gladiator gear
 
-**Notable Bosses**: Anub'Rekhan, Grand Widow Faerlina, Maexxna (Arachnid Quarter), Patchwerk, Grobbulus, Gluth (Plague Quarter), Thaddius (Military Quarter), Sapphiron, Kel'Thuzad (Naxxramas); Malygos (Eye); Sartharion + Dragons (Obsidian Sanctum); Flame Leviathan, XT-002 Deconstructor, Ignis, Razorscale, The XT-002 Deconstructor, Kologarn, Auriaya, Mimiron, General Vezax, Yogg-Saron, Algalon the Observer (Ulduar)
-
+**Notable Bosses**: Flame Leviathan, XT-002 Deconstructor, Ignis, Razorscale, Kologarn, Auriaya, Mimiron, General Vezax, Yogg-Saron, Algalon the Observer (Ulduar)  
 **Difficulty Ranking**: Medium-High  
-**Historical Release**: November 13, 2008 (Naxx/Eye/OS), April 16, 2009 (Ulduar)
+**Historical Release**: April 16, 2009 (Ulduar)
 
 ---
 
@@ -512,7 +528,8 @@
 | Bracket_75_79 | 75-79 | WotLK | Mid Dungeons | Nov 13, 2008 |
 | Bracket_80_1_1 | 80 | WotLK | Dungeons (Normal) | Nov 13, 2008 |
 | Bracket_80_1_2 | 80 | WotLK | Dungeons (Heroic), Season 5 | Nov 13, 2008 |
-| Bracket_80_2 | 80 | WotLK | Ulduar/Naxx/Eye/OS, Season 6 | Nov 13-Apr 16, 2009 |
+| Bracket_80_2_1 | 80 | WotLK | Naxx/Eye/OS (T7) | Nov 13, 2008 |
+| Bracket_80_2_2 | 80 | WotLK | Ulduar/VoA, Season 6 | Apr 16, 2009 |
 | Bracket_80_3 | 80 | WotLK | Trial/Onyxia, Season 7 | Apr 16-Aug 4, 2009 |
 | Bracket_80_4_1 | 80 | WotLK | ICC, Season 8 | Dec 8, 2009 |
 | Bracket_80_4_2 | 80 | WotLK | Ruby Sanctum | Jun 29, 2010 |

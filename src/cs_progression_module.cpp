@@ -84,7 +84,6 @@ namespace
     {
         bool tablePresent = false;
         bool enabled = false;
-        float mult = 0.0f;
         uint32 reqIcc5Normal = 0;
         uint32 reqIcc5Heroic = 0;
     };
@@ -103,7 +102,7 @@ namespace
             return out;
 
         QueryResult result = WorldDatabase.Query(
-            "SELECT enabled, avg_ilvl_multiplier, required_icc5_normal, required_icc5_heroic "
+            "SELECT enabled, required_icc5_normal, required_icc5_heroic "
             "FROM mod_progression_heroic_gs WHERE bracket='GLOBAL'");
 
         if (!result)
@@ -111,9 +110,8 @@ namespace
 
         Field* fields = result->Fetch();
         out.enabled = fields[0].Get<uint8>() != 0;
-        out.mult = fields[1].Get<float>();
-        out.reqIcc5Normal = fields[2].Get<uint32>();
-        out.reqIcc5Heroic = fields[3].Get<uint32>();
+        out.reqIcc5Normal = fields[1].Get<uint32>();
+        out.reqIcc5Heroic = fields[2].Get<uint32>();
 
         return out;
     }
@@ -145,12 +143,12 @@ namespace
             {
                 if (dbGlobal.tablePresent && dbGlobal.reqIcc5Heroic > 0)
                     return dbGlobal.reqIcc5Heroic;
-                return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Heroic", 5400)));
+                return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Heroic", 270)));
             }
 
             if (dbGlobal.tablePresent && dbGlobal.reqIcc5Normal > 0)
                 return dbGlobal.reqIcc5Normal;
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Normal", 5000)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_Icc5_Normal", 250)));
         }
 
         // DB per bracket override
@@ -170,21 +168,21 @@ namespace
 
         // Conf fallback
         if (bracket == "80_1_2")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_1_2", 3500)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_1_2", 175)));
         if (bracket == "80_2_1")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_1", 3500)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_1", 175)));
         if (bracket == "80_2_2")
         {
             int32 const value = sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2_2",
-                sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2", 4000));
+                sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_2", 200));
             return static_cast<uint32>(std::max<int32>(0, value));
         }
         if (bracket == "80_3")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_3", 4400)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_3", 220)));
         if (bracket == "80_4_1")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_1", 4800)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_1", 240)));
         if (bracket == "80_4_2")
-            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_2", 4800)));
+            return static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.HeroicGs.Required_80_4_2", 240)));
 
         return 0;
     }
@@ -199,14 +197,6 @@ namespace
         return dbGlobal.tablePresent && dbGlobal.enabled;
     }
 
-    float GetHeroicGsMultiplierEffective()
-    {
-        float const conf = sConfigMgr->GetOption<float>("ProgressionSystem.HeroicGs.AvgIlvlMultiplier", 20.0f);
-        HeroicGsDbRowGlobal const dbGlobal = ReadHeroicGsDbGlobal();
-        if (dbGlobal.tablePresent && dbGlobal.mult > 0.0f)
-            return dbGlobal.mult;
-        return conf;
-    }
 }
 
 class progression_module_commandscript : public CommandScript
@@ -294,12 +284,11 @@ public:
         handler->PSendSysMessage("Active bracket: {}", bracket.empty() ? "(none)" : bracket);
 
         bool const heroicEnabled = IsHeroicGsGateEnabledEffective();
-        float const mult = GetHeroicGsMultiplierEffective();
-        handler->PSendSysMessage("HeroicGs: {}  Multiplier: {:.2f}", heroicEnabled ? "ON" : "OFF", mult);
+        handler->PSendSysMessage("Heroic iLvl gate: {}", heroicEnabled ? "ON" : "OFF");
 
         HeroicGsDbRowGlobal const dbGlobal = ReadHeroicGsDbGlobal();
         if (dbGlobal.tablePresent)
-            handler->PSendSysMessage("HeroicGs DB: present=1 enabled={} mult={:.2f}", dbGlobal.enabled ? 1 : 0, dbGlobal.mult);
+            handler->PSendSysMessage("HeroicGs DB: present=1 enabled={}", dbGlobal.enabled ? 1 : 0);
         else
             handler->SendSysMessage("HeroicGs DB: present=0 (using .conf fallback)");
 
@@ -307,12 +296,12 @@ public:
         if (!bracket.empty())
         {
             uint32 const required = GetHeroicGsRequiredForCurrentBracket(/*mapId*/0, DIFFICULTY_HEROIC, bracket);
-            handler->PSendSysMessage("Heroic requirement (current bracket): {}", required);
+            handler->PSendSysMessage("Heroic requirement (avg iLvl): {}", required);
         }
 
         uint32 const icc5Normal = GetHeroicGsRequiredForCurrentBracket(kMapForgeOfSouls, DIFFICULTY_NORMAL, bracket);
         uint32 const icc5Heroic = GetHeroicGsRequiredForCurrentBracket(kMapForgeOfSouls, DIFFICULTY_HEROIC, bracket);
-        handler->PSendSysMessage("ICC5 requirements: normal={} heroic={}", icc5Normal, icc5Heroic);
+        handler->PSendSysMessage("ICC5 requirements (avg iLvl): normal={} heroic={}", icc5Normal, icc5Heroic);
 
         return true;
     }
@@ -328,15 +317,12 @@ public:
 
         std::string const bracket = GetHighestEnabledBracketName();
         float const avgIlvl = CalculateEquippedAverageItemLevel(player);
-        float const mult = GetHeroicGsMultiplierEffective();
-        uint32 const score = (avgIlvl * mult) > 0.0f ? static_cast<uint32>(avgIlvl * mult + 0.5f) : 0;
-
         uint32 const required = GetHeroicGsRequiredForCurrentBracket(/*mapId*/0, DIFFICULTY_HEROIC, bracket);
 
         handler->SendSysMessage("HeroicGs (your character)");
         handler->PSendSysMessage("Active bracket: {}", bracket.empty() ? "(none)" : bracket);
-        handler->PSendSysMessage("Avg iLvl: {:.1f}  Multiplier: {:.2f}  Score: {}", avgIlvl, mult, score);
-        handler->PSendSysMessage("Required (heroics): {}  Result: {}", required, (required == 0 || score >= required) ? "PASS" : "FAIL");
+        handler->PSendSysMessage("Avg iLvl: {:.1f}", avgIlvl);
+        handler->PSendSysMessage("Required (heroics, avg iLvl): {}  Result: {}", required, (required == 0 || avgIlvl >= static_cast<float>(required)) ? "PASS" : "FAIL");
         return true;
     }
 

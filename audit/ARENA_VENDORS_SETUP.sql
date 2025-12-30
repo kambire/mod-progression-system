@@ -50,7 +50,7 @@ UPDATE `creature_template` SET `npcflag`=`npcflag`&~128 WHERE `entry` IN (
 -- ENABLE Season 5 vendors
 -- Keep previous seasons available
 
--- When Bracket_80_2 (Arena Season 6) is ACTIVE:
+-- When Bracket_80_2_2 (Arena Season 6) is ACTIVE:
 -- ENABLE Season 6 vendors (Glorious Gladiator)
 -- Keep Season 5 vendors (Deadly Gladiator)
 

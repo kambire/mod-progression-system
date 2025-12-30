@@ -37,7 +37,13 @@ quest_template*.sql
 gameobject_template*.sql
 
 # Local audit outputs (do not commit)
-audit/
+audit/*
+!audit/*.sql
+!audit/*.md
+
+# Generated local extracts (keep ignored)
+audit/wintergrasp_vendor_items_extracted.csv
+audit/wintergrasp_vendor_items_summary.md
 
 # One-off local helper scripts (do not commit)
 scripts/offline_extract_wintergrasp_vendors.ps1

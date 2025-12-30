@@ -12,13 +12,20 @@
 -- It does NOT delete any instance content from the DB; players will simply be prevented from entering.
 --
 -- Locks applied here:
+-- - WotLK launch raids (deny-by-default): 533, 615, 616
+-- - Ulduar + Vault of Archavon (deny-by-default): 603, 624
 -- - ICC raid + ICC 5-mans: 631, 632, 658, 668
 -- - ToC raid + ToC 5-man: 649, 650
 -- - Onyxia (reworked): 249
 -- - Ruby Sanctum: 724
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
+DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 533, 603, 615, 616, 624, 631, 632, 649, 650, 658, 668, 724);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (2, 249, 3, '', '', 'Onyxia Lair'),
+(2, 533, 3, '', '', 'Naxxramas'),
+(2, 603, 3, '', '', 'Ulduar'),
+(2, 615, 3, '', '', 'The Obsidian Sanctum'),
+(2, 616, 3, '', '', 'The Eye of Eternity'),
+(2, 624, 3, '', '', 'Vault of Archavon'),
 (2, 631, 15, '', '', 'Icecrown Citadel'),
 (2, 632, 3, '', '', 'The Forge of Souls'),
 (2, 649, 15, '', '', 'Trial of The Crusader'),
@@ -97,8 +104,30 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 14141, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Gormok Wants His Snobolds (Horde)'),
 (1, 14112, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - What Do You Feed a Yeti, Anyway? (Alliance)'),
 (1, 14145, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - What Do You Feed a Yeti, Anyway? (Horde)'),
-(1, 13820, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Blastbolt Brothers)'),
-(1, 13681, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Ulduar Block)'),
-(1, 13627, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Lumber)');
+	(1, 13820, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Blastbolt Brothers)'),
+	(1, 13681, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Ulduar Block)'),
+	(1, 13627, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Lumber)');
 
-UPDATE `disables` SET `flags`=`flags`&~1 WHERE `entry` IN (574, 576, 600, 601, 619);
+-- Bracket-skip safety: ensure Northrend dungeon rows exist so we can reliably lock heroics.
+-- (Some setups enable 71_74 without enabling Bracket_0 which inserts the baseline `disables` rows.)
+INSERT IGNORE INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(2, 574, 3, '', '', 'Utgarde Keep'),
+(2, 575, 3, '', '', 'Utgarde Pinnacle'),
+(2, 576, 3, '', '', 'The Nexus'),
+(2, 578, 3, '', '', 'The Oculus'),
+(2, 595, 3, '', '', 'The Culling of Stratholme'),
+(2, 599, 3, '', '', 'Halls of Stone'),
+(2, 600, 3, '', '', 'Drak''Tharon Keep'),
+(2, 601, 3, '', '', 'Azjol-Nerub'),
+(2, 602, 3, '', '', 'Halls of Lightning'),
+(2, 604, 3, '', '', 'Gundrak'),
+(2, 608, 3, '', '', 'Violet Hold'),
+(2, 619, 3, '', '', 'Ahn''kahet: The Old Kingdom');
+
+-- Keep higher-level Northrend dungeons locked (both normal + heroic).
+UPDATE `disables` SET `flags` = `flags` | 3
+WHERE `sourceType` = 2 AND `entry` IN (575, 578, 595, 599, 602, 604, 608);
+
+-- Enable 71-74 normal dungeons, keep heroic locked.
+UPDATE `disables` SET `flags` = (`flags` | 2) &~ 1
+WHERE `sourceType` = 2 AND `entry` IN (574, 576, 600, 601, 619);

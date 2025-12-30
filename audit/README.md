@@ -35,6 +35,30 @@ It is intentionally **NOT** part of the bracket autoload pipeline (DBUpdater).
 - `WINTER_VEIL_VENDORS_AUDIT.sql`
   - Audit/inspection queries (typically read-only).
 
+- `NPCFLAG_VENDOR_AUDIT.sql`
+  - Audits npcflag vendor bit (128) for NPCs controlled by this module.
+
+- `NPCFLAG_VENDOR_FIX.sql`
+  - Manual fixes for npcflag vendor bit by bracket, plus a default restore section.
+
+- `NPCFLAG_VENDOR_GUIDE.md`
+  - Step-by-step guide for auditing and fixing vendor flags.
+
+- `CUSTOM_LOCKS_AUDIT.sql`
+  - Shows what CustomLocks is currently tracking/applied (base vs current).
+
+- `WOTLK_DISABLES_AUDIT.sql`
+  - Validates WotLK instance progression locks/unlocks via `world.disables` (by bracket).
+
+- `WOTLK_DISABLES_GUIDE.md`
+  - Step-by-step guide for running the WotLK disables audit.
+
+- `WOTLK_WEEKLY_RAID_QUESTS_AUDIT.sql`
+  - Validates WotLK weekly raid quest emblem rewards (24579..24590) via `world.quest_template` (by bracket).
+
+- `WOTLK_WEEKLY_RAID_QUESTS_GUIDE.md`
+  - Step-by-step guide for running the WotLK weekly raid quest audit.
+
 - `ARENA_SEASONS_VALIDATION.md`
 - `PARAMETROS_TECNICOS_DESARROLLO.md`
 - `BRACKET_DESCRIPTIONS_COMPLETE.md`

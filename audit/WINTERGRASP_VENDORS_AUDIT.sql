@@ -11,7 +11,7 @@
 --   1) Run on your `world` database.
 --   2) Set @ALLOW_UP_TO_SEASON according to your active bracket:
 --        Bracket_80_1_2 (S5 Deadly)      => 5
---        Bracket_80_2   (S6 Furious)     => 6
+--        Bracket_80_2_2 (S6 Furious)     => 6
 --        Bracket_80_3   (S7 Relentless)  => 7
 --        Bracket_80_4_1 (S8 Wrathful)    => 8
 --   3) Review the "Flagged" result set, then decide whether to delete or gate items.

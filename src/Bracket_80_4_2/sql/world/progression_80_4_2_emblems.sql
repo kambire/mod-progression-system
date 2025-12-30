@@ -2,7 +2,7 @@
 -- SERVER SOURCE OF TRUTH:
 -- - Heroicas (bosses) => TRIUNFO (47241)
 -- Scope: ONLY level-80 5-man dungeon heroic maps (no raids):
--- 574,576,578,595,599,600,601,602,604,608,619,650,632,658,668
+-- 574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668
 --
 -- Emblem item IDs (WotLK):
 -- Heroism 40752
@@ -12,7 +12,7 @@
 -- Frost   49426
 
 SET @TARGET_EMBLEM := 47241;
-SET @MAPS := '574,576,578,595,599,600,601,602,604,608,619,650,632,658,668';
+SET @MAPS := '574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668';
 
 -- Schema compatibility: some cores use creature.id1 as templateEntry, others use creature.id.
 SELECT COUNT(*) INTO @HAS_CREATURE_ID1
@@ -64,4 +64,4 @@ JOIN `gameobject` go ON go.`id` = got.`entry`
 SET gl.`Item` = @TARGET_EMBLEM
 WHERE gl.`Item` IN (40752,40753,45624,47241,49426)
   AND gl.`Item` <> @TARGET_EMBLEM
-  AND go.`map` IN (574,576,578,595,599,600,601,602,604,608,619,650,632,658,668);
+  AND go.`map` IN (574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668);

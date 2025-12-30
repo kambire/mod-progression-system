@@ -39,7 +39,7 @@
 -- Rewards: Deadly
 
 -- SEASON 6 (Furious) - WotLK
--- Bracket: Bracket_80_2
+-- Bracket: Bracket_80_2_2
 -- Dates: (approx.) 2009
 -- Rating: depends on the item (expressed in item_extended_cost)
 -- Rewards: Furious
@@ -93,7 +93,7 @@ JOIN item_template it ON it.entry = v.item
 WHERE v.entry IN (33609, 33610)
     AND it.name LIKE '%Deadly%'
 UNION ALL
-SELECT 'Bracket_80_2 (Season 6)', COUNT(*)
+SELECT 'Bracket_80_2_2 (Season 6)', COUNT(*)
 FROM npc_vendor v
 JOIN item_template it ON it.entry = v.item
 WHERE v.entry IN (33609, 33610)

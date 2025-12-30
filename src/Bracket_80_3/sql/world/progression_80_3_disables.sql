@@ -14,23 +14,25 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (2, 724, 15, '', '', 'The Ruby Sanctum');
 
 -- Extra hard-lock for RDF/LFG teleport (deny-by-default):
-DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (631, 632, 658, 668);
+DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (249, 631, 632, 649, 650, 658, 668);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(8, 249, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Onyxia 80'),
 (8, 631, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Icecrown Citadel'),
 (8, 632, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): The Forge of Souls'),
+(8, 649, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Crusader'),
+(8, 650, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Champion'),
 (8, 658, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Pit of Saron'),
 (8, 668, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Halls of Reflection');
 
--- Makes instances (and RDF) Trial of the Crusader available again.
--- NOTE: Onyxia (249) is intentionally kept locked until Bracket_80_4.
--- NOTE: Trial of the Champion (650) is intentionally kept locked.
-DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (649);
+-- Makes instances (and RDF) Trial of the Crusader, Trial of the Champion and Onyxia 80 available again.
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (249, 649, 650);
 
--- Keep Trial of the Champion locked completely (including RDF).
-DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` = 650;
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(2, 650, 3, '', '', '[mod-progression-blizzlike] Locked: Trial of the Champion'),
-(8, 650, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Champion');
+-- Bracket-skip safety: keep earlier WotLK raids available in later phases too.
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (533, 603, 615, 616, 624);
+
+-- Ensure WotLK heroic dungeons are enabled as well.
+DELETE FROM `disables`
+WHERE `sourceType` = 2 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619);
 
 -- Make the quests  Lord Jaraxxus Must Die! and available again.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24589;

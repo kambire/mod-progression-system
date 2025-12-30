@@ -167,7 +167,8 @@ When `ProgressionSystem.LoadDatabase = 1`, this module uses AzerothCore `DBUpdat
 | **Bracket_75_79** | 75-79 | - | Mid-Level | Nov 13, 2008 |
 | **Bracket_80_1_1** | 80 | - | Dungeons | Nov 13, 2008 |
 | **Bracket_80_1_2** | 80 | **S5** | Heroic Dungeons | Nov 13, 2008 |
-| **Bracket_80_2** | 80 | **S6** | T7 (Naxx/OS/EoE) + Ulduar | Mar 17, 2009 |
+| **Bracket_80_2_1** | 80 | - | T7 raids (Naxx/OS/EoE) | Nov 13, 2008 |
+| **Bracket_80_2_2** | 80 | **S6** | Ulduar (T8) | Apr 16, 2009 |
 | **Bracket_80_3** | 80 | **S7** | Trial/Coliseum | Aug 4, 2009 |
 | **Bracket_80_4_1** | 80 | **S8** | Icecrown Citadel | Dec 8, 2009 |
 | **Bracket_80_4_2** | 80 | - | Ruby Sanctum | Jun 29, 2010 |
@@ -189,7 +190,7 @@ When `ProgressionSystem.LoadDatabase = 1`, this module uses AzerothCore `DBUpdat
 | Season | Bracket | Period | Rating | Gear | Cost (blizzlike) |
 |--------|---------|---------|--------------|------|------------------|
 | **S5** | 80_1_2 | (approx.) 2008-2009 | (per `ExtendedCost`) | Deadly | `ExtendedCost` (new) |
-| **S6** | 80_2 | (approx.) 2009 | (per `ExtendedCost`) | Furious | `ExtendedCost` (new + legacy) |
+| **S6** | 80_2_2 | (approx.) 2009 | (per `ExtendedCost`) | Furious | `ExtendedCost` (new + legacy) |
 | **S7** | 80_3 | (approx.) 2009-2010 | (per `ExtendedCost`) | Relentless | `ExtendedCost` (new + legacy) |
 | **S8** | 80_4_1 | (approx.) 2010 | (per `ExtendedCost`) | Wrathful | `ExtendedCost` (new + legacy) |
 
@@ -208,6 +209,11 @@ ProgressionSystem.LoadDatabase = 1
 ProgressionSystem.ReapplyUpdates = 0
 ```
 
+### Heroic iLvl Gate (optional)
+
+This module can block heroic dungeon entry if a player's average equipped item level is below a threshold.
+Configure it with `ProgressionSystem.HeroicGs.*` in the module config; values are average iLvl (not GearScore).
+
 ### Enable Brackets by Name
 
 ```ini
@@ -224,7 +230,7 @@ ProgressionSystem.Bracket_70_6_2 = 1  # Arena S4
 
 # WOTLK WITH ARENAS
 ProgressionSystem.Bracket_80_1_2 = 1  # Arena S5
-ProgressionSystem.Bracket_80_2 = 1    # Arena S6
+ProgressionSystem.Bracket_80_2_2 = 1  # Arena S6
 ProgressionSystem.Bracket_80_3 = 1    # Arena S7
 ProgressionSystem.Bracket_80_4_1 = 1  # Arena S8
 ```
@@ -265,7 +271,7 @@ src/Bracket_80_1_2/sql/templates/
 ├─ transition_tbc_to_wotlk_vendors.sql.template   # TBC→WotLK transition template (npcflag 128)
 └─ arena_s5_vendors_cleanup.sql.template          # Arena S5 - Template (S5 only)
 
-src/Bracket_80_2/sql/templates/
+src/Bracket_80_2_2/sql/templates/
 └─ arena_s6_vendors_cleanup.sql.template          # Arena S6 - Template (S5 legacy + S6 new)
 
 src/Bracket_80_3/sql/templates/
@@ -372,6 +378,10 @@ Bracket_80_1_2 (WotLK S5):
 ### Incorrect ExtendedCost / items cost gold
 - If an item costs gold, it usually means `ExtendedCost = 0`.
 - Fix by applying the correct `ExtendedCost` IDs for that season.
+
+### Module disabled but DB changes remain
+- Disabling `ProgressionSystem.LoadDatabase` stops new SQL from applying, but it does not rollback existing DB changes.
+- Use backups or the manual vendor-flag restore in `audit/NPCFLAG_VENDOR_FIX.sql` if you need to revert defaults.
 
 ---
 

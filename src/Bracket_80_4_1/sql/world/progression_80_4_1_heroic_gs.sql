@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `mod_progression_heroic_gs` (
   PRIMARY KEY (`bracket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Global enable + multiplier + ICC5 thresholds (FoS/PoS/HoR).
+-- Global enable + ICC5 thresholds (FoS/PoS/HoR).
 INSERT INTO `mod_progression_heroic_gs`
   (`bracket`, `enabled`, `avg_ilvl_multiplier`, `required_icc5_normal`, `required_icc5_heroic`)
 VALUES

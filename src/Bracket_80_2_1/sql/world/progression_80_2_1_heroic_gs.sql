@@ -1,8 +1,7 @@
--- ProgressionSystem - Heroic pseudo-GS gate (Bracket 80_2_1)
+-- ProgressionSystem - Heroic avg item level gate (Bracket 80_2_1)
 --
--- This module enforces a "pseudo-GS" requirement when players enter heroic 5-man dungeons.
--- Pseudo-GS is computed from equipped average item level (excluding shirt/tabard):
---   pseudoGS = avgEquippedIlvl * multiplier
+-- This module enforces an average item level requirement when players enter heroic 5-man dungeons.
+-- Avg iLvl is computed from equipped items (excluding shirt/tabard).
 --
 -- Apply into the WORLD database.
 
@@ -16,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `mod_progression_heroic_gs` (
   PRIMARY KEY (`bracket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Global enable + multiplier + ICC5 thresholds (FoS/PoS/HoR).
+-- Global enable + ICC5 thresholds (FoS/PoS/HoR).
 INSERT INTO `mod_progression_heroic_gs`
   (`bracket`, `enabled`, `avg_ilvl_multiplier`, `required_icc5_normal`, `required_icc5_heroic`)
 VALUES

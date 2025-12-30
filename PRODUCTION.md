@@ -20,7 +20,7 @@ This module is designed for production use under these rules:
 Important note about instance locks (WotLK):
 - This module enforces WotLK "deny-by-default" via `world.disables`: it INSERTs baseline locks for future content and later brackets DELETE those rows to unlock content.
 - The first WotLK bracket in this module is `Bracket_71_74`, but baseline locks are also inserted in `Bracket_75_79` and all `Bracket_80_*` disables scripts to support setups that start WotLK later or skip brackets.
-- If your server jumps straight to a later WotLK bracket (e.g., enabling only `Bracket_75_79` or `Bracket_80_2`), you still get the baseline lock before unlocks run.
+- If your server jumps straight to a later WotLK bracket (e.g., enabling only `Bracket_75_79` or `Bracket_80_2_1`/`Bracket_80_2_2`), you still get the baseline lock before unlocks run.
 
 Terminology note: "blocked" means the instance is disabled (access denied) via `world.disables`.
 This does NOT delete maps, creatures, loot, or scripts from your database; the portals still exist.
@@ -84,3 +84,4 @@ Recommended steps:
 
 - Restore the `world` backup.
 - Disable brackets (set them to 0) and restart.
+- Note: disabling the module (LoadDatabase=0) does NOT rollback already-applied SQL. Use backups or manual fixes (see `audit/NPCFLAG_VENDOR_FIX.sql`) if you need to restore default vendor flags.

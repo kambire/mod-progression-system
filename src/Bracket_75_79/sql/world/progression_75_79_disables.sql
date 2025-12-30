@@ -2,9 +2,14 @@
 
 -- WotLK baseline lock (deny-by-default): ensure future 80 content is blocked even if earlier WotLK brackets were skipped.
 -- This is safe because later brackets explicitly DELETE from `disables` to unlock what they need.
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
+DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 533, 603, 615, 616, 624, 631, 632, 649, 650, 658, 668, 724);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (2, 249, 3, '', '', 'Onyxia Lair'),
+(2, 533, 3, '', '', 'Naxxramas'),
+(2, 603, 3, '', '', 'Ulduar'),
+(2, 615, 3, '', '', 'The Obsidian Sanctum'),
+(2, 616, 3, '', '', 'The Eye of Eternity'),
+(2, 624, 3, '', '', 'Vault of Archavon'),
 (2, 631, 15, '', '', 'Icecrown Citadel'),
 (2, 632, 3, '', '', 'The Forge of Souls'),
 (2, 649, 15, '', '', 'Trial of The Crusader'),
@@ -83,4 +88,21 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 13681, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Ulduar Block)'),
 (1, 13627, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Lumber)');
 
-UPDATE `disables` SET `flags`=`flags`&~1 WHERE `entry` IN (575, 578, 595, 599, 602, 604, 608);
+-- Bracket-skip safety: ensure Northrend dungeon rows exist so we can reliably lock heroics.
+INSERT IGNORE INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(2, 574, 3, '', '', 'Utgarde Keep'),
+(2, 575, 3, '', '', 'Utgarde Pinnacle'),
+(2, 576, 3, '', '', 'The Nexus'),
+(2, 578, 3, '', '', 'The Oculus'),
+(2, 595, 3, '', '', 'The Culling of Stratholme'),
+(2, 599, 3, '', '', 'Halls of Stone'),
+(2, 600, 3, '', '', 'Drak''Tharon Keep'),
+(2, 601, 3, '', '', 'Azjol-Nerub'),
+(2, 602, 3, '', '', 'Halls of Lightning'),
+(2, 604, 3, '', '', 'Gundrak'),
+(2, 608, 3, '', '', 'Violet Hold'),
+(2, 619, 3, '', '', 'Ahn''kahet: The Old Kingdom');
+
+-- Enable all Northrend normal dungeons (71-79), keep heroic locked.
+UPDATE `disables` SET `flags` = (`flags` | 2) &~ 1
+WHERE `sourceType` = 2 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619);

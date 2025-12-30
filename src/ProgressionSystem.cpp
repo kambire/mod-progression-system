@@ -299,6 +299,17 @@ public:
 
     void OnAfterDatabasesLoaded(uint32 updateFlags) override
     {
+        if (!sConfigMgr->GetOption<bool>("ProgressionSystem.LoadDatabase", true))
+        {
+            LOG_INFO("server.server", "[mod-progression-blizzlike] LoadDatabase=0: skipping DBUpdater for bracket SQL.");
+            return;
+        }
+
+        // Restore any previously-applied custom locks to base state BEFORE DBUpdater runs.
+        // This keeps bracket SQL deterministic and makes CustomLocks reversible by config.
+        extern void ProgressionSystemRestoreCustomLocks();
+        ProgressionSystemRestoreCustomLocks();
+
         LOG_INFO("server.server", "Loading mod-progression-blizzlike updates...");
 
         ApplyDbUpdatesInBracketOrder<LoginDatabaseConnection>(LoginDatabase, updateFlags, "auth");
@@ -309,6 +320,10 @@ public:
         std::string disabledAttunements = sConfigMgr->GetOption<std::string>("ProgressionSystem.DisabledAttunements", "");
         for (auto& itr : Acore::Tokenize(disabledAttunements, ',', false))
             WorldDatabase.Query("DELETE FROM dungeon_access_requirements WHERE dungeon_access_id = {}", Acore::StringTo<uint32>(itr).value());
+
+        // Apply any custom lock overlays AFTER bracket SQL updates.
+        extern void ProgressionSystemApplyCustomLocks();
+        ProgressionSystemApplyCustomLocks();
     }
 };
 
@@ -319,7 +334,7 @@ void AddProgressionSystemScripts()
         new ProgressionSystemLoadingDBUpdates();
     }
 
-    // Optional: GS gate for heroic dungeons (implemented as a pseudo-GS derived from equipped average item level).
+    // Optional: avg item level gate for heroic dungeons (based on equipped average item level).
     // Enabled via ProgressionSystem.HeroicGs.Enabled.
     extern void AddProgressionSystemHeroicGsScripts();
     AddProgressionSystemHeroicGsScripts();

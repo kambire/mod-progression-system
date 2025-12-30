@@ -2,9 +2,14 @@
 
 -- WotLK baseline lock (deny-by-default): ensure future 80 content is blocked even if earlier WotLK brackets were skipped.
 -- This is safe because later brackets explicitly DELETE from `disables` to unlock what they need.
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
+DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 533, 603, 615, 616, 624, 631, 632, 649, 650, 658, 668, 724);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (2, 249, 3, '', '', 'Onyxia Lair'),
+(2, 533, 3, '', '', 'Naxxramas'),
+(2, 603, 3, '', '', 'Ulduar'),
+(2, 615, 3, '', '', 'The Obsidian Sanctum'),
+(2, 616, 3, '', '', 'The Eye of Eternity'),
+(2, 624, 3, '', '', 'Vault of Archavon'),
 (2, 631, 15, '', '', 'Icecrown Citadel'),
 (2, 632, 3, '', '', 'The Forge of Souls'),
 (2, 649, 15, '', '', 'Trial of The Crusader'),

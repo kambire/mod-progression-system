@@ -56,24 +56,22 @@ ProgressionSystem.Debug.MaxSqlLogLines = 200
 #
 #    ProgressionSystem.HeroicGs.*
 #        Description: Optional gate to prevent entering heroic 5-man dungeons unless the player meets
-#                     a minimum pseudo-GS (derived from equipped average item level).
+#                     a minimum average equipped item level.
 #
 #                     How it works:
 #                     - Computes average equipped iLvl (excluding shirt/tabard).
-#                     - Computes pseudoGS = avgIlvl * AvgIlvlMultiplier (rounded).
-#                     - If pseudoGS < required, the player is notified and teleported to homebind.
+#                     - If avg iLvl < required, the player is notified and teleported to homebind.
 #
 #                     Notes:
 #                     - Requirements are evaluated based on the highest enabled bracket.
 #                     - ICC 5-mans (FoS/PoS/HoR) support separate thresholds for Normal/Heroic.
 #                     - Set a required value to 0 to disable that specific check.
+#                     - All requirement values are average item level (iLvl).
 #
 #        Default:     Disabled
 #
 
 ProgressionSystem.HeroicGs.Enabled = 0
-ProgressionSystem.HeroicGs.AvgIlvlMultiplier = 1.0
-
 # WotLK Heroic bracket thresholds (avg equipped iLvl)
 ProgressionSystem.HeroicGs.Required_80_1_2 = 175
 ProgressionSystem.HeroicGs.Required_80_2_1 = 175
@@ -410,7 +408,7 @@ ProgressionSystem.Bracket_80_4_1  = 0
 # - PvP: Arena Season 8 (Wrathful era)
 # Features:
 # - Último tier principal: mayor exigencia, mejores recompensas, y aquí sí entra el “pack ICC” de dungeons.
-# - Ideal para aplicar el GS gate de ICC5 (normal/heroic) si lo usás.
+# - Ideal para aplicar el gate de iLvl de ICC5 (normal/heroic) si lo usas.
 # Release (Patch): 3.3.x (ICC + Frozen Halls) + 3.3.2 (S8 era)
 # Recommended Duration: 10-16 weeks (o más si querés endgame largo)
 
@@ -460,50 +458,6 @@ ProgressionSystem.EnforceItemRestrictions = 0
 #
 
 ProgressionSystem.BlockFutureVendors = 0
-
-#
-# ==============================================
-#    HEROIC DUNGEON "GS" REQUIREMENTS (OPTIONAL)
-# ==============================================
-#
-# NOTE:
-# AzerothCore does not natively enforce GearScore. To keep this module self-contained,
-# the implementation uses a "pseudo-GS" derived from the player's equipped average item level:
-#   pseudoGS = round(avgEquippedIlvl * AvgIlvlMultiplier)
-#
-# Defaults are based on the proposed progression table:
-# - 80_1_2 (T7):  3500
-# - 80_2_1 (T7):  3500
-# - 80_2_2 (T8):  4000
-# - 80_3   (T9):  4400
-# - 80_4_1 (ICC): 4800
-# - ICC5 normal:  5000 (FoS/PoS/HoR normal)
-# - ICC5 heroic:  5400 (FoS/PoS/HoR heroic)
-#
-# This gate is enforced on map entry (OnPlayerMapChanged), so it also blocks bypass methods.
-#
-
-ProgressionSystem.HeroicGs.Enabled = 0
-
-# Multiplier to convert average equipped iLvl into a pseudo-GS number.
-# Typical WotLK-friendly value: 20.0
-ProgressionSystem.HeroicGs.AvgIlvlMultiplier = 20.0
-
-# Per-bracket requirements (0 disables enforcement for that bracket).
-ProgressionSystem.HeroicGs.Required_80_1_2 = 3500
-ProgressionSystem.HeroicGs.Required_80_2_1 = 3500
-ProgressionSystem.HeroicGs.Required_80_2_2 = 4000
-# Legacy alias (pre-split). Used as fallback for 80_2_2.
-ProgressionSystem.HeroicGs.Required_80_2   = 4000
-ProgressionSystem.HeroicGs.Required_80_3   = 4400
-ProgressionSystem.HeroicGs.Required_80_4_1 = 4800
-
-# Ruby Sanctum bracket doesn't add new heroics; keep same by default (adjust if you want "late" strictness).
-ProgressionSystem.HeroicGs.Required_80_4_2 = 4800
-
-# ICC 5-man dungeons: Forge of Souls (632), Pit of Saron (658), Halls of Reflection (668)
-ProgressionSystem.HeroicGs.Required_Icc5_Normal = 5000
-ProgressionSystem.HeroicGs.Required_Icc5_Heroic = 5400
 
 #
 #    ProgressionSystem.EnforceArenaVendorProgression
@@ -917,6 +871,49 @@ ProgressionSystem.Vendor.ShowCompatibleVendorsOnly = 0
 #
 
 ProgressionSystem.DisabledAttunements = ""
+
+#
+#    ProgressionSystem.CustomLocks.*
+#        Description: Manual per-ID locks applied on startup (world DB), on top of bracket SQL.
+#                     Useful to temporarily block specific maps (dungeons/raids/BGs), heroic-only access, or NPC interactions.
+#
+#                     Reversible:
+#                     - Removing an ID from the config and restarting restores the base state.
+#                     - Base state is captured AFTER bracket SQL updates are applied on startup.
+#
+#                     Requirements:
+#                     - `ProgressionSystem.LoadDatabase = 1` (this feature writes to the DB).
+#
+#        Default:     Disabled
+#
+
+ProgressionSystem.CustomLocks.Enabled = 0
+
+# Log what will be applied (counts + masks).
+ProgressionSystem.CustomLocks.Debug = 0
+
+# Maps/instances by mapId (world.disables sourceType=2)
+ProgressionSystem.CustomLocks.Maps.LockAll = ""
+
+# Bitmask ORed into `disables.flags` when LockAll applies.
+# Recommended:
+# - 15 = lock all WotLK instance difficulties (safe default for raids/dungeons)
+ProgressionSystem.CustomLocks.Maps.LockAll.FlagsMask = 15
+
+# Lock heroic only (keeps normal enabled): sets `disables.flags` to (flags|2)&~1
+ProgressionSystem.CustomLocks.Maps.LockHeroicOnly = ""
+
+# Battlegrounds:
+# Option A: by Battleground ID (world.disables sourceType=3; depends on core/db)
+ProgressionSystem.CustomLocks.Battlegrounds.Ids = ""
+
+# Option B: by mapId (world.disables sourceType=2), e.g. WSG=489, AB=529, AV=30, EotS=566, SotA=607, IoC=628
+ProgressionSystem.CustomLocks.Battlegrounds.MapIds = ""
+
+# NPCs (creature_template entry IDs):
+# Clears bits from creature_template.npcflag to disable interaction (default: vendor => 128)
+ProgressionSystem.CustomLocks.Npcs.ClearNpcFlags = ""
+ProgressionSystem.CustomLocks.Npcs.ClearNpcFlags.Mask = 128
 
 #
 #    BRACKET -> ARENA SEASON MAPPING (Simple mapping keys)

@@ -19,8 +19,16 @@ DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (631, 632, 65
 -- Makes instance (and RDF) Ruby Sanctum available again.
 DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` = 724;
 
--- Unlock Onyxia (80) starting in Bracket_80_4.
-DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` = 249;
+-- Bracket-skip safety: keep ToC/Onyxia/Trial of the Champion available in later phases too.
+-- (Onyxia 80 and Trial of the Crusader are enabled in Bracket_80_3.)
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (249, 649, 650);
+
+-- Bracket-skip safety: keep earlier WotLK raids available as well.
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (533, 603, 615, 616, 624);
+
+-- Ensure WotLK heroic dungeons are enabled as well.
+DELETE FROM `disables`
+WHERE `sourceType` = 2 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619);
 
 -- Make the quest Assault on the Sanctum available again.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 26013;

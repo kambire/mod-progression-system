@@ -15,7 +15,7 @@ src/Bracket_70_5/sql/templates/arena_s3_vendors_cleanup.sql.template
 src/Bracket_70_6_2/sql/templates/arena_s4_vendors_cleanup.sql.template
 src/Bracket_80_1_2/sql/templates/transition_tbc_to_wotlk_vendors.sql.template
 src/Bracket_80_1_2/sql/templates/arena_s5_vendors_cleanup.sql.template
-src/Bracket_80_2/sql/templates/arena_s6_vendors_cleanup.sql.template
+src/Bracket_80_2_2/sql/templates/arena_s6_vendors_cleanup.sql.template
 src/Bracket_80_3/sql/templates/arena_s7_vendors_cleanup.sql.template
 src/Bracket_80_4_1/sql/templates/arena_s8_vendors_cleanup.sql.template
 ```
