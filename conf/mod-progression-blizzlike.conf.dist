@@ -756,46 +756,7 @@ ProgressionSystem.CustomLocks.Npcs.ClearNpcFlags = ""
 ProgressionSystem.CustomLocks.Npcs.ClearNpcFlags.Mask = 128
 
 #
-#    BRACKET -> ARENA SEASON MAPPING (Simple mapping keys)
-#        Description: Define which bracket(s) host each Arena Season's PvP vendors/items.
-#                     Use comma-separated bracket identifiers. Each season also has an Enabled toggle.
+#    Arena Seasons
+#        Ahora se gestionan con el comando/evento de arranque de season (sin mapear en config).
+#        Mantener esta seccion vacia evita doble aprovisionamiento manual de vendors/items.
 #
-#                     NOTE: In this module, enabling an ArenaSeason mapping makes the listed brackets
-#                     effectively enabled (same behavior as setting ProgressionSystem.Bracket_<name> = 1)
-#                     for both SQL loading and script loading.
-#        Example: ProgressionSystem.Bracket.ArenaSeason1 = Bracket_70_2_1,Bracket_70_2_2
-#                 ProgressionSystem.Bracket.ArenaSeason1.Enabled = 0
-#        Default: All season mappings are set to canonical brackets and Disabled by default.
-#
-
-# Season 1: Gruul/Mag & Karazhan era (TBC)
-ProgressionSystem.Bracket.ArenaSeason1 = Bracket_70_2_1,Bracket_70_2_2
-ProgressionSystem.Bracket.ArenaSeason1.Enabled = 1
-
-# Season 2: Merciless era (TBC)
-ProgressionSystem.Bracket.ArenaSeason2 = Bracket_70_2_2,Bracket_70_3_2,Bracket_70_4_1
-ProgressionSystem.Bracket.ArenaSeason2.Enabled = 1
-
-# Season 3: Vengeful era (TBC)
-ProgressionSystem.Bracket.ArenaSeason3 = Bracket_70_5
-ProgressionSystem.Bracket.ArenaSeason3.Enabled = 1
-
-# Season 4: Sunwell Plateau era (TBC end)
-ProgressionSystem.Bracket.ArenaSeason4 = Bracket_70_6_2
-ProgressionSystem.Bracket.ArenaSeason4.Enabled = 1
-
-# Season 5: WotLK early Arena seasons (WotLK transition)
-ProgressionSystem.Bracket.ArenaSeason5 = Bracket_80_1_2
-ProgressionSystem.Bracket.ArenaSeason5.Enabled = 1
-
-# Season 6: Ulduar era
-ProgressionSystem.Bracket.ArenaSeason6 = Bracket_80_2_2
-ProgressionSystem.Bracket.ArenaSeason6.Enabled = 0
-
-# Season 7: Trial of the Crusader era
-ProgressionSystem.Bracket.ArenaSeason7 = Bracket_80_3
-ProgressionSystem.Bracket.ArenaSeason7.Enabled = 0
-
-# Season 8: Icecrown Citadel era
-ProgressionSystem.Bracket.ArenaSeason8 = Bracket_80_4_1
-ProgressionSystem.Bracket.ArenaSeason8.Enabled = 0
