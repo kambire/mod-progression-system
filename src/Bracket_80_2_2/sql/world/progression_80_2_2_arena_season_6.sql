@@ -1,7 +1,0 @@
--- STUB / PRODUCTION:
--- This file is intentionally left without executable SQL.
--- Reason: earlier placeholder SQL here did not match AzerothCore schema
--- (e.g. npc_vendor has no phaseMask column), which can break DBUpdater autoloading.
---
--- If you need full Season 6 PvP vendors, import a verified SQL dataset
--- for your AzerothCore world DB (npc_vendor entries + extended costs).
