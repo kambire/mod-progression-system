@@ -234,7 +234,8 @@ namespace
             if (announceGlobal && bracket != lastAnnounced)
             {
                 std::string const message = "[Progression] Nuevo bracket activo: " + bracket;
-                sWorld->SendServerMessage(SERVER_MSG_STRING, message);
+                // Use SendGlobalText for compatibility with cores lacking SendServerMessage.
+                sWorld->SendGlobalText(message.c_str(), nullptr);
                 lastAnnounced = bracket;
             }
 
