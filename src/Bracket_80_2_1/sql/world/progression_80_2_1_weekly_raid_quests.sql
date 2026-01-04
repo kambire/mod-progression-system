@@ -25,17 +25,17 @@
 --
 -- MySQL: 8.x compatible.
 
-SET @TARGET_EMBLEM := 40752; -- Heroism
+SET @TARGET_EMBLEM := 40753; -- Valor
 
 UPDATE `quest_template`
 SET
   `RewardItem1` = @TARGET_EMBLEM,
   `RewardAmount1` = IF(`RewardAmount1` > 0, `RewardAmount1`, 5),
-  `RewardItem2` = IF(`RewardItem2` IN (40752,40753,45624,47241,49426), 0, `RewardItem2`),
-  `RewardAmount2` = IF(`RewardItem2` IN (40752,40753,45624,47241,49426), 0, `RewardAmount2`),
-  `RewardItem3` = IF(`RewardItem3` IN (40752,40753,45624,47241,49426), 0, `RewardItem3`),
-  `RewardAmount3` = IF(`RewardItem3` IN (40752,40753,45624,47241,49426), 0, `RewardAmount3`),
-  `RewardItem4` = IF(`RewardItem4` IN (40752,40753,45624,47241,49426), 0, `RewardItem4`),
-  `RewardAmount4` = IF(`RewardItem4` IN (40752,40753,45624,47241,49426), 0, `RewardAmount4`)
+  `RewardItem2` = 0,
+  `RewardAmount2` = 0,
+  `RewardItem3` = 0,
+  `RewardAmount3` = 0,
+  `RewardItem4` = 0,
+  `RewardAmount4` = 0
 WHERE `ID` IN (24579,24580,24581,24582,24583,24584,24585,24586,24587,24588,24589,24590);
 

@@ -343,6 +343,7 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
 
     bool const logPending = sConfigMgr->GetOption<bool>("ProgressionSystem.Debug.LogPendingSql", false);
     bool const logApplied = sConfigMgr->GetOption<bool>("ProgressionSystem.Debug.LogAppliedSql", false);
+    bool const auditSql = sConfigMgr->GetOption<bool>("ProgressionSystem.Debug.AuditSqlExecution", false);
     uint32 const bracketDelayMs = static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.Debug.BracketApplyDelayMs", 0)));
 
     uint32 totalDirs = 0;
@@ -387,7 +388,7 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
         }
 
         std::unordered_set<std::string> appliedBefore;
-        if (logApplied)
+        if (logApplied || auditSql)
         {
             appliedBefore = CollectAppliedUpdateNames(db, dirs);
         }
@@ -395,7 +396,7 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
         LogModulePendingSqlFiles(db, dirs, folderName);
         DBUpdater<TConnection>::Update(db, &dirs);
 
-        if (logApplied)
+        if (logApplied || auditSql)
         {
             std::unordered_set<std::string> appliedAfter = CollectAppliedUpdateNames(db, dirs);
 
@@ -411,22 +412,49 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
 
             uint32 const delayMs = static_cast<uint32>(std::max<int32>(0, sConfigMgr->GetOption<int32>("ProgressionSystem.Debug.SqlLogDelayMs", 0)));
 
-            if (newlyApplied.empty())
+            if (logApplied)
             {
-                LOG_INFO("server.server", "[mod-progression-blizzlike] {} SQL bracket '{}': no new updates applied.",
-                    folderName, bracketName);
+                if (newlyApplied.empty())
+                {
+                    LOG_INFO("server.server", "[mod-progression-blizzlike] {} SQL bracket '{}': no new updates applied.",
+                        folderName, bracketName);
+                }
+                else
+                {
+                    LOG_INFO("server.server", "[mod-progression-blizzlike] {} SQL bracket '{}': applied {} update(s):",
+                        folderName, bracketName, static_cast<uint32>(newlyApplied.size()));
+
+                    for (std::string const& name : newlyApplied)
+                    {
+                        LOG_INFO("server.server", "[mod-progression-blizzlike] {} SQL (applied): {}",
+                            folderName, name);
+                        if (delayMs > 0)
+                            std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
+                    }
+                }
             }
-            else
+
+            if (auditSql && !newlyApplied.empty())
             {
-                LOG_INFO("server.server", "[mod-progression-blizzlike] {} SQL bracket '{}': applied {} update(s):",
-                    folderName, bracketName, static_cast<uint32>(newlyApplied.size()));
+                static bool tableReady = false;
+                if (!tableReady)
+                {
+                    db.Execute("CREATE TABLE IF NOT EXISTS progression_sql_audit ("
+                               "id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,"
+                               "name VARCHAR(255) NOT NULL,"
+                               "bracket VARCHAR(64) NOT NULL,"
+                               "db_folder VARCHAR(32) NOT NULL,"
+                               "applied_at DATETIME NOT NULL,"
+                               "PRIMARY KEY (id),"
+                               "KEY idx_name (name),"
+                               "KEY idx_bracket (bracket)")");
+                    tableReady = true;
+                }
 
                 for (std::string const& name : newlyApplied)
                 {
-                    LOG_INFO("server.server", "[mod-progression-blizzlike] {} SQL (applied): {}",
-                        folderName, name);
-                    if (delayMs > 0)
-                        std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
+                    db.Execute("INSERT INTO progression_sql_audit (name, bracket, db_folder, applied_at) VALUES ({}, {}, {}, NOW())",
+                        name, bracketName, folderName);
                 }
             }
         }

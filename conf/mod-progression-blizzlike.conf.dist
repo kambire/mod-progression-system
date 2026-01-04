@@ -98,13 +98,24 @@ ProgressionSystem.Debug.MaxSqlLogLines = 500
 ProgressionSystem.Debug.LogAppliedSql = 1
 
 #
+#    ProgressionSystem.Debug.AuditSqlExecution
+#        Description: When enabled, records each SQL file that is successfully applied into `progression_sql_audit`
+#                     (per bracket and database folder: world/auth/characters). Helps detect which files ran OK.
+#                     Failures will not insert a row because the file does not complete execution.
+#        Default:     0 - Disabled
+#                     1 - Enabled
+#
+
+ProgressionSystem.Debug.AuditSqlExecution = 1
+
+#
 #    ProgressionSystem.Debug.SqlLogDelayMs
 #        Description: When debug SQL logging is enabled, sleep this many milliseconds between log lines.
 #                     This makes it easier to watch the apply order in the console.
 #        Default:     0 (no delay)
 #
 
-ProgressionSystem.Debug.SqlLogDelayMs = 150
+ProgressionSystem.Debug.SqlLogDelayMs = 250
 
 #
 #    ProgressionSystem.Debug.BracketApplyDelayMs
@@ -122,7 +133,7 @@ ProgressionSystem.Debug.BracketApplyDelayMs = 1
 #                     1 - Enabled
 #
 
-ProgressionSystem.AnnounceNewBracket = 0
+ProgressionSystem.AnnounceNewBracket = 1
 
 #
 #    ProgressionSystem.BroadcastBracketActivation
@@ -131,7 +142,7 @@ ProgressionSystem.AnnounceNewBracket = 0
 #                     1 - Enabled
 #
 
-ProgressionSystem.BroadcastBracketActivation = 0
+ProgressionSystem.BroadcastBracketActivation = 1
 
 #
 #    ProgressionSystem.HeroicGs.*
@@ -459,7 +470,7 @@ ProgressionSystem.Bracket_71_74   = 1
 # Expansion 80 Episodio 1 Etapa 1: Vientos del Fiordo
 # Lore: El fiordo ulula con vientos cargados de runas y drakkar vrykul. Cada desembarco anuncia que el Azote ya esta despierto en las costas.
 
-ProgressionSystem.Bracket_75_79   = 0
+ProgressionSystem.Bracket_75_79   = 1
 # Level Range: 75-79 | WotLK: Mid Northrend | Leveling Dungeons (Normal)
 # Content (Normal dungeons):
 # - Drak'Tharon Keep
@@ -480,7 +491,7 @@ ProgressionSystem.Bracket_75_79   = 0
 # Expansion 80 Episodio 1 Etapa 2: Truenos de Zul'Drak
 # Lore: En Zul'Drak los drakkari sacrifican a sus loa por desesperacion. Los heroes ven como una civilizacion se devora a si misma para no caer sin pelear.
 
-ProgressionSystem.Bracket_80_1_1    = 0
+ProgressionSystem.Bracket_80_1_1    = 1
 # Level 80 | WotLK: Pre-Raid | Normal Dungeons (Launch set)
 # Content:
 # - Todas las dungeons normales de Northrend a nivel 80 (Utgarde Pinnacle, Oculus, CoS, HoL/HoS, Gundrak, Violet Hold, etc.).
@@ -492,7 +503,7 @@ ProgressionSystem.Bracket_80_1_1    = 0
 # Expansion 80 Episodio 2 Etapa 0: Vigilia del Heroe
 # Lore: Este es el respiro antes del asalto total; se revisan forjas, encantamientos y rutas de suministros. El preparativo define quien entrara vivo a las heroicas.
 
-ProgressionSystem.Bracket_80_1_2    = 0
+ProgressionSystem.Bracket_80_1_2    = 1
 # Level 80 | WotLK: Pre-Raid | Heroic Dungeons (Launch set) + Arena Season 5
 # Content:
 # - Todas las dungeons de Northrend en Heroic (set original de salida).
@@ -505,7 +516,7 @@ ProgressionSystem.Bracket_80_1_2    = 0
 # Expansion 80 Episodio 2 Etapa 1: Despertar del Azote
 # Lore: El Azote replica con plaga y no hay mazmorra sin riesgo real de wipe. Las insignias y reputaciones ahora son el puente critico hacia las raids.
 
-ProgressionSystem.Bracket_80_2_1  = 0
+ProgressionSystem.Bracket_80_2_1  = 1
 # Level 80 | WotLK: Raid Tier 7 (Launch raids)
 # Content (T7 Launch Raids):
 # - Naxxramas (10/25)
