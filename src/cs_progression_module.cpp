@@ -20,6 +20,7 @@
 #include "DatabaseEnv.h"
 #include "DBCEnums.h"
 #include "Item.h"
+#include "Language.h"
 #include "Player.h"
 #include "ProgressionSystem.h"
 #include "World.h"
@@ -234,8 +235,8 @@ namespace
             if (announceGlobal && bracket != lastAnnounced)
             {
                 std::string const message = "[Progression] Nuevo bracket activo: " + bracket;
-                // Use SendGlobalText for compatibility with cores lacking SendServerMessage.
-                sWorld->SendGlobalText(message.c_str(), nullptr);
+                // Use SendWorldText with LANG_SYSTEMMESSAGE for broad core compatibility.
+                sWorld->SendWorldText(LANG_SYSTEMMESSAGE, message.c_str());
                 lastAnnounced = bracket;
             }
 
