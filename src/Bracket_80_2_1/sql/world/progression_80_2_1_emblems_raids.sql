@@ -5,6 +5,7 @@
 
 SET @EMBLEM_10 := 40752; -- Heroism
 SET @EMBLEM_25 := 40753; -- Valor
+SET @EMBLEM_SET := '40752,40753,45624,47241,49426';
 SET @RAID_MAPS := '533,615,616';
 
 -- Compatibilidad de esquema: algunas DB usan creature.id1 como templateEntry, otras creature.id.
@@ -23,7 +24,7 @@ SET @SQL := CONCAT(
   'JOIN `creature_template` ct ON ct.`entry` = cl.`entry` ',
   'JOIN `creature` cr ON ', @CREATURE_ENTRY_COL, ' = cl.`entry` ',
   'SET cl.`Item` = IF(cr.`spawnMask` & 2 OR cr.`spawnMask` & 8, ', @EMBLEM_25, ', ', @EMBLEM_10, ') ',
-  'WHERE cl.`Item` IN (40752,40753,45624,47241,49426) ',
+  'WHERE FIND_IN_SET(cl.`Item`, ', QUOTE(@EMBLEM_SET), ') > 0 ',
   '  AND ct.`rank` = 3 ',
   '  AND cr.`map` IN (', @RAID_MAPS, ')
 ');
@@ -36,7 +37,7 @@ SET @SQL := CONCAT(
   'JOIN `creature_template` ct ON ct.`entry` = cl.`entry` ',
   'JOIN `creature` cr ON ', @CREATURE_ENTRY_COL, ' = cl.`entry` ',
   'SET rl.`Item` = IF(cr.`spawnMask` & 2 OR cr.`spawnMask` & 8, ', @EMBLEM_25, ', ', @EMBLEM_10, ') ',
-  'WHERE rl.`Item` IN (40752,40753,45624,47241,49426) ',
+  'WHERE FIND_IN_SET(rl.`Item`, ', QUOTE(@EMBLEM_SET), ') > 0 ',
   '  AND ct.`rank` = 3 ',
   '  AND cr.`map` IN (', @RAID_MAPS, ')
 ');
@@ -47,5 +48,5 @@ UPDATE `gameobject_loot_template` gl
 JOIN `gameobject_template` got ON got.`type` = 3 AND got.`data1` = gl.`entry`
 JOIN `gameobject` go ON go.`id` = got.`entry`
 SET gl.`Item` = IF(go.`spawnMask` & 2 OR go.`spawnMask` & 8, @EMBLEM_25, @EMBLEM_10)
-WHERE gl.`Item` IN (40752,40753,45624,47241,49426)
+WHERE FIND_IN_SET(gl.`Item`, @EMBLEM_SET) > 0
   AND go.`map` IN (533, 615, 616);

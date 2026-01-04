@@ -160,11 +160,11 @@ namespace
             std::string const key = "ProgressionSystem.Bracket.ArenaSeason" + std::to_string(season);
             std::string const enabledKey = key + ".Enabled";
 
-            bool const enabled = sConfigMgr->GetOption<bool>(enabledKey, false);
+            bool const enabled = sConfigMgr->GetOption<bool>(enabledKey, false, false);
             if (!enabled)
                 continue;
 
-            std::string mapping = sConfigMgr->GetOption<std::string>(key, "");
+            std::string mapping = sConfigMgr->GetOption<std::string>(key, "", false);
             mapping = Trim(std::move(mapping));
 
             if (mapping.empty())

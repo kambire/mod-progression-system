@@ -10,7 +10,7 @@
 -- ============================================================================
 
 SET @BRACKET := '80_2_1';
-SET @EMBLEM_RIGHT := 40752; -- Heroism
+SET @EMBLEM_RIGHT := 40753; -- Valor (solicitud: bosses heroicos den Valor en esta bracket)
 SET @EMBLEM_SET := '40752,40753,45624,47241,49426';
 
 DROP TEMPORARY TABLE IF EXISTS tmp_maps;
@@ -121,13 +121,13 @@ WHERE FIND_IN_SET(cl.`Item`, @EMBLEM_SET) > 0
 -- ============================================================================
 SELECT @BRACKET AS bracket, COUNT(DISTINCT lootid) AS lootids_targeted FROM tmp_lootids_fix;
 
-SELECT @BRACKET AS bracket, 'WRONG_REMAINING' AS label, COUNT(*) AS rows
+SELECT @BRACKET AS bracket, 'WRONG_REMAINING' AS label, COUNT(*) AS row_count
 FROM `creature_loot_template` cl
 JOIN tmp_lootids_fix t ON t.`lootid` = cl.`entry`
 WHERE FIND_IN_SET(cl.`Item`, @EMBLEM_SET) > 0
   AND cl.`Item` <> @EMBLEM_RIGHT;
 
-SELECT @BRACKET AS bracket, 'RIGHT_PRESENT' AS label, COUNT(*) AS rows
+SELECT @BRACKET AS bracket, 'RIGHT_PRESENT' AS label, COUNT(*) AS row_count
 FROM `creature_loot_template` cl
 JOIN tmp_lootids_fix t ON t.`lootid` = cl.`entry`
 WHERE cl.`Item` = @EMBLEM_RIGHT;

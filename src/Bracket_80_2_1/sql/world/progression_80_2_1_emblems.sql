@@ -1,6 +1,6 @@
 -- ProgressionSystem - WotLK emblems (Bracket_80_2_1)
 -- SERVER SOURCE OF TRUTH (T7 raids unlocked; heroics unchanged from launch):
--- - Heroic 5-man bosses => HEROISM (40752)
+-- - Heroic 5-man bosses => VALOR (40753) (solicitud específica para esta bracket)
 -- Scope: ONLY level-80 5-man dungeon heroic maps (no raids):
 -- Launch set (no ToC / no Frozen Halls):
 -- 574,575,576,578,595,599,600,601,602,604,608,619
@@ -12,7 +12,7 @@
 -- Triumph 47241
 -- Frost   49426
 
-SET @TARGET_EMBLEM := 40752;
+SET @TARGET_EMBLEM := 40753; -- Valor en heroicas para esta bracket
 SET @MAPS := '574,575,576,578,595,599,600,601,602,604,608,619';
 
 -- Schema compatibility: some cores use creature.id1 as templateEntry, others use creature.id.

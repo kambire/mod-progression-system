@@ -50,16 +50,16 @@ namespace
 
 bool IsProgressionBracketEnabled(std::string const& bracketName)
 {
-    if (sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false))
+    if (sConfigMgr->GetOption<bool>("ProgressionSystem.Bracket_" + bracketName, false, false))
         return true;
 
     // ArenaSeason mapping aliases (if enabled).
     for (ArenaSeasonMappingDefault const& season : kArenaSeasonDefaults)
     {
-        if (!sConfigMgr->GetOption<bool>(season.enabledKey, false))
+        if (!sConfigMgr->GetOption<bool>(season.enabledKey, false, false))
             continue;
 
-        std::string mapping = sConfigMgr->GetOption<std::string>(season.seasonKey, season.defaultValue);
+        std::string mapping = sConfigMgr->GetOption<std::string>(season.seasonKey, season.defaultValue, false);
         mapping = Trim(std::move(mapping));
         if (mapping.empty())
             continue;
