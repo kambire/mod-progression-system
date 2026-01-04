@@ -1,29 +1,7 @@
--- ProgressionSystem - weekly raid quests emblem reward (Bracket_80_4_1)
--- Goal:
---   Normalize weekly raid quest emblem rewards to match this bracket's progression.
---
--- Weekly raid quest IDs (Archmage Lan'dalock):
--- 24579 Sartharion Must Die!
--- 24580 Anub'Rekhan Must Die!
--- 24581 Noth the Plaguebringer Must Die!
--- 24582 Instructor Razuvious Must Die!
--- 24583 Patchwerk Must Die!
--- 24584 Malygos Must Die!
--- 24585 Flame Leviathan Must Die!
--- 24586 Razorscale Must Die!
--- 24587 Ignis the Furnace Master Must Die!
--- 24588 XT-002 Deconstructor Must Die!
--- 24589 Lord Jaraxxus Must Die!
--- 24590 Lord Marrowgar Must Die!
---
--- Emblem item IDs (WotLK):
--- Heroism  40752
--- Valor    40753
--- Conquest 45624
--- Triumph  47241
--- Frost    49426
---
--- MySQL: 8.x compatible.
+-- Propósito: normalizar las recompensas de emblemas de las weekly raid quests (Archmage Lan'dalock) en bracket 80_4_1.
+-- Resultado: todas las semanales 24579-24590 otorgan Emblema de Escarcha (49426) con cantidad por defecto 5 si estaba vacía.
+-- Limpieza: elimina emblemas previos en RewardItem2-4 si son de WotLK para evitar duplicados.
+-- Compatibilidad: válido para MySQL 8.x.
 
 SET @TARGET_EMBLEM := 49426; -- Frost
 

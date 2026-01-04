@@ -1,7 +1,6 @@
--- progression_80_4_1_wintergrasp_vendors.sql
--- Purpose:
---   Enforce Wintergrasp PvP vendor inventories up to Season 8 (Wrathful).
---   (Effectively restores full 3.3.5a WG vendor inventories.)
+-- Propósito: asegurar que los vendors de Conquista de Invierno tengan inventario hasta S8 (Wrathful) en bracket 80_4_1.
+-- Alcance: todas las criaturas con vendor WG en mapa 571/zone 4197; respalda, filtra por season y restaura inventario blizzlike 3.3.5a.
+-- Parámetros: @ALLOW_UP_TO_SEASON=8, flags de modo estricto/backup; asigna season por nombre/ilevel si falta.
 
 SET @WG_MAP = 571;
 SET @WG_ZONE_ID = 4197;

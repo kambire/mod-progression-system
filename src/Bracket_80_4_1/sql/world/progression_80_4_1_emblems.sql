@@ -1,15 +1,8 @@
--- ProgressionSystem - WotLK emblems (Bracket_80_4_1)
--- SERVER SOURCE OF TRUTH:
--- - Heroicas (bosses) => TRIUNFO (47241)
--- Scope: ONLY level-80 5-man dungeon heroic maps (no raids):
--- 574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668
---
--- Emblem item IDs (WotLK):
--- Heroism 40752
--- Valor   40753
--- Conquest 45624
--- Triumph 47241
--- Frost   49426
+-- Propósito: normalizar emblemas en mazmorras heroicas de WotLK al abrir ICC (bracket 80_4_1).
+-- Objetivo: todos los jefes heroicos 80 deben soltar Triunfo (47241), sin raids.
+-- Ámbito: mapas 574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668 (solo 5-man HC).
+-- Nota: protege compatibilidad de esquema usando id1/id y prepara/ejecuta SQL dinámico.
+-- IDs de emblemas usados: Heroism 40752, Valor 40753, Conquest 45624, Triumph 47241, Frost 49426.
 
 SET @TARGET_EMBLEM := 47241;
 SET @MAPS := '574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668';

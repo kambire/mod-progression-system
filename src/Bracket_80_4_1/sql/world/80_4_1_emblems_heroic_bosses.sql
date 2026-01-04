@@ -1,9 +1,7 @@
--- ============================================================================
--- WotLK Bracket 80_4_1 - HEROIC 5-man BOSSES emblem normalization
--- Desired emblem: Emblem of Triumph (47241)
--- Maps: WotLK launch + Trial of the Champion (650) + ICC 5-mans (632/658/668)
--- NOTE: "wrong" = any emblem in the emblem set except @EMBLEM_RIGHT.
--- ============================================================================
+-- Propósito: normalizar emblemas en jefes heroicos (5-man) para que den Triunfo (47241) en bracket 80_4_1.
+-- Alcance: mazmorras heroicas WotLK, Trial of the Champion y ICC5 (mapas 574-619, 650, 632/658/668), sin raids.
+-- Lógica: detecta loot con emblemas previos, respalda entradas y las reemplaza por el emblema correcto.
+-- Compatibilidad: usa id1/id según esquema y tablas temporales para reportar/verificar cambios.
 
 SET @BRACKET := '80_4_1';
 SET @EMBLEM_RIGHT := 47241; -- Triumph

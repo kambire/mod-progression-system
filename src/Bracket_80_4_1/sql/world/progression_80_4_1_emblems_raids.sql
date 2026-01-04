@@ -1,11 +1,7 @@
--- Bracket 80_4_1 (WotLK T10 / ICC): raid emblem correction
--- Goal:
---   Ensure Icecrown Citadel drops its intended raid-tier emblem.
---
--- Design (blizzlike timeline):
---   - ICC raid bosses: Emblem of Frost (49426)
---
--- This file ONLY touches raid boss loot in Icecrown Citadel (map 631).
+-- Propósito: corregir los emblemas de los jefes de ICC para que suelten Escarcha (49426) en T10 (bracket 80_4_1).
+-- Alcance: solo botín de jefes de la banda Icecrown Citadel (map 631), sin afectar otras raids.
+-- Lógica: reemplaza cualquier emblema previo (40752/40753/45624/47241/49426) por 49426 en loot directo y referencias.
+-- Compatibilidad: detecta si el core usa creature.id1 o creature.id antes de aplicar.
 
 SET @TARGET_EMBLEM := 49426; -- Frost
 SET @RAID_MAPS := '631';

@@ -1,5 +1,6 @@
--- ProgressionSystem - Heroic avg item level gate (Bracket 80_4_1)
--- Required (avg iLvl): 240
+-- Propósito: definir requisitos de iLvl promedio para heroicas y ICC5 en bracket 80_4_1.
+-- Config: tabla mod_progression_heroic_gs (global + thresholds ICC5); requerimiento heroico específico 80_4_1 = iLvl 240.
+-- Compatibilidad: inserta/actualiza con ON DUPLICATE KEY para no romper valores existentes.
 
 CREATE TABLE IF NOT EXISTS `mod_progression_heroic_gs` (
   `bracket` VARCHAR(32) NOT NULL,

@@ -1,4 +1,5 @@
--- Back to phase 1 frozo
+-- Propósito: habilitar al vendedor Frozo en fase 1 y restaurar su inventario completo al abrir T10 (bracket 80_4_1).
+-- Acción: fija phaseMask=1 para guid 202846 (id1=40160) y reinserta los reagents/orbs/patrón asociados con ExtendedCost.
 UPDATE `creature` SET `phaseMask` = 1 WHERE `guid`=202846 AND `id1` = 40160;
 
 DELETE FROM `npc_vendor` WHERE `entry` = 40160 AND `item` IN (35622, 35623, 35624, 35625, 35627, 36860, 36908, 45087, 47556, 54798);

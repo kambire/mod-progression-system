@@ -206,7 +206,7 @@ namespace
     public:
         ProgressionSystemAnnouncer() : PlayerScript("ProgressionSystemAnnouncer") { }
 
-        void OnLogin(Player* player) override
+        void OnLogin(Player* player, bool /*firstLogin*/) override
         {
             bool const announceGlobal = sConfigMgr->GetOption<bool>("ProgressionSystem.AnnounceNewBracket", false);
             bool const announcePersonal = sConfigMgr->GetOption<bool>("ProgressionSystem.BroadcastBracketActivation", false);

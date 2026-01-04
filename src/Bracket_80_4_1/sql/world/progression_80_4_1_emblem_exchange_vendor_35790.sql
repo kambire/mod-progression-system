@@ -1,23 +1,6 @@
--- Emblem exchange helper (Usuri Brightcoin - 35790)
--- Bracket: 80_4_1 (WotLK ICC / T10)
---
--- Goal:
---   Provide a SAFE down-conversion to the bracket's heroic emblem, to mitigate DB mistakes where
---   a heroic boss drops a higher emblem than intended.
---
--- Rules:
--- - Only allow HIGHER => CURRENT conversions (never lower => higher).
--- - This script ONLY changes npc_vendor (it does not change boss loot tables).
---
--- Emblems (WotLK):
--- Heroism  40752
--- Valor    40753
--- Conquest 45624
--- Triumph  47241
--- Frost    49426
---
--- ExtendedCost IDs (AzerothCore WotLK 3.3.5a / item_extended_cost.dbc):
--- 2743 => pay 1x Frost (49426)
+-- Propósito: ofrecer conversión segura de emblemas altos -> actual (Triunfo) en el vendor Usuri Brightcoin (35790) para T10 (80_4_1).
+-- Alcance: solo npc_vendor; respalda inventario, lo reconstruye y fija intercambio Frost(49426) -> Triumph(47241) con ExtendedCost 2743.
+-- Seguridad: no toca tablas de botín de jefes; limpia precios de compra/venta de todos los emblemas para evitar oro accidental.
 
 -- Backup vendor inventory (first run only)
 CREATE TABLE IF NOT EXISTS `mod_progression_backup_npc_vendor_35790` LIKE `npc_vendor`;

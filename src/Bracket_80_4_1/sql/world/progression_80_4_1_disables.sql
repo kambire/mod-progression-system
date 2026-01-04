@@ -1,4 +1,7 @@
--- 80 level range - Tier 10 (Fall of the Lich King) & Wrathful Gladiator
+-- Propósito: desbloquear el contenido de T10 (ICC, ICC5 y Ruby Sanctum) y mantener abiertos contenidos previos al llegar a 80_4_1.
+-- Alcance: limpia `disables` para raids/mazmorras/quests de WotLK ya liberadas, y vuelve a bloquear Ruby Sanctum hasta 80_4_2.
+-- Seguridad: aplica deny-by-default y luego quita bloqueos para evitar saltos de bracket que dejen contenido cerrado.
+-- Extras: reabre quests ICC5 e Archmage Lan'dalock, asegura Torneo Argenta activo desde 80_3 en adelante.
 
 -- WotLK baseline lock (deny-by-default): ensure future 80 content is blocked even if earlier WotLK brackets were skipped.
 -- This is safe because this bracket explicitly DELETEs from `disables` to unlock ICC 5-mans and ICC raid.
