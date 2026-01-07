@@ -1,0 +1,3 @@
+-- Argent Tournament belongs to Bracket_80_3.
+-- This file used to enable AT construction quests in Bracket_80_2; it is now intentionally a no-op.
+-- See: Bracket_80_3/sql/world/progression_80_3_ArgentTournamentConstructionQuests.sql

@@ -1,4 +1,4 @@
--- 80_4_2: mantiene ICC abierto y Ruby Sanctum cerrado (Frostwing stage sin RS)
+-- 80_4_3: desbloquea Ruby Sanctum; ICC permanece abierto desde escalones previos.
 
 -- WotLK baseline lock (deny-by-default): protege ICC/RS si se salta un bracket.
 DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
@@ -15,7 +15,7 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 -- Mantener ICC e ICC5 abiertos desde brackets anteriores.
 DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (631, 632, 658, 668);
 
--- Ruby Sanctum sigue cerrado en este escalon.
+-- Ruby Sanctum se abre en este escalon.
 DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` = 724;
 
 -- Contenidos previos siguen abiertos.
@@ -29,12 +29,9 @@ WHERE `sourceType` = 2 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 6
 DELETE FROM `disables`
 WHERE `sourceType` = 8 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619);
 
--- ICC raid quests abiertas; RS quest se mantiene cerrada.
+-- Quests: ICC abiertas desde escalones previos; se habilita RS quest.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
-
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 26013;
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(1, 26013, 0, '', '', 'Assault on the Sanctum');
 
 -- Archmage Lan'dalock y Argent Tournament siguen habilitados.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24582;

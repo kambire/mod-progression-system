@@ -1,14 +1,7 @@
--- Bracket 80_2_1 (WotLK T7): lock future content, unlock T7 raids elsewhere.
--- This file complements `progression_80_2_1_raids_disables.sql` (which unlocks Naxx/OS/EoE).
---
--- Goal:
--- - Keep Ulduar locked until Bracket_80_2_2 (VoA se abre ya en 80_2_1 solo con Archavon activo).
--- - Keep ToC/Onyxia80/ICC/RS + ICC 5-mans locked until their brackets.
--- - Keep heroic 5-man dungeons enabled (T7 era includes heroics).
---
--- MySQL: 8.x compatible.
+-- 80 level range - Tier 8 (Secrets of Ulduar) & Furious Gladiator
 
 -- WotLK baseline lock (deny-by-default): ensure future 80 content is blocked even if earlier WotLK brackets were skipped.
+-- This is safe because later brackets explicitly DELETE from `disables` to unlock what they need.
 DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (2, 249, 3, '', '', 'Onyxia Lair'),
@@ -31,14 +24,6 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (8, 658, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Pit of Saron'),
 (8, 668, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Halls of Reflection');
 
--- Ulduar sigue bloqueado; Vault of Archavon se habilita (solo Archavon visible en esta bracket).
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (603, 624);
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(2, 603, 3, '', '', 'Ulduar');
-
--- Habilitar RDF/teleport para VoA (remueve lock heredado de brackets previos)
-DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` = 624;
-
 -- Archmage Lan'dalock quest: must NOT be available until Bracket_80_4.
 -- https://www.wowhead.com/wotlk/quest=24582/instructor-razuvious-must-die
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24582;
@@ -46,17 +31,12 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 24582, 0, '', '', "[mod-progression-blizzlike] Lan'dalock: Instructor Razuvious Must Die");
 
 -- Block quests that require locked ICC content (deny-by-default).
--- Alliance: Inside the Frozen Citadel (24510)
+-- Ally: Inside the Frozen Citadel (24510)
 -- Horde: Inside the Frozen Citadel (24506)
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(1, 24506, 0, '', '', 'Inside the Frozen Citadel (Horde)'),
-(1, 24510, 0, '', '', 'Inside the Frozen Citadel (Alliance)');
-
--- ToC quest should not be available until Bracket_80_3.
-DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24589;
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(1, 24589, 0, '', '', 'Lord Jaraxxus Must Die!');
+(1, 24506, 0, '', '', "Inside the Frozen Citadel (Horde)"),
+(1, 24510, 0, '', '', "Inside the Frozen Citadel (Alliance)");
 
 -- Ruby Sanctum: deny-by-default until Bracket_80_4_2.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 26013;
@@ -103,11 +83,15 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 13681, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Ulduar Block)'),
 (1, 13627, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Lumber)');
 
+-- Makes instances (and RDF) Ulduar and Vault of Archavon available again.
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (603, 624);
+
+-- Bracket-skip safety: ensure T7 raids are available in later tiers too.
+DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (533, 615, 616);
+
 -- Ensure WotLK heroic dungeons are enabled as well.
--- Some servers may jump straight to Bracket_80_2_1 without having previously applied Bracket_80_1_2.
-DELETE FROM `disables`
-WHERE `sourceType` = 2 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619);
+-- Some servers may jump straight to 80_2 without having previously applied 80_1_2.
+DELETE FROM `disables` WHERE `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619) AND `sourceType` = 2;
 
 -- Ensure WotLK heroic dungeons are enabled in RDF/LFG as well (in case they were accidentally disabled).
-DELETE FROM `disables`
-WHERE `sourceType` = 8 AND `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619);
+DELETE FROM `disables` WHERE `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619) AND `sourceType` = 8;

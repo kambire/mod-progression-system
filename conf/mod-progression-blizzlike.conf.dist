@@ -170,8 +170,10 @@ ProgressionSystem.HeroicGs.Required_80_2_2 = 200
 # Legacy alias (pre-split). Used as fallback for 80_2_2.
 ProgressionSystem.HeroicGs.Required_80_2   = 200
 ProgressionSystem.HeroicGs.Required_80_3   = 220
+ProgressionSystem.HeroicGs.Required_80_4_0 = 240
 ProgressionSystem.HeroicGs.Required_80_4_1 = 240
 ProgressionSystem.HeroicGs.Required_80_4_2 = 240
+ProgressionSystem.HeroicGs.Required_80_4_3 = 240
 
 # ICC 5-man dungeons (Forge of Souls / Pit of Saron / Halls of Reflection)
 ProgressionSystem.HeroicGs.Required_Icc5_Normal = 250
@@ -545,6 +547,38 @@ ProgressionSystem.Bracket_80_2_2  = 0
 # Expansion 80 Episodio 2 Etapa 2: Forja de los Titanes
 # Lore: Ulduar abre sus puertas y los guardianes evalúan si la creacion necesita un reset. Cada hardmode es un debate entre obedecer el diseño titanico o desafiarlo.
 
+ProgressionSystem.Bracket_80_2_2_1  = 0
+# Level 80 | WotLK: Ulduar Etapa 1 | Ala de asedio (FL/Ignis/Razor/XT)
+# Content: Flame Leviathan, Ignis, Razorscale, XT-002. Resto de Ulduar oculto via phaseMask.
+# Features: Primer tramo de Ulduar con vendor de Conquista activo; mantiene bloqueados Antecámara/Guardianes/Final.
+# Recommended Duration: 1-2 weeks
+# Expansion 80 Episodio 2 Etapa 2.1: Motores en Llamas
+# Lore: El asedio prueba si los héroes pueden atravesar maquinaria titánica antes de enfrentar a los guardianes.
+
+ProgressionSystem.Bracket_80_2_2_2  = 0
+# Level 80 | WotLK: Ulduar Etapa 2 | Antecámara (Asamblea/Kologarn/Auriaya)
+# Content: Assembly of Iron, Kologarn, Auriaya. Guardianes y tramo final siguen ocultos.
+# Features: Abre el núcleo central de Ulduar; mantiene bloqueados los keepers y Yogg/Algalon.
+# Recommended Duration: 1-2 weeks
+# Expansion 80 Episodio 2 Etapa 2.2: Eco de los Forjadores
+# Lore: La Antecámara revela el pulso de los forjadores. Cada guardián decide si dejas pasar o te aplasta.
+
+ProgressionSystem.Bracket_80_2_2_3  = 0
+# Level 80 | WotLK: Ulduar Etapa 3 | Guardianes (Hodir/Thorim/Freya/Mimiron)
+# Content: Hodir, Thorim, Freya, Mimiron. Solo Vezax/Yogg/Algalon permanecen ocultos.
+# Features: Desbloquea los cuatro keepers; prepara el tramo final sin abrirlo aún.
+# Recommended Duration: 2-3 weeks
+# Expansion 80 Episodio 2 Etapa 2.3: Juramento de los Guardianes
+# Lore: Los guardianes miden la determinación mortal antes de permitir el paso al cerebro del dios antiguo.
+
+ProgressionSystem.Bracket_80_2_2_4  = 0
+# Level 80 | WotLK: Ulduar Etapa 4 | Final (Vezax/Yogg/Algalon)
+# Content: Abre General Vezax, Yogg-Saron y Algalon.
+# Features: Tramo final de Ulduar; mantiene cerrados ToC/ICC hasta brackets posteriores.
+# Recommended Duration: 3-4 weeks
+# Expansion 80 Episodio 2 Etapa 2.4: Estrella de la Locura
+# Lore: El Observador vigila mientras Yogg-Saron susurra. Solo quienes resistan ambas miradas merecen salir.
+
 ProgressionSystem.Bracket_80_3    = 0
 # Level 80 | WotLK: Raid Tier 9 | Trial of the Crusader + Onyxia 80 + Arena Season 7
 # Content:
@@ -559,7 +593,18 @@ ProgressionSystem.Bracket_80_3    = 0
 # Expansion 80 Episodio 3 Etapa 1: Torneo de Campeones
 # Lore: El Torneo argenta reune campeones de todas las facciones en terreno neutral. Sirve de vitrina y filtro: solo los dignos podran marchar a Corona de Hielo.
 
-ProgressionSystem.Bracket_80_3_5  = 0
+ProgressionSystem.Bracket_80_3_1  = 0
+# Level 80 | WotLK: Ordenamiento intermedio previo a Frozen Halls
+# Content:
+# - Sin desbloqueos adicionales; se usa para numeración continua si quieres más granularidad entre ToC y FoS/PoS/HoR.
+# Features:
+# - Permite insertar escalones personalizados sin alterar el orden de los tiers oficiales.
+# Release (Patch): 3.2.x (placeholder)
+# Recommended Duration: opcional
+# Expansion 80 Episodio 3 Etapa 1.5: Tránsito al Frío
+# Lore: Los campeones se reagrupan, afinan logística y afinan suministros antes de entrar a los pasillos helados.
+
+ProgressionSystem.Bracket_80_3_2  = 0
 # Level 80 | WotLK: Frozen Halls (FoS/PoS/HoR) | puente entre ToC y ICC
 # Content:
 # - The Forge of Souls (632)
@@ -569,38 +614,61 @@ ProgressionSystem.Bracket_80_3_5  = 0
 # - Desbloquea solo las 5-man de Frozen Halls; ICC raid (631) y Ruby Sanctum siguen cerrados.
 # - Emblemas: heroicas de Frozen Halls dan Triunfo (47241) tal como parche 3.3.
 # - RDF sigue activo si lo tienes habilitado: los mapas entran al pool heroico y recompensan Triunfo.
+# - Base de faseo: los jefes de ICC quedan ocultos (phaseMask) hasta los brackets ICC siguientes.
 # Release (Patch): 3.3.0 (sin ICC raid aún)
 # Recommended Duration: 2-4 weeks
 # Expansion 80 Episodio 3 Etapa 2: Ecos del Rey Exanime
 # Lore: Las Fosas y Salas de Reflexion son ensayos de horror psicologico; el Rey Exanime persigue mientras las puertas se cierran. El miedo es tanto mecanica como narrativa.
 
-ProgressionSystem.Bracket_80_4_1  = 0
-# Level 80 | WotLK: Raid Tier 10 | Icecrown Citadel + Frozen Halls 5-man + Arena Season 8
+ProgressionSystem.Bracket_80_4_0  = 0
+# Level 80 | WotLK: ICC Etapa 1 | Bastión Inferior (Marrowgar -> Saurfang)
 # Content:
-# - Icecrown Citadel (10/25) + modos (normal/heroic) según tu progresión
-# - ICC 5-man (Frozen Halls, lvl 80):
-#   * Forge of Souls (632)
-#   * Pit of Saron (658)
-#   * Halls of Reflection (668)
-# - PvP: Arena Season 8 (Wrathful era)
+# - Icecrown Citadel (10/25) solo Ala Inferior; resto de alas ocultas por phaseMask.
+# - Frozen Halls 5-man siguen abiertos.
 # Features:
-# - Último tier principal: mayor exigencia, mejores recompensas, y aquí sí entra el “pack ICC” de dungeons.
-# - Ideal para aplicar el gate de iLvl de ICC5 (normal/heroic) si lo usas.
-# Release (Patch): 3.3.x (ICC + Frozen Halls) + 3.3.2 (S8 era)
-# Recommended Duration: 10-16 weeks (o más si querés endgame largo)
-# Expansion 80 Episodio 4 Etapa 1: Corona de Hielo
-# Lore: El asedio a Corona de Hielo enfrenta juramentos rotos, val'kyr y plaga. Cada ala muestra una cara distinta del dominio del Lich King.
+# - Primer desbloqueo de ICC; ideal para probar tuning y loot sin abrir alas laterales.
+# - PvP: puedes seguir con S7 o preparar S8 según tu calendario.
+# Release (Patch): 3.3.x
+# Recommended Duration: 2-4 weeks
+# Expansion 80 Episodio 4 Etapa 1: Asalto Inicial a Corona de Hielo
+# Lore: El primer asalto rompe las puertas exteriores; las almas del bastión se agitan ante la irrupción de los vivos.
+
+ProgressionSystem.Bracket_80_4_1  = 0
+# Level 80 | WotLK: ICC Etapa 2 | Peste + Cripta Carmesí
+# Content:
+# - Icecrown Citadel (10/25) habilita Peste y Cripta Carmesí (Festergut/Rotface/Putricide, Príncipes y Lana'thel).
+# - Frozen Halls 5-man siguen abiertos.
+# Features:
+# - Escala loot y dificultad; aún sin Ala Gélida ni LK.
+# - PvP: Arena Season 8 (Wrathful) si tu calendario lo asocia a ICC.
+# Release (Patch): 3.3.x
+# Recommended Duration: 3-5 weeks
+# Expansion 80 Episodio 4 Etapa 2: Plaga y Sangre
+# Lore: La peste y la sangre corren por las salas; los campeones enfrentan alquimia, colera y sed de sangre vampírica.
 
 ProgressionSystem.Bracket_80_4_2  = 0
-# Level 80 | WotLK: Post-ICC Bonus Raid | Ruby Sanctum
+# Level 80 | WotLK: ICC Etapa 3 | Ala Gélida (Sindragosa)
 # Content:
-# - Ruby Sanctum (10/25)
+# - Icecrown Citadel (10/25) habilita Ala Gélida (Valithria, Sindragosa); LK aún oculto.
+# - Ruby Sanctum sigue cerrado.
 # Features:
-# - “Bonus raid” final antes de Cataclysm; sirve como cierre y mini-progresión extra.
+# - Penúltimo tramo de ICC; prepara el enfrentamiento final.
+# Release (Patch): 3.3.x
+# Recommended Duration: 2-4 weeks
+# Expansion 80 Episodio 4 Etapa 3: Aliento de Escarcha
+# Lore: El frío de Sindragosa congela la voluntad; solo quienes dominen las mecánicas podrán ascender al trono helado.
+
+ProgressionSystem.Bracket_80_4_3  = 0
+# Level 80 | WotLK: ICC Etapa 4 + Ruby Sanctum | Rey Exánime + RS
+# Content:
+# - Icecrown Citadel (10/25) habilita The Lich King.
+# - Ruby Sanctum (10/25) se abre en este escalón.
+# Features:
+# - Cierre de WotLK: LK + RS como epílogo, puedes extender este bracket para farm/endgame.
 # Release (Patch): 3.3.5
 # Recommended Duration: 4-8 weeks
-# Expansion 80 Episodio 4 Etapa 2: Llama Carmesi del Santuario
-# Lore: El Santuario Rubi arde bajo la sombra del Crepusculo, recordando que tras el Lich King hay mas amenazas. Es la nota final antes de la transicion a un mundo sin corona de hielo.
+# Expansion 80 Episodio 4 Etapa 4: Trono Helado y Llama Carmesí
+# Lore: El trono helado decide el destino de la Plaga; tras la caída, el crepúsculo amenaza desde el Santuario Rubí.
 
 ProgressionSystem.Bracket_Custom  = 0
 

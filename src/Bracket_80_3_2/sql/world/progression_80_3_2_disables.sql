@@ -1,4 +1,4 @@
--- Bracket 80_3_5 (Frozen Halls solo) - abre FoS/PoS/HoR sin habilitar ICC ni RS
+-- Bracket 80_3_2 (Frozen Halls solo) - abre FoS/PoS/HoR sin habilitar ICC ni RS
 -- Objetivo: intermedio entre ToC y ICC. Desbloquea ICC5 (632/658/668) y sus quests, mantiene ICC raid (631) y RS (724) cerrados.
 
 -- Limpia locks previos y vuelve a aplicar baseline para futuros tiers

@@ -1,0 +1,2 @@
+-- Bracket 80_3_1: escalon de ordenamiento previo a Frozen Halls.
+-- Sin cambios funcionales por ahora; se usa para mantener numeracion continua antes de 80_3_2.

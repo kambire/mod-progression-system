@@ -343,9 +343,16 @@ void AddBracket_80_1_A_Scripts();
 void AddBracket_80_1_B_Scripts();
 void AddBracket_80_2_1_Scripts();
 void AddBracket_80_2_2_Scripts();
+void AddBracket_80_2_2_1_Scripts();
+void AddBracket_80_2_2_2_Scripts();
+void AddBracket_80_2_2_3_Scripts();
+void AddBracket_80_2_2_4_Scripts();
 void AddBracket_80_3_Scripts();
+void AddBracket_80_3_1_Scripts();
+void AddBracket_80_4_0_Scripts();
 void AddBracket_80_4_A_Scripts();
 void AddBracket_80_4_B_Scripts();
+void AddBracket_80_4_3_Scripts();
 void AddBracket_Custom_Scripts();
 void AddSC_progression_module_commandscript();
 
@@ -398,9 +405,16 @@ void Addmod_progression_systemScripts()
     AddBracket_80_1_B_Scripts();
     AddBracket_80_2_1_Scripts();
     AddBracket_80_2_2_Scripts();
+    AddBracket_80_2_2_1_Scripts();
+    AddBracket_80_2_2_2_Scripts();
+    AddBracket_80_2_2_3_Scripts();
+    AddBracket_80_2_2_4_Scripts();
     AddBracket_80_3_Scripts();
+    AddBracket_80_3_1_Scripts();
+    AddBracket_80_4_0_Scripts();
     AddBracket_80_4_A_Scripts();
     AddBracket_80_4_B_Scripts();
+    AddBracket_80_4_3_Scripts();
     AddBracket_Custom_Scripts();
 }
 

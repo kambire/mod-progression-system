@@ -1,0 +1,4 @@
+-- STUB / PRODUCTION:
+-- This file is intentionally left without executable SQL.
+-- Reason: it was a TEMPLATE with placeholders ([...]) and it broke autoloading.
+-- Real template: ../templates/arena_s6_vendors_cleanup.sql.template

@@ -1,10 +1,13 @@
--- Bracket 80_3_5 - Emblemas para Frozen Halls (FoS/PoS/HoR) en parche 3.3
--- Heroicas en mapas 632/658/668 deben dar Triunfo (47241)
+-- Propósito: normalizar emblemas en mazmorras heroicas de WotLK al abrir ICC (bracket 80_4_1).
+-- Objetivo: todos los jefes heroicos 80 deben soltar Triunfo (47241), sin raids.
+-- Ámbito: mapas 574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668 (solo 5-man HC).
+-- Nota: protege compatibilidad de esquema usando id1/id y prepara/ejecuta SQL dinámico.
+-- IDs de emblemas usados: Heroism 40752, Valor 40753, Conquest 45624, Triumph 47241, Frost 49426.
 
-SET @TARGET_EMBLEM := 47241; -- Triumph
-SET @MAPS := '632,658,668';
+SET @TARGET_EMBLEM := 47241;
+SET @MAPS := '574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668';
 
--- Compatibilidad id/id1
+-- Schema compatibility: some cores use creature.id1 as templateEntry, others use creature.id.
 SELECT COUNT(*) INTO @HAS_CREATURE_ID1
 FROM information_schema.COLUMNS
 WHERE TABLE_SCHEMA = DATABASE()
@@ -13,7 +16,9 @@ WHERE TABLE_SCHEMA = DATABASE()
 
 SET @CREATURE_ENTRY_COL := IF(@HAS_CREATURE_ID1 = 1, 'cr.`id1`', 'cr.`id`');
 
--- Loot directo
+-- =====================================================
+-- 1) HEROIC 5-MAN DUNGEON BOSSES => TRIUMPH (47241)
+-- =====================================================
 SET @SQL := CONCAT(
   'UPDATE `creature_loot_template` cl ',
   'JOIN `creature_template` ct ON ct.`entry` = cl.`entry` ',
@@ -29,7 +34,6 @@ SET @SQL := CONCAT(
 );
 PREPARE stmt FROM @SQL; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
--- Loot por referencia
 SET @SQL := CONCAT(
   'UPDATE `reference_loot_template` rl ',
   'JOIN `creature_loot_template` cl ON cl.`Reference` = rl.`Entry` ',
@@ -46,11 +50,11 @@ SET @SQL := CONCAT(
 );
 PREPARE stmt FROM @SQL; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
--- Cofres finales dentro de estos mapas
+-- Optional: final chests within the same maps
 UPDATE `gameobject_loot_template` gl
 JOIN `gameobject_template` got ON got.`type` = 3 AND got.`data1` = gl.`entry`
 JOIN `gameobject` go ON go.`id` = got.`entry`
 SET gl.`Item` = @TARGET_EMBLEM
 WHERE gl.`Item` IN (40752,40753,45624,47241,49426)
   AND gl.`Item` <> @TARGET_EMBLEM
-  AND go.`map` IN (632,658,668);
+  AND go.`map` IN (574,575,576,578,595,599,600,601,602,604,608,619,650,632,658,668);

@@ -1,0 +1,2 @@
+-- Propósito: archivo marcador de posición (sin SQL ejecutable) para la limpieza de vendors de arena S8 en producción.
+-- Motivo: el template con placeholders rompía el autoload; se deja vacío y se usa ../templates/arena_s8_vendors_cleanup.sql.template.
