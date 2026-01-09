@@ -1,8 +1,10 @@
 -- 80 level range - Tier 8 (Secrets of Ulduar) & Furious Gladiator
 
+-- Quest enable: Razorscale Must Die (se habilita con Ulduar).
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24586;
+
 -- WotLK baseline lock (deny-by-default): ensure future 80 content is blocked even if earlier WotLK brackets were skipped.
 -- This is safe because later brackets explicitly DELETE from `disables` to unlock what they need.
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (2, 249, 3, '', '', 'Onyxia Lair'),
 (2, 631, 15, '', '', 'Icecrown Citadel'),
@@ -14,7 +16,6 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (2, 724, 15, '', '', 'The Ruby Sanctum');
 
 -- Extra hard-lock for RDF/LFG teleport (deny-by-default):
-DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (249, 631, 632, 649, 650, 658, 668);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (8, 249, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Onyxia 80'),
 (8, 631, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Icecrown Citadel'),
@@ -33,13 +34,11 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 -- Block quests that require locked ICC content (deny-by-default).
 -- Ally: Inside the Frozen Citadel (24510)
 -- Horde: Inside the Frozen Citadel (24506)
-DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(1, 24506, 0, '', '', "Inside the Frozen Citadel (Horde)"),
-(1, 24510, 0, '', '', "Inside the Frozen Citadel (Alliance)");
+(1, 24506, 0, '', '', 'Inside the Frozen Citadel (Horde)'),
+(1, 24510, 0, '', '', 'Inside the Frozen Citadel (Alliance)');
 
 -- Ruby Sanctum: deny-by-default until Bracket_80_4_2.
-DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 26013;
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
 (1, 26013, 0, '', '', 'Assault on the Sanctum');
 
@@ -71,8 +70,8 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 14140, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Stop the Aggressors (Horde)'),
 (1, 14077, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - The Light''s Mercy (Alliance)'),
 (1, 14144, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - The Light''s Mercy (Horde)'),
-(1, 14096, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You''ve Really Done It This Time, Kul (Alliance)'),
-(1, 14142, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You''ve Really Done It This Time, Kul (Horde)'),
+(1, 14096, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You\'ve Really Done It This Time, Kul (Alliance)'),
+(1, 14142, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You\'ve Really Done It This Time, Kul (Horde)'),
 (1, 14076, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Breakfast Of Champions (Alliance)'),
 (1, 14092, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Breakfast Of Champions (Horde)'),
 (1, 14090, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Gormok Wants His Snobolds (Alliance)'),
@@ -82,16 +81,3 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 13820, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Blastbolt Brothers)'),
 (1, 13681, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Ulduar Block)'),
 (1, 13627, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Construction (Lumber)');
-
--- Makes instances (and RDF) Ulduar and Vault of Archavon available again.
-DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (603, 624);
-
--- Bracket-skip safety: ensure T7 raids are available in later tiers too.
-DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (533, 615, 616);
-
--- Ensure WotLK heroic dungeons are enabled as well.
--- Some servers may jump straight to 80_2 without having previously applied 80_1_2.
-DELETE FROM `disables` WHERE `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619) AND `sourceType` = 2;
-
--- Ensure WotLK heroic dungeons are enabled in RDF/LFG as well (in case they were accidentally disabled).
-DELETE FROM `disables` WHERE `entry` IN (574, 575, 576, 578, 595, 599, 600, 601, 602, 604, 608, 619) AND `sourceType` = 8;

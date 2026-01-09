@@ -1,5 +1,8 @@
 -- 80 level range - Tier 8 (Secrets of Ulduar) & Furious Gladiator
 
+-- Quest enable: Razorscale Must Die (se habilita con Ulduar).
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 24586;
+
 -- WotLK baseline lock (deny-by-default): ensure future 80 content is blocked even if earlier WotLK brackets were skipped.
 -- This is safe because later brackets explicitly DELETE from `disables` to unlock what they need.
 DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
@@ -35,8 +38,8 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 -- Horde: Inside the Frozen Citadel (24506)
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` IN (24506, 24510);
 INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(1, 24506, 0, '', '', "Inside the Frozen Citadel (Horde)"),
-(1, 24510, 0, '', '', "Inside the Frozen Citadel (Alliance)");
+(1, 24506, 0, '', '', 'Inside the Frozen Citadel (Horde)'),
+(1, 24510, 0, '', '', 'Inside the Frozen Citadel (Alliance)');
 
 -- Ruby Sanctum: deny-by-default until Bracket_80_4_2.
 DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 26013;
@@ -71,8 +74,8 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 14140, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Stop the Aggressors (Horde)'),
 (1, 14077, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - The Light''s Mercy (Alliance)'),
 (1, 14144, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - The Light''s Mercy (Horde)'),
-(1, 14096, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You''ve Really Done It This Time, Kul (Alliance)'),
-(1, 14142, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You''ve Really Done It This Time, Kul (Horde)'),
+(1, 14096, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You\'ve Really Done It This Time, Kul (Alliance)'),
+(1, 14142, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - You\'ve Really Done It This Time, Kul (Horde)'),
 (1, 14076, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Breakfast Of Champions (Alliance)'),
 (1, 14092, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Breakfast Of Champions (Horde)'),
 (1, 14090, 0, '', '', '[mod-progression-blizzlike] Argent Tournament - Gormok Wants His Snobolds (Alliance)'),
