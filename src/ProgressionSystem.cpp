@@ -447,7 +447,8 @@ static void ApplyDbUpdatesInBracketOrder(TDatabase& db, uint32 updateFlags, std:
                                "applied_at DATETIME NOT NULL,"
                                "PRIMARY KEY (id),"
                                "KEY idx_name (name),"
-                               "KEY idx_bracket (bracket)")");
+                                "KEY idx_bracket (bracket)"
+                                ")");
                     tableReady = true;
                 }
 
