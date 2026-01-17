@@ -9,12 +9,6 @@
 
 START TRANSACTION;
 
--- Backup spawns
-DROP TABLE IF EXISTS backupKambi_creature_phase_emblems_hide_7174;
-CREATE TABLE backupKambi_creature_phase_emblems_hide_7174 LIKE creature;
-INSERT INTO backupKambi_creature_phase_emblems_hide_7174
-SELECT * FROM creature WHERE id1 IN (31581,31582,33963,35495,37941,33963,35495);
-
 -- Set high phase mask to hide from players (GMs typically bypass phase)
 UPDATE creature
 SET phaseMask = 8

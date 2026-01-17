@@ -1,50 +1,9 @@
 -- 71-74 level range - Utgarde Keep, The Nexus, Drak’Tharon Keep, Azjol-Nerub, Ahn’kahet: The Old Kingdom
 
--- IMPORTANT (WotLK baseline lock):
--- This module's first WotLK bracket is 71_74.
--- However, some progression setups choose to "start WotLK" later (e.g. enabling 75_79 first).
--- For that reason, the same baseline lock is also inserted in later WotLK brackets (75_79 and 80_*).
--- We must ensure future 80 content is locked from the start of Northrend.
--- Some servers/world DBs do not have baseline `disables` rows inserted for ICC/ToC/RS/Onyxia80.
--- If these rows do not exist, the instances can be accessible earlier than intended.
---
--- NOTE: "locked/blocked" here means "access denied" via `world.disables`.
--- It does NOT delete any instance content from the DB; players will simply be prevented from entering.
---
--- Locks applied here:
--- - WotLK launch raids (deny-by-default): 533, 615, 616
--- - Ulduar + Vault of Archavon (deny-by-default): 603, 624
--- - ICC raid + ICC 5-mans: 631, 632, 658, 668
--- - ToC raid + ToC 5-man: 649, 650
--- - Onyxia (reworked): 249
--- - Ruby Sanctum: 724
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 533, 603, 615, 616, 624, 631, 632, 649, 650, 658, 668, 724);
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(2, 249, 3, '', '', 'Onyxia Lair'),
-(2, 533, 3, '', '', 'Naxxramas'),
-(2, 603, 3, '', '', 'Ulduar'),
-(2, 615, 3, '', '', 'The Obsidian Sanctum'),
-(2, 616, 3, '', '', 'The Eye of Eternity'),
-(2, 624, 3, '', '', 'Vault of Archavon'),
-(2, 631, 15, '', '', 'Icecrown Citadel'),
-(2, 632, 3, '', '', 'The Forge of Souls'),
-(2, 649, 15, '', '', 'Trial of The Crusader'),
-(2, 650, 3, '', '', 'Trial of the Champion'),
-(2, 658, 3, '', '', 'Pit of Saron'),
-(2, 668, 3, '', '', 'Halls of Reflection'),
-(2, 724, 15, '', '', 'The Ruby Sanctum');
 
--- Extra hard-lock for RDF/LFG teleport (deny-by-default):
--- Some servers allow access via RDF even when map access is disabled.
-DELETE FROM `disables` WHERE `sourceType` = 8 AND `entry` IN (249, 631, 632, 649, 650, 658, 668);
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(8, 249, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Onyxia 80'),
-(8, 631, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Icecrown Citadel'),
-(8, 632, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): The Forge of Souls'),
-(8, 649, 15, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Crusader'),
-(8, 650, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Trial of the Champion'),
-(8, 658, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Pit of Saron'),
-(8, 668, 3, '', '', '[mod-progression-blizzlike] Locked (RDF): Halls of Reflection');
+-- IMPORTANT (WotLK baseline lock):
+-- Los locks deny-by-default (instancias/raids futuras + RDF) se aplican en Bracket_0.
+-- Los brackets de expansión (71_74 en adelante) solo deben hacer DELETE para habilitar lo que corresponda.
 
 -- Archmage Lan'dalock quest: must NOT be available until Bracket_80_4.
 -- https://www.wowhead.com/wotlk/quest=24582/instructor-razuvious-must-die

@@ -1,17 +1,5 @@
 -- 80_4_3: desbloquea Ruby Sanctum; ICC permanece abierto desde escalones previos.
 
--- WotLK baseline lock (deny-by-default): protege ICC/RS si se salta un bracket.
-DELETE FROM `disables` WHERE `sourceType` = 2 AND `entry` IN (249, 631, 632, 649, 650, 658, 668, 724);
-INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
-(2, 249, 3, '', '', 'Onyxia Lair'),
-(2, 631, 15, '', '', 'Icecrown Citadel'),
-(2, 632, 3, '', '', 'The Forge of Souls'),
-(2, 649, 15, '', '', 'Trial of The Crusader'),
-(2, 650, 3, '', '', 'Trial of the Champion'),
-(2, 658, 3, '', '', 'Pit of Saron'),
-(2, 668, 3, '', '', 'Halls of Reflection'),
-(2, 724, 15, '', '', 'The Ruby Sanctum');
-
 -- Mantener ICC e ICC5 abiertos desde brackets anteriores.
 DELETE FROM `disables` WHERE `sourceType` IN (2, 8) AND `entry` IN (631, 632, 658, 668);
 
