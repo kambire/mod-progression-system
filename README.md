@@ -1,4 +1,5 @@
 # 🎮 Progression System Module - AzerothCore
+# This module is not ready yet. Do not use it on live/production servers.
 
 **Total control of WoW server progression - 38 brackets, 3 expansions, 8 arena seasons**
 
